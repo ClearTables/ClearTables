@@ -9,10 +9,22 @@ An [osm2pgsql](https://github.com/openstreetmap/osm2pgsql) multi-backend style d
 - [PostGIS](http://postgis.net/) 2.0
 - Python with [PyYAML](http://pyyaml.org/wiki/PyYAML)
 
+## Principles ##
+
+These are still a bit vague, and might be split into principles and practices
+
+* Simplify data for the consumer
+
+* Use PostgreSQL types other than `text` if appropriate
+
+* Use boolean for yes/no values
+
+* Use enum types where there's a defined list of possibilities
+
 ## Usage ##
 
     make
-    osm2pgsql --output multi --style cleartables.json
+    osm2pgsql -d database --output multi --style cleartables.json extract.osm.pbf
 
 ## Contributing ##
 
