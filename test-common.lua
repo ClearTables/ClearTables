@@ -22,3 +22,13 @@ assert(oneway('yes') == 'true',     "test failed: oneway('yes') == 'true'")
 assert(oneway('foo') == 'true',     "test failed: oneway('foo') == 'true'")
 
 assert(drop_all() == 1, {},         "test failed: drop_all()")
+
+-- Handling of area tag alone
+assert(isarea({area = "yes"}) == 1,       "test failed: isarea(area=yes)")
+assert(isarea({area = "no"}) == 0,        "test failed: isarea(area=no)")
+assert(isarea({area = "foo"}) == 0,       "test failed: isarea(area=foo)")
+
+-- Area tag overriding other tags
+assert(isarea({natural = "water", area = "no"}) == 0,  "test failed: isarea(natural=water,area=no)")
+
+assert(isarea({natural = "water"}) == 1,  "test failed: isarea(natural=water)")

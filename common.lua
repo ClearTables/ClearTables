@@ -18,7 +18,7 @@
 -- @param v The tag value
 -- @return The string true or false, or nil, which is turned into a boolean by PostgreSQL
 function yesno (v)
-  return v ~= nil and ((v == "no" or v == "false") and "false" or "true") or nil
+    return v ~= nil and ((v == "no" or v == "false") and "false" or "true") or nil
 end
 
 
@@ -26,17 +26,38 @@ end
 -- @param v The tag value
 -- @return The string true, false, or reverse, or nil which is turned into an enum by PostgreSQL
 function oneway (v)
-  return v ~= nil and (
-    v == "-1" and "reverse" or (
-      (v == "no" or v == "false") and "false" or (
-        "true"
+    return v ~= nil and (
+      v == "-1" and "reverse" or (
+        (v == "no" or v == "false") and "false" or (
+          "true"
+        )
       )
-    )
-  ) or nil
+    ) or nil
 end
 
 --- Drops all objects
 -- @return osm2pgsql return to disregard an object as uninteresting
 function drop_all (...)
-  return 1, {}
+    return 1, {}
+end
+
+
+--- Tags which are always polygons
+-- TODO: sort by frequency
+local unconditional_polygon_keys = {'natural'}
+
+--- Is something an area?
+-- @param kv OSM tags
+-- @return 1 if area, 0 if linear
+function isarea(kv)
+    -- Handle explicit area tags
+    if kv["area"] then
+        return kv["area"] == "yes" and 1 or 0
+    end
+
+    for i,k in ipairs(unconditional_polygon_keys) do
+        if kv[k] then
+            return 1
+        end
+    end
 end

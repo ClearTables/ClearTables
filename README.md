@@ -31,6 +31,10 @@ These are still a bit vague, and might be split into principles and practices
 Bug reports, suggestions and (especially!) pull requests are very welcome on the Github issue tracker. Please check the tracker to see if your issue is already known, and be nice. For 
 questions, please use IRC (irc.oftc.net or http://irc.osm.org, channel #osm-dev) and http://help.osm.org.
 
-Formatting: hard tabs (2sp)
+Formatting: 2sp for YAML, 4sp for Lua
 
 If you'd like to sponsor development of ClearTables or a multi-backend style for your needs, you can contact me at penorman@mac.com.
+
+## Additional Reading ##
+
+* [osm2pgsql lua docs](https://github.com/openstreetmap/osm2pgsql/blob/master/docs/lua.md)
