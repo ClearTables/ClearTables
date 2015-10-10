@@ -16,11 +16,15 @@
 -- to be yes, no, or unset, but not a tag like oneway which could be 
 -- yes, no, reverse, or unset.
 -- @param v The tag value
--- @return The string true or false, which is turned into a boolean by PostgreSQL
+-- @return The string true or false, or nil, which is turned into a boolean by PostgreSQL
 function yesno (v)
   return v ~= nil and ((v == "no" or v == "false") and "false" or "true") or nil
 end
 
+
+--- Normalizes oneway for roads/etc
+-- @param v The tag value
+-- @return The string true, false, or reverse, or nil which is turned into an enum by PostgreSQL
 function oneway (v)
   return v ~= nil and (
     v == "-1" and "reverse" or (
@@ -29,4 +33,10 @@ function oneway (v)
       )
     )
   ) or nil
+end
+
+--- Drops all objects
+-- @return osm2pgsql return to disregard an object as uninteresting
+function drop_all (...)
+  return 1, {}
 end

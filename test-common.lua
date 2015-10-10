@@ -20,3 +20,5 @@ assert(oneway('no') == 'false',     "test failed: oneway('no') == 'false'")
 assert(oneway('false') == 'false',  "test failed: oneway('false') == 'false'")
 assert(oneway('yes') == 'true',     "test failed: oneway('yes') == 'true'")
 assert(oneway('foo') == 'true',     "test failed: oneway('foo') == 'true'")
+
+assert(drop_all() == 1, {},         "test failed: drop_all()")
