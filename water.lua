@@ -7,12 +7,12 @@
 require "common"
 
 function accept_water_area (kv)
-    return kv["natural"] == "water"
+    return kv["natural"] == "water" or kv["waterway"] == "riverbank" or kv["landuse"] == "reservoir"
 end
 
 function transform_water_area (kv)
     tags = {}
-    tags["water"] = kv["water"]
+    tags["water"] = kv["water"] or (kv["waterway"] and kv["waterway"] == "riverbank" and "riverbank") or (kv["landuse"] and kv["landuse"] == "reservoir" and "reservoir")
     tags["name"] = kv["name"]
     return tags
 end
