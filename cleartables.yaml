@@ -1,0 +1,12 @@
+- name: water_areas
+  type: polygon
+  tagtransform: water.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: water_area_ways
+  tagtransform-relation-function: water_area_rels
+  tagtransform-relation-member-function: water_area_rel_members
+  tags:
+  - name: name
+    type: text
+  - name: water
+    type: text
