@@ -5,51 +5,33 @@
 --]]
 
 require "common"
---- Function to identify 
---
-
-function process_water_area (kv)
-    
-end
 
 function water_area_ways (kv, num_keys)
-    if (kv["natural"] == "water" and isarea(kv) == 1) then
-        tags = {}
-        tags["water"] = kv["water"]
-        tags["name"] = kv["name"]
+    if (accept_water(kv) and isarea(kv) == 1) then
+        tags = transform_water(kv)
         return 0, tags, 1, 0
     end
     return 1, {}, 0, 0
 end
 
 function water_area_rels (kv, num_keys)
-    if (kv["type"] == "multipolygon" and kv["natural"] == "water") then
+    if (kv["type"] == "multipolygon" and accept_water(kv)) then
         return 0, kv
     end
     return 1, {}
 end
 
-function water_area_rel_members(kv, keyvaluemembers, roles, membercount)
+function accept_water (kv)
+    return kv["natural"] == "water"
+end
+
+function transform_water (kv)
     tags = {}
-    -- default to filtering out, and a linear feature
-    filter = 1
-    polygon = 0
+    tags["water"] = kv["water"]
+    tags["name"] = kv["name"]
+    return tags
+end
 
-    -- tracks if the relation members are used as a stand-alone way. No old-style
-    -- MP support, but the array still needs to be returned
-    membersuperseeded = {}
-    for i = 1, membercount do
-        membersuperseeded[i] = 0
-    end
-
-    if (kv["type"] == "multipolygon") then
-        if (kv["natural"] == "water") then
-            filter = 0
-            polygon = 1
-            tags["water"] = kv["water"]
-            tags["name"] = kv["name"]
-        end
-    end
-
-    return filter, tags, membersuperseeded, 0, polygon, 0
+function water_area_rel_members (kv, kv_members, roles, membercount)
+    return generic_multipolygon_members(kv, kv_members, membercount, accept_water, transform_water)
 end

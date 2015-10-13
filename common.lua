@@ -61,3 +61,37 @@ function isarea(kv)
         end
     end
 end
+
+--- Generic handling for a multipolygon
+-- @param kv OSM tags
+-- @param kv_members OSM tags of relation members
+-- @param membercount number of members
+-- @param accept function that takes osm keys and returns true if the feature should be in the table
+-- @param transform function that takes osm keys and returns tags for the tables
+-- @return filter, tags, member_superseded, boundary, polygon, roads
+function generic_multipolygon_members (kv, kv_members, membercount, accept, transform)
+    tags = {}
+    -- default to filtering out, and a linear feature
+    filter = 1
+    polygon = 0
+
+    -- tracks if the relation members are used as a stand-alone way. No old-style
+    -- MP support, but the array still needs to be returned
+    membersuperseeded = {}
+    for i = 1, membercount do
+        membersuperseeded[i] = 0
+    end
+
+    if (kv["type"] == "multipolygon") then
+        -- All multipolygons are areas
+        polygon = 1
+        -- Is this a feature we want?
+        if (accept(kv)) then
+            -- Get the tags for the table
+            return 0, transform(kv), membersuperseeded, 0, 1, 0
+        end
+        return 1, {}, membersuperseeded, 0, 1, 0
+    end
+
+    return 1, {}, membersuperseeded, 0, 0, 0
+end
