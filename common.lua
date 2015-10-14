@@ -94,8 +94,8 @@ end
 -- Lifted from Penlight. Modified to not handle cases that don't matter here
 -- https://github.com/stevedonovan/Penlight/blob/master/lua/pl/tablex.lua
 --[[
-Copyright (C) 2009 Steve Donovan, David Manura. Under the MIT license, like the
-rest of the code
+Copyright (C) 2009 Steve Donovan, David Manura.
+Under the MIT license, like the rest of the code here
 ]]--
 
 --- compare two values.
