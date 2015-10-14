@@ -49,7 +49,7 @@ local unconditional_polygon_keys = {'natural'}
 -- TODO: Conditional polygon keys (e.g. waterway=riverbank)
 
 --- Is something an area?
--- @param kv OSM tags
+-- @param tags OSM tags
 -- @return 1 if area, 0 if linear
 function isarea (tags)
     -- Handle explicit area tags
@@ -65,8 +65,8 @@ function isarea (tags)
 end
 
 --- Generic handling for a multipolygon
--- @param kv OSM tags
--- @param kv_members OSM tags of relation members
+-- @param tags OSM tags
+-- @param member_tags OSM tags of relation members
 -- @param membercount number of members
 -- @param accept function that takes osm keys and returns true if the feature should be in the table
 -- @param transform function that takes osm keys and returns tags for the tables
