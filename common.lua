@@ -64,13 +64,27 @@ function isarea (tags)
     end
 end
 
+--- Generic handling for an area way
+-- @param tags OSM tags
+-- @param accept function that takes osm keys and returns true if the feature should be in the table
+-- @param transform function that takes osm keys and returns tags for the tables
+-- @return filter, cols, polygon, roads
+function generic_polygon_way (tags, accept, transform)
+    -- accept is probably faster than isarea
+    if (accept(tags) and isarea(tags) == 1) then
+        cols = transform(tags)
+        return 0, cols, 1, 0
+    end
+    return 1, {}, 0, 0
+end
+
 --- Generic handling for a multipolygon
 -- @param tags OSM tags
 -- @param member_tags OSM tags of relation members
 -- @param membercount number of members
 -- @param accept function that takes osm keys and returns true if the feature should be in the table
 -- @param transform function that takes osm keys and returns tags for the tables
--- @return filter, tags, member_superseded, boundary, polygon, roads
+-- @return filter, cols, member_superseded, boundary, polygon, roads
 function generic_multipolygon_members (tags, member_tags, membercount, accept, transform)
     -- tracks if the relation members are used as a stand-alone way. No old-style
     -- MP support, but the array still needs to be returned

@@ -19,11 +19,7 @@ function transform_water_area (tags)
 end
 
 function water_area_ways (tags, num_keys)
-    if (accept_water_area(tags) and isarea(tags) == 1) then
-        cols = transform_water_area(tags)
-        return 0, cols, 1, 0
-    end
-    return 1, {}, 0, 0
+    return generic_polygon_way(tags, accept_water_area, transform_water_area)
 end
 
 function water_area_rels (tags, num_keys)
