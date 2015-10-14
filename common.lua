@@ -95,3 +95,58 @@ function generic_multipolygon_members (tags, member_tags, membercount, accept, t
 
     return 1, {}, members_superseeded, 0, 0, 0
 end
+
+-- Lifted from Penlight. Modified to not handle cases that don't matter here
+-- https://github.com/stevedonovan/Penlight/blob/master/lua/pl/tablex.lua
+--[[
+
+Copyright (C) 2009 Steve Donovan, David Manura.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF
+ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT
+SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
+ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+OR OTHER DEALINGS IN THE SOFTWARE.
+]]--
+
+--- compare two values.
+-- if they are tables, then compare their keys and fields recursively.
+-- @within Comparing
+-- @param t1 A value
+-- @param t2 A value
+-- @return true or false
+function deepcompare(t1,t2)
+    local ty1 = type(t1)
+    local ty2 = type(t2)
+    if ty1 ~= ty2 then return false end
+    -- non-table types can be directly compared
+    if ty1 ~= 'table' then
+        return t1 == t2
+    end
+    for k1 in pairs(t1) do
+        if t2[k1]==nil then return false end
+    end
+    for k2 in pairs(t2) do
+        if t1[k2]==nil then return false end
+    end
+    for k1,v1 in pairs(t1) do
+        local v2 = t2[k1]
+        if not deepcompare(v1,v2) then return false end
+    end
+
+    return true
+end
