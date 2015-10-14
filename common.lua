@@ -70,11 +70,6 @@ end
 -- @param transform function that takes osm keys and returns tags for the tables
 -- @return filter, tags, member_superseded, boundary, polygon, roads
 function generic_multipolygon_members (tags, member_tags, membercount, accept, transform)
-    tags = {}
-    -- default to filtering out, and a linear feature
-    filter = 1
-    polygon = 0
-
     -- tracks if the relation members are used as a stand-alone way. No old-style
     -- MP support, but the array still needs to be returned
     members_superseeded = {}
@@ -82,9 +77,9 @@ function generic_multipolygon_members (tags, member_tags, membercount, accept, t
         members_superseeded[i] = 0
     end
 
-    if (tags["type"] == "multipolygon") then
-        -- All multipolygons are areas
-        polygon = 1
+    if (tags["type"] and tags["type"] == "multipolygon") then
+        -- Get rid of the MP tag, we've handled it
+        tags["type"] = nil
         -- Is this a feature we want?
         if (accept(tags)) then
             -- Get the tags for the table
