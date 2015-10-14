@@ -31,9 +31,13 @@ These are still a bit vague, and might be split into principles and practices
 Bug reports, suggestions and (especially!) pull requests are very welcome on the Github issue tracker. Please check the tracker to see if your issue is already known, and be nice. For 
 questions, please use IRC (irc.oftc.net or http://irc.osm.org, channel #osm-dev) and http://help.osm.org.
 
-Formatting: 2sp for YAML, 4sp for Lua
-
 If you'd like to sponsor development of ClearTables or a multi-backend style for your needs, you can contact me at penorman@mac.com.
+
+## Code style ##
+
+* 2sp for YAML, 4sp for Lua
+* `tags` are OSM tags, `cols` are database columns
+* Space after function name when defining a function, e.g. ``function f (args)`
 
 ## Additional Reading ##
 
