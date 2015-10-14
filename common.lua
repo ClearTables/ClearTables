@@ -49,14 +49,14 @@ local unconditional_polygon_keys = {'natural'}
 --- Is something an area?
 -- @param kv OSM tags
 -- @return 1 if area, 0 if linear
-function isarea(kv)
+function isarea(tags)
     -- Handle explicit area tags
-    if kv["area"] then
-        return kv["area"] == "yes" and 1 or 0
+    if tags["area"] then
+        return tags["area"] == "yes" and 1 or 0
     end
 
     for i,k in ipairs(unconditional_polygon_keys) do
-        if kv[k] then
+        if tags[k] then
             return 1
         end
     end
@@ -69,7 +69,7 @@ end
 -- @param accept function that takes osm keys and returns true if the feature should be in the table
 -- @param transform function that takes osm keys and returns tags for the tables
 -- @return filter, tags, member_superseded, boundary, polygon, roads
-function generic_multipolygon_members (kv, kv_members, membercount, accept, transform)
+function generic_multipolygon_members (tags, member_tags, membercount, accept, transform)
     tags = {}
     -- default to filtering out, and a linear feature
     filter = 1
@@ -77,21 +77,21 @@ function generic_multipolygon_members (kv, kv_members, membercount, accept, tran
 
     -- tracks if the relation members are used as a stand-alone way. No old-style
     -- MP support, but the array still needs to be returned
-    membersuperseeded = {}
+    members_superseeded = {}
     for i = 1, membercount do
-        membersuperseeded[i] = 0
+        members_superseeded[i] = 0
     end
 
-    if (kv["type"] == "multipolygon") then
+    if (tags["type"] == "multipolygon") then
         -- All multipolygons are areas
         polygon = 1
         -- Is this a feature we want?
-        if (accept(kv)) then
+        if (accept(tags)) then
             -- Get the tags for the table
-            return 0, transform(kv), membersuperseeded, 0, 1, 0
+            return 0, transform(tags), members_superseeded, 0, 1, 0
         end
-        return 1, {}, membersuperseeded, 0, 1, 0
+        return 1, {}, members_superseeded, 0, 1, 0
     end
 
-    return 1, {}, membersuperseeded, 0, 0, 0
+    return 1, {}, members_superseeded, 0, 0, 0
 end
