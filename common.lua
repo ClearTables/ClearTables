@@ -27,12 +27,12 @@ end
 -- @return The string true, false, or reverse, or nil which is turned into an enum by PostgreSQL
 function oneway (v)
     return v ~= nil and (
-      v == "-1" and "reverse" or (
-        (v == "no" or v == "false") and "false" or (
-          "true"
-        )
-      )
-    ) or nil
+            v == "-1" and "reverse" or (
+                (v == "no" or v == "false") and "false" or (
+                    "true"
+                )
+            )
+        ) or nil
 end
 
 --- Drops all objects
