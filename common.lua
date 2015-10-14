@@ -46,6 +46,8 @@ end
 -- TODO: sort by frequency
 local unconditional_polygon_keys = {'natural'}
 
+-- TODO: Conditional polygon keys (e.g. waterway=riverbank)
+
 --- Is something an area?
 -- @param kv OSM tags
 -- @return 1 if area, 0 if linear

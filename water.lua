@@ -13,7 +13,7 @@ end
 
 function transform_water_area (tags)
     cols = {}
-    cols["water"] = tags["water"] or (tags["waterway"] and tags["waterway"] == "riverbank" and "riverbank") or (tags["landuse"] and tags["landuse"] == "reservoir" and "reservoir")
+    cols["water"] = tags["water"] or (tags["waterway"] == "riverbank" and "river") or (tags["landuse"] == "reservoir" and "reservoir") or nil
     cols["name"] = tags["name"]
     return cols
 end
