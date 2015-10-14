@@ -8,7 +8,7 @@
 
 require ("common")
 
-t1={}
+local t1={}
 assert(deepcompare(t1, t1),         "test failed: deepcompare same table")
 assert(deepcompare({}, {}),         "test failed: deepcompare empty table")
 assert(deepcompare({2}, {2}),       "test failed: deepcompare 1 element equal table")
