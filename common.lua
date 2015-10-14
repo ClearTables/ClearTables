@@ -2,8 +2,8 @@
   This file is part of ClearTables
 
   @author Paul Norman <penorman@mac.com>
-  @copyright 2015 Paul Norman
---]]
+  @copyright 2015 Paul Norman, MIT license
+]]--
 
 
 -- Lua primer:
@@ -49,7 +49,7 @@ local unconditional_polygon_keys = {'natural'}
 --- Is something an area?
 -- @param kv OSM tags
 -- @return 1 if area, 0 if linear
-function isarea(tags)
+function isarea (tags)
     -- Handle explicit area tags
     if tags["area"] then
         return tags["area"] == "yes" and 1 or 0
@@ -94,28 +94,8 @@ end
 -- Lifted from Penlight. Modified to not handle cases that don't matter here
 -- https://github.com/stevedonovan/Penlight/blob/master/lua/pl/tablex.lua
 --[[
-
-Copyright (C) 2009 Steve Donovan, David Manura.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF
-ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
-TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT
-SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
-ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
-ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
-OR OTHER DEALINGS IN THE SOFTWARE.
+Copyright (C) 2009 Steve Donovan, David Manura. Under the MIT license, like the
+rest of the code
 ]]--
 
 --- compare two values.
@@ -124,7 +104,7 @@ OR OTHER DEALINGS IN THE SOFTWARE.
 -- @param t1 A value
 -- @param t2 A value
 -- @return true or false
-function deepcompare(t1,t2)
+function deepcompare (t1,t2)
     local ty1 = type(t1)
     local ty2 = type(t2)
     if ty1 ~= ty2 then return false end

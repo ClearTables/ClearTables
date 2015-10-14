@@ -1,10 +1,9 @@
 --[[
   This file is part of ClearTables
 
-  Author: Paul Norman <penorman@mac.com>
-
-  Copyright (c) 2015 Paul Norman
---]]
+  @author Paul Norman <penorman@mac.com>
+  @copyright 2015 Paul Norman, MIT license
+]]--
 
 require ("common")
 
