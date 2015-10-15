@@ -40,13 +40,13 @@ assert(deepcompare({drop_all()}, {1, {}}), "test failed: drop_all()")
 
 print("TESTING: isarea")
 -- Handling of area tag alone
-assert(isarea({area = "yes"}) == 1,       "test failed: isarea(area=yes)")
-assert(isarea({area = "no"}) == 0,        "test failed: isarea(area=no)")
-assert(isarea({area = "foo"}) == 0,       "test failed: isarea(area=foo)")
+assert(isarea({area = "yes"}),       "test failed: isarea(area=yes)")
+assert(not isarea({area = "no"}),        "test failed: isarea(area=no)")
+assert(not isarea({area = "foo"}),       "test failed: isarea(area=foo)")
 
 -- Area tag overriding other tags
-assert(isarea({natural = "water", area = "no"}) == 0,  "test failed: isarea(natural=water,area=no)")
-assert(isarea({natural = "water"}) == 1,  "test failed: isarea(natural=water)")
+assert(not isarea({natural = "water", area = "no"}),  "test failed: isarea(natural=water,area=no)")
+assert(isarea({natural = "water"}),  "test failed: isarea(natural=water)")
 
 -- Utility functions for transform testing
 local function acceptfoo(tags)

@@ -54,12 +54,12 @@ local unconditional_polygon_keys = {'natural'}
 function isarea (tags)
     -- Handle explicit area tags
     if tags["area"] then
-        return tags["area"] == "yes" and 1 or 0
+        return tags["area"] == "yes"
     end
 
     for i,k in ipairs(unconditional_polygon_keys) do
         if tags[k] then
-            return 1
+            return true
         end
     end
 end
@@ -71,7 +71,7 @@ end
 -- @return filter, cols, polygon, roads
 function generic_polygon_way (tags, accept, transform)
     -- accept is probably faster than isarea
-    if (accept(tags) and isarea(tags) == 1) then
+    if (accept(tags) and isarea(tags)) then
         cols = transform(tags)
         return 0, cols, 1, 0
     end
