@@ -57,6 +57,18 @@ local function identity(...)
     return ...
 end
 
+
+print("TESTING: generic_line_way")
+local l1 = function (tags, cols, filter, polygon)
+    return deepcompare({generic_line_way(tags, acceptfoo, identity)},
+        {filter, cols, polygon, 0})
+end
+
+assert(l1({}, {}, 1, 0), "test failed: no tags")
+assert(l1({area="no"}, {}, 1, 0), "test failed: unaccepted line")
+assert(l1({foo="bar"}, {foo="bar"}, 0, 0), "test failed: accepted line")
+assert(l1({area="yes", foo="bar"}, {}, 1, 0), "test failed: accepted area")
+
 print("TESTING: generic_polygon_way")
 local p1 = function (tags, cols, filter, polygon)
     return deepcompare({generic_polygon_way(tags, acceptfoo, identity)},

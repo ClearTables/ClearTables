@@ -64,6 +64,20 @@ function isarea (tags)
     end
 end
 
+--- Generic handling for an linear way
+-- @param tags OSM tags
+-- @param accept function that takes osm keys and returns true if the feature should be in the table
+-- @param transform function that takes osm keys and returns tags for the tables
+-- @return filter, cols, polygon, roads
+function generic_line_way (tags, accept, transform)
+    -- accept is probably faster than isarea
+    if (accept(tags) and not isarea(tags)) then
+        cols = transform(tags)
+        return 0, cols, 0, 0
+    end
+    return 1, {}, 0, 0
+end
+
 --- Generic handling for an area way
 -- @param tags OSM tags
 -- @param accept function that takes osm keys and returns true if the feature should be in the table
