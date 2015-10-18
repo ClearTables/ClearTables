@@ -38,6 +38,11 @@ If you'd like to sponsor development of ClearTables or a multi-backend style for
 * 2sp for YAML, 4sp for Lua
 * `tags` are OSM tags, `cols` are database columns
 * Space after function name when defining a function, e.g. ``function f (args)`
+* Tests for all Lua functions except ones which are only [tail calls](http://www.lua.org/pil/6.3.html)
+
+### Lua tricks ###
+
+* Tag acceptance functions need to exit quickly in the common case of possible match
 
 ## Additional Reading ##
 
