@@ -24,3 +24,16 @@ assert(deepcompare(transform_water_area({waterway="riverbank"}), {water="river"}
 assert(deepcompare(transform_water_area({landuse="reservoir"}), {water="reservoir"}), "test failed: waterway")
 assert(deepcompare(transform_water_area({water="foo", waterway="riverbank"}), {water="foo"}), "test failed: water tag with riverbank")
 assert(deepcompare(transform_water_area({water="foo", landuse="reservoir"}), {water="foo"}), "test failed: water tag with riverbank")
+
+print("TESTING: accept_waterway")
+assert(not accept_waterway({}), "test failed: untagged")
+assert(not accept_waterway({foo="bar"}), "test failed: other tags")
+assert(accept_waterway({waterway="stream"}), "test failed: stream")
+assert(accept_waterway({waterway="river"}), "test failed: river")
+assert(accept_waterway({waterway="ditch"}), "test failed: ditch")
+assert(accept_waterway({waterway="canal"}), "test failed: canal")
+assert(accept_waterway({waterway="drain"}), "test failed: drain")
+
+print("TESTING: transform_waterway")
+assert(deepcompare(transform_waterway({}), {}), "test failed: no tags")
+assert(deepcompare(transform_waterway({waterway="river"}), {waterway="river"}), "test failed: river")

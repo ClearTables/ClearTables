@@ -10,3 +10,25 @@
     type: text
   - name: water
     type: text
+- name: waterways
+  type: line
+  tagtransform: water.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: waterway_ways
+  tagtransform-relation-function: drop_all
+  tagtransform-relation-member-function: drop_all
+  tags:
+  - name: name
+    type: text
+  - name: waterway
+    type: text
+  - name: bridge
+    type: text
+  - name: tunnel
+    type: text
+  - name: layer
+    type: integer
+  - name: z_order
+    type: integer
+  - name: intermittent
+    type: boolean

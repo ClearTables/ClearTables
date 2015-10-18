@@ -18,6 +18,20 @@ function transform_water_area (tags)
     return cols
 end
 
+function accept_waterway (tags)
+    return tags["waterway"] == "stream" or tags["waterway"] == "river" or tags["waterway"] == "ditch"
+        or tags["waterway"] == "canal" or tags["waterway"] == "drain"
+end
+
+function transform_waterway (tags)
+    cols = {}
+    cols["name"] = tags["name"]
+    cols["waterway"] = tags["waterway"]
+    cols["bridge"] = yesno(tags["bridge"])
+    cols["tunnel"] = yesno(tags["tunnel"])
+    return cols
+end
+
 function water_area_ways (tags, num_keys)
     return generic_polygon_way(tags, accept_water_area, transform_water_area)
 end
@@ -31,4 +45,8 @@ end
 
 function water_area_rel_members (tags, member_tags, member_roles, membercount)
     return generic_multipolygon_members(tags, member_tags, membercount, accept_water_area, transform_water_area)
+end
+
+function waterway_ways (tags, num_keys)
+    generic_line_way(tags, accept_water_line, transform_water_line)
 end
