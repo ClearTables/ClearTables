@@ -1,5 +1,5 @@
 # Really lua, but that's not an option on Travis
-language: c
+language: generic
 sudo: false
 cache: apt
 addons:
