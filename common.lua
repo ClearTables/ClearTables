@@ -5,7 +5,6 @@
   @copyright 2015 Paul Norman, MIT license
 ]]--
 
-
 -- Lua primer:
 
 -- cond and "a" or "b" evaluates to a if cond is true, b if cond is false. This
@@ -20,7 +19,6 @@
 function yesno (v)
     return v ~= nil and ((v == "no" or v == "false") and "false" or "true") or nil
 end
-
 
 --- Normalizes oneway for roads/etc
 -- @param v The tag value
@@ -40,7 +38,6 @@ end
 function drop_all (...)
     return 1, {}
 end
-
 
 --- Tags which are always polygons
 -- TODO: sort by frequency
