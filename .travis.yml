@@ -1,0 +1,12 @@
+# Really lua, but that's not an option on Travis
+language: c
+sudo: false
+cache: apt
+addons:
+  apt:
+    packages:
+    - lua5.2
+    - python-yaml
+script:
+  - make
+  - make check
