@@ -12,7 +12,7 @@ function accept_water_area (tags)
 end
 
 function transform_water_area (tags)
-    cols = {}
+    local cols = {}
     cols["water"] = tags["water"] or (tags["waterway"] == "riverbank" and "river") or (tags["landuse"] == "reservoir" and "reservoir") or nil
     cols["name"] = tags["name"]
     return cols
@@ -24,7 +24,7 @@ function accept_waterway (tags)
 end
 
 function transform_waterway (tags)
-    cols = {}
+    local cols = {}
     cols["name"] = tags["name"]
     cols["waterway"] = tags["waterway"]
     cols["bridge"] = yesno(tags["bridge"])
