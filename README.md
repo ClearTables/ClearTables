@@ -28,6 +28,15 @@ These are still a bit vague, and might be split into principles and practices
 
 * Use enum types where there's a defined list of possibilities
 
+## FAQ ##
+
+### Why no addresses in the building table? ###
+
+Adresses and buildings have a many-to-many relationship. Multiple addresses
+inside one building are very common, and multiple buildings in one address can
+be found. If rendering, a separate table is fine, and if doing an analysis
+these cases need to be considered which requires joins.
+
 ## Contributing ##
 
 Bug reports, suggestions and (especially!) pull requests are very welcome on the Github issue tracker. Please check the tracker to see if your issue is already known, and be nice. For 
