@@ -48,5 +48,5 @@ function water_area_rel_members (tags, member_tags, member_roles, membercount)
 end
 
 function waterway_ways (tags, num_keys)
-    return generic_line_way(tags, accept_water_line, transform_water_line)
+    return generic_line_way(tags, accept_waterway, transform_waterway)
 end
