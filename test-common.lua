@@ -57,6 +57,15 @@ local function identity(...)
     return ...
 end
 
+print("TESTING: generic_node")
+local n1 = function (tags, cols, filter)
+    return deepcompare({generic_node(tags, acceptfoo, identity)},
+        {filter, cols })
+end
+
+assert(n1({}, {}, 1), "test failed: no tags")
+assert(n1({baz="bar"}, {}, 1), "test failed: unaccepted node")
+assert(n1({foo="bar"}, {foo="bar"}, 0), "test failed: accepted node")
 
 print("TESTING: generic_line_way")
 local l1 = function (tags, cols, filter, polygon)

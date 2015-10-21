@@ -61,6 +61,15 @@ function isarea (tags)
     end
 end
 
+--- Generic handling for a node
+function generic_node (tags, accept, transform)
+    if accept(tags) then
+        cols = transform(tags)
+        return 0, cols
+    end
+    return 1, {}
+end
+
 --- Generic handling for an linear way
 -- @param tags OSM tags
 -- @param accept function that takes osm keys and returns true if the feature should be in the table
