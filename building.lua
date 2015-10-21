@@ -24,7 +24,6 @@ function transform_building (tags)
     return cols
 end
 
-
 function building_ways (tags, num_keys)
     return generic_polygon_way(tags, accept_building, transform_building)
 end
