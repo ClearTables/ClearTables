@@ -17,4 +17,5 @@ find_lua = \
 check:
 	$(find_lua) \
 	$$lua test-common.lua && \
-	$$lua test-water.lua
+	$$lua test-water.lua && \
+	$$lua test-building.lua

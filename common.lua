@@ -41,7 +41,7 @@ end
 
 --- Tags which are always polygons
 -- TODO: sort by frequency
-local unconditional_polygon_keys = {'natural'}
+local unconditional_polygon_keys = {'natural', 'building'}
 
 -- TODO: Conditional polygon keys (e.g. waterway=riverbank)
 
