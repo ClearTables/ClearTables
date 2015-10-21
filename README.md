@@ -5,9 +5,11 @@ An [osm2pgsql](https://github.com/openstreetmap/osm2pgsql) multi-backend style d
 ## Requirements ##
 
 - [osm2pgsql 0.88.0](https://github.com/openstreetmap/osm2pgsql) or later. The multi-backend is used, which 0.86.0 does not support.
-- [PostgreSQL 9.1](http://www.postgresql.org/)
-- [PostGIS](http://postgis.net/) 2.0
+- [Lua](http://www.lua.org/), required for both osm2pgsql and testing the transforms
+- [PostgreSQL](http://www.postgresql.org/) 9.1 or later
+- [PostGIS](http://postgis.net/) 2.0 or later
 - Python with [PyYAML](http://pyyaml.org/wiki/PyYAML)
+- Make. Any version of Make should work, or the commands are simple enough to run by hand.
 
 ## Usage ##
 
