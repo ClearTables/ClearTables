@@ -5,9 +5,7 @@
   tagtransform-way-function: drop_all
   tagtransform-relation-function: drop_all
   tagtransform-relation-member-function: drop_all
-  tags:
-  - name: name
-    type: text
+  tags: &addresscols
   - name: unit
     type: text
   - name: housenumber
@@ -18,6 +16,14 @@
     type: text
   - name: city
     type: text
+- name: addresses_poly
+  type: polygon
+  tagtransform: address.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: address_ways
+  tagtransform-relation-function: address_rels
+  tagtransform-relation-member-function: address_rel_members
+  tags: *addresscols
 - name: water_areas
   type: polygon
   tagtransform: water.lua
