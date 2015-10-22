@@ -40,6 +40,19 @@ function layer (v)
     return v and string.find(v, "^-?%d+$") and tonumber(v) < 100 and tonumber(v) > -100 and v or "0"
 end
 
+--- Normalizes access tag values
+-- @param v Access tag value
+-- @return yes, no, partial, or nil
+function access (v)
+    return v ~= nil and (
+        (v == "no" or v == "private") and "no" or (
+            (v == "destination" or v == "customers" or v == "delivery") and "partial" or (
+                (v == "yes" or v == "permissive" or v == "designated") and "yes"
+            )
+        )
+    ) or nil
+end
+
 --- Drops all objects
 -- @return osm2pgsql return to disregard an object as uninteresting
 function drop_all (...)
