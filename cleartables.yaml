@@ -14,6 +14,8 @@
     type: text
   - name: housenumber
     type: text
+  - name: housename
+    type: text
   - name: street
     type: text
   - name: suburb
