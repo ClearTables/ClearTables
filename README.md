@@ -55,6 +55,8 @@ If you'd like to sponsor development of ClearTables or a multi-backend style for
 
 * Tag acceptance functions need to exit quickly in the common case of possible match
 
+* Always set columns to strings, even if they're only true/false. It's unwise to count on anything else making it from Lua to C to C++ to PostgreSQL. This lets PostgreSQL do the only coversion.
+
 ## Additional Reading ##
 
 * [osm2pgsql lua docs](https://github.com/openstreetmap/osm2pgsql/blob/master/docs/lua.md)
