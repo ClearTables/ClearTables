@@ -18,4 +18,5 @@ check:
 	$(find_lua) \
 	$$lua test-common.lua && \
 	$$lua test-water.lua && \
-	$$lua test-building.lua
+	$$lua test-building.lua && \
+	$$lua test-address.lua

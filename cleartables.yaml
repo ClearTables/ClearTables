@@ -1,3 +1,23 @@
+- name: addresses_point
+  type: point
+  tagtransform: address.lua
+  tagtransform-node-function: address_nodes
+  tagtransform-way-function: drop_all
+  tagtransform-relation-function: drop_all
+  tagtransform-relation-member-function: drop_all
+  tags:
+  - name: name
+    type: text
+  - name: unit
+    type: text
+  - name: housenumber
+    type: text
+  - name: street
+    type: text
+  - name: suburb
+    type: text
+  - name: city
+    type: text
 - name: water_areas
   type: polygon
   tagtransform: water.lua
