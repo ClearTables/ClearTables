@@ -1,3 +1,7 @@
+#  This file is part of ClearTables
+#
+#  Paul Norman <penorman@mac.com>
+#  Copyright 2015 Paul Norman, MIT license
 - name: addresses_point
   type: point
   tagtransform: address.lua
