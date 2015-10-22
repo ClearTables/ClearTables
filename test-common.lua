@@ -35,6 +35,15 @@ assert(oneway('false') == 'false',  "test failed: oneway('false') == 'false'")
 assert(oneway('yes') == 'true',     "test failed: oneway('yes') == 'true'")
 assert(oneway('foo') == 'true',     "test failed: oneway('foo') == 'true'")
 
+print("TESTING: layer")
+assert(layer(nil) == "0",          "test failed: nil")
+assert(layer("0") == "0",          "test failed: 0")
+assert(layer("-1") == "-1",          "test failed: -1")
+assert(layer("1") == "1",          "test failed: 1")
+assert(layer("foo") == "0",          "test failed: text")
+assert(layer("f1") == "0",          "test failed: char num")
+assert(layer("1f") == "0",          "test failed: num char")
+
 print("TESTING: drop_all")
 assert(deepcompare({drop_all()}, {1, {}}), "test failed: drop_all()")
 

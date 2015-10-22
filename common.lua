@@ -33,6 +33,13 @@ function oneway (v)
         ) or nil
 end
 
+--- Normalizes layer tags
+-- @param v The layer tag value
+-- @return An integer for the layer tag
+function layer (v)
+    return v and string.find(v, "^-?%d+$") and tonumber(v) < 100 and tonumber(v) > -100 and v or "0"
+end
+
 --- Drops all objects
 -- @return osm2pgsql return to disregard an object as uninteresting
 function drop_all (...)
