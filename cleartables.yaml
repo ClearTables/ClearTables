@@ -80,3 +80,27 @@
     type: integer
   - name: height
     type: real
+- name: roads
+  type: line
+  tagtransform: transportation.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: road_ways
+  tagtransform-relation-function: drop_all
+  tagtransform-relation-member-function: drop_all
+  tags:
+  - name: name
+    type: text
+  - name: class
+    type: text
+  - name: ramp
+    type: boolean
+  - name: oneway
+    type: text
+  - name: layer
+    type: integer
+  - name: motor_access
+    type: text
+  - name: bicycle_access
+    type: text
+  - name: z_order
+    type: integer
