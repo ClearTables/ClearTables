@@ -14,7 +14,10 @@ An [osm2pgsql](https://github.com/openstreetmap/osm2pgsql) multi-backend style d
 ## Usage ##
 
     make
-    osm2pgsql -d database --output multi --style cleartables.json extract.osm.pbf
+    createdb <database>
+    psql -d <database> -c 'CREATE EXTENSION postgis;'
+    cat sql/types/*.sql | psql -1Xq -d <database>
+    osm2pgsql -d <database> --output multi --style cleartables.json extract.osm.pbf
 
 ## Principles ##
 

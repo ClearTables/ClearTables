@@ -95,12 +95,12 @@
   - name: ramp
     type: boolean
   - name: oneway
-    type: text
+    type: oneway
   - name: layer
     type: integer
   - name: motor_access
-    type: text
+    type: access
   - name: bicycle_access
-    type: text
+    type: access
   - name: z_order
     type: integer
