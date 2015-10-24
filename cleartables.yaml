@@ -9,7 +9,7 @@
   tagtransform-way-function: drop_all
   tagtransform-relation-function: drop_all
   tagtransform-relation-member-function: drop_all
-  tags: &addresscols
+  tags:
   - name: unit
     type: text
   - name: housenumber
@@ -29,7 +29,21 @@
   tagtransform-way-function: address_ways
   tagtransform-relation-function: address_rels
   tagtransform-relation-member-function: address_rel_members
-  tags: *addresscols
+  tags:
+  - name: unit
+    type: text
+  - name: housenumber
+    type: text
+  - name: housename
+    type: text
+  - name: street
+    type: text
+  - name: suburb
+    type: text
+  - name: city
+    type: text
+  - name: way_area
+    type: real
 - name: water_areas
   type: polygon
   tagtransform: water.lua
@@ -42,6 +56,8 @@
     type: text
   - name: water
     type: text
+  - name: way_area
+    type: real
 - name: waterways
   type: line
   tagtransform: water.lua
@@ -79,6 +95,8 @@
   - name: levels
     type: integer
   - name: height
+    type: real
+  - name: way_area
     type: real
 - name: roads
   type: line
