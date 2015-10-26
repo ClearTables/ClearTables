@@ -2,6 +2,8 @@
 
 An [osm2pgsql](https://github.com/openstreetmap/osm2pgsql) multi-backend style designed to simplify consumption of OSM data for rendering, export, or analysis.
 
+ClearTables is currently under rapid development, and schema changes will frequently require database reloads.
+
 ## Requirements ##
 
 - [osm2pgsql 0.88.0](https://github.com/openstreetmap/osm2pgsql) or later. The multi-backend is used, which 0.86.0 does not support.
@@ -35,7 +37,7 @@ These are still a bit vague, and might be split into principles and practices
 
 ### Why no addresses in the building table? ###
 
-Adresses and buildings have a many-to-many relationship. Multiple addresses
+Addresses and buildings have a many-to-many relationship. Multiple addresses
 inside one building are very common, and multiple buildings in one address can
 be found. If rendering, a separate table is fine, and if doing an analysis
 these cases need to be considered which requires joins.
