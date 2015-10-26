@@ -112,7 +112,7 @@ end
 function generic_polygon_way (tags, accept, transform)
     -- accept is probably faster than isarea
     if (accept(tags) and isarea(tags)) then
-        return 0, transform(tags), 0, 0
+        return 0, transform(tags), 1, 0
     end
     return 1, {}, 0, 0
 end
