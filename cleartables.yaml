@@ -121,4 +121,4 @@
   - name: bicycle_access
     type: access
   - name: z_order
-    type: integer
+    type: smallint

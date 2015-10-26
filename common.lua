@@ -112,8 +112,7 @@ end
 function generic_polygon_way (tags, accept, transform)
     -- accept is probably faster than isarea
     if (accept(tags) and isarea(tags)) then
-        cols = transform(tags)
-        return 0, cols, 1, 0
+        return 0, transform(tags), 0, 0
     end
     return 1, {}, 0, 0
 end
@@ -138,7 +137,6 @@ function generic_multipolygon_members (tags, member_tags, membercount, accept, t
         tags["type"] = nil
         -- Is this a feature we want?
         if (accept(tags)) then
-            -- Get the tags for the table
             return 0, transform(tags), members_superseeded, 0, 1, 0
         end
         return 1, {}, members_superseeded, 0, 1, 0
