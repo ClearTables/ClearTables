@@ -29,6 +29,7 @@ function transform_waterway (tags)
     cols.waterway = tags["waterway"]
     cols.bridge = yesno(tags["bridge"])
     cols.tunnel = yesno(tags["tunnel"])
+    cols.layer = layer(tags["layer"])
     return cols
 end
 
