@@ -45,22 +45,26 @@ local highway = {
 }
 
 local railway = {
-    rail            = {z=44},
-    subway          = {z=42},
-    narrow_gauge    = {z=42},
-    light_rail      = {z=42},
-    preserved       = {z=42},
-    funicular       = {z=42},
-    monorail        = {z=42},
-    miniature       = {z=42},
-    turntable       = {z=42},
-    tram            = {z=41},
-    disused         = {z=40},
-    construction    = {z=40}
+    rail            = {z=44, class="rail"},
+    subway          = {z=42, class="subway"},
+    narrow_gauge    = {z=42, class="narrow_gauge"},
+    light_rail      = {z=42, class="light_rail"},
+    preserved       = {z=42, class="preserved"},
+    funicular       = {z=42, class="funicular"},
+    monorail        = {z=42, class="monorail"},
+    miniature       = {z=42, class="miniature"},
+    turntable       = {z=42, class="turntable"},
+    tram            = {z=41, class="tram"},
+    disused         = {z=40, class="disused"},
+    construction    = {z=40, class="construction"}
 }
 
 function accept_road (tags)
-    return highway[tags["highway"]] or railway[tags["railway"]]
+    return highway[tags["highway"]]
+end
+
+function accept_rail (tags)
+    return railway[tags["railway"]]
 end
 
 function transform_road (tags)
@@ -85,6 +89,24 @@ function transform_road (tags)
     return cols
 end
 
+function transform_rail (tags)
+    local cols = {}
+    cols.name = tags["name"]
+    if railway[tags["railway"]] then
+        cols.class = railway[tags["railway"]]["class"]
+        cols.bridge = yesno(tags["bridge"])
+        cols.tunnel = yesno(tags["tunnel"])
+        cols.layer = layer(tags["layer"])
+        cols.z_order = tostring(tonumber(layer(tags["layer"]))*100 + (railway[tags["railway"]]["z"] or 0))
+    end
+    return cols
+end
+
+
 function road_ways (tags, num_keys)
     return generic_line_way(tags, accept_road, transform_road)
+end
+
+function rail_ways (tags, num_keys)
+    return generic_line_way(tags, accept_rail, transform_rail)
 end

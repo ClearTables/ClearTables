@@ -15,8 +15,12 @@ assert(not accept_road({highway="bar"}), "test failed: other highway tag")
 assert(accept_road({highway="motorway"}), "test failed: motorway")
 assert(accept_road({highway="residential"}), "test failed: residential")
 assert(accept_road({highway="motorway_link"}), "test failed: motorway_link")
-assert(not accept_road({railway="bar"}), "test failed: other railway tag")
-assert(accept_road({railway="rail"}), "test failed: rail")
+
+print("TESTING: accept_rail")
+assert(not accept_rail({}), "test failed: untagged")
+assert(not accept_rail({foo="bar"}), "test failed: other tags")
+assert(not accept_rail({railway="bar"}), "test failed: other railway tag")
+assert(accept_rail({railway="rail"}), "test failed: rail")
 
 print("TESTING: transform_road")
 assert(deepcompare(transform_road({}), {}), "test failed: no tags")
@@ -48,6 +52,8 @@ assert(transform_road({highway="residential", vehicle="no"}).bicycle_access == "
 assert(transform_road({highway="residential", access="yes"}).bicycle_access == "yes", "test failed: residential bicycle bicycle_access yes")
 assert(transform_road({highway="residential", access="no"}).bicycle_access == "no", "test failed: residential bicycle bicycle_access no")
 
+assert(transform_road({highway="residential", bridge="yes"}).bridge == "true", "test failed: bridge")
+assert(transform_road({highway="residential", tunnel="yes"}).tunnel == "true", "test failed: tunnel")
 assert(transform_road({highway="residential"}).layer == "0", "test failed: layer 0")
 assert(transform_road({highway="residential", layer="4"}).layer == "4", "test failed: layer 4")
 
@@ -73,3 +79,8 @@ assert(transform_road({highway="residential", junction="roundabout", oneway="yes
 assert(transform_road({highway="residential", junction="roundabout", oneway="no"}).oneway == "false", "test failed: junction oneway=no")
 assert(transform_road({highway="residential", junction="roundabout", oneway="-1"}).oneway == "reverse", "test failed: junction oneway=-1")
 assert(transform_road({highway="residential", junction="roundabout"}).oneway == "true", "test failed: junction no oneway")
+
+print("TESTING: transform_rail")
+assert(deepcompare(transform_rail({}), {}), "test failed: no tags")
+assert(deepcompare(transform_rail({name="foo"}), {name="foo"}), "test failed: name")
+assert(transform_rail({railway="subway"}).class == "subway", "test failed: subway class")
