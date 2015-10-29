@@ -110,18 +110,22 @@
     type: text
   - name: class
     type: text
-  - name: refs
-    type: text[]
   - name: ramp
     type: boolean
+  - name: refs
+    type: text[]
   - name: oneway
     type: oneway
-  - name: layer
-    type: integer
   - name: motor_access
     type: access
   - name: bicycle_access
     type: access
+  - name: bridge
+    type: boolean
+  - name: tunnel
+    type: boolean
+  - name: layer
+    type: integer
   - name: z_order
     type: smallint
 - name: admin_area
