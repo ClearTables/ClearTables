@@ -35,5 +35,5 @@ assert(accept_waterway({waterway="canal"}), "test failed: canal")
 assert(accept_waterway({waterway="drain"}), "test failed: drain")
 
 print("TESTING: transform_waterway")
-assert(deepcompare(transform_waterway({}), {}), "test failed: no tags")
-assert(deepcompare(transform_waterway({waterway="river"}), {waterway="river"}), "test failed: river")
+assert(deepcompare(transform_waterway({}), {layer="0"}), "test failed: no tags")
+assert(deepcompare(transform_waterway({waterway="river"}), {waterway="river", layer="0"}), "test failed: river")
