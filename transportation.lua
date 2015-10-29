@@ -66,6 +66,7 @@ end
 function transform_road (tags)
     local cols = {}
     cols["name"] = tags["name"]
+    cols["refs"] = split_list(tags["ref"])
     if highway[tags["highway"]] then
         cols["class"] = highway[tags["highway"]]["class"]
         cols["ramp"] = highway[tags["highway"]]["ramp"]

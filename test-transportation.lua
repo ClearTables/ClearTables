@@ -22,6 +22,8 @@ print("TESTING: transform_road")
 assert(deepcompare(transform_road({}), {}), "test failed: no tags")
 assert(deepcompare(transform_road({name="foo"}), {name="foo"}), "test failed: name")
 
+assert(deepcompare(transform_road({ref="a;b"}), {refs='{"a","b"}'}), "test failed: ref")
+
 assert(transform_road({highway="motorway"}).class == "motorway", "test failed: motorway class")
 assert(transform_road({highway="motorway_link"}).class == "motorway", "test failed: motorway_link class")
 assert(transform_road({highway="road"}).class == "unknown", "test failed: road class")

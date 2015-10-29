@@ -42,6 +42,13 @@ inside one building are very common, and multiple buildings in one address can
 be found. If rendering, a separate table is fine, and if doing an analysis
 these cases need to be considered which requires joins.
 
+### Why road refs as an array? ###
+
+A road may have multiple refs, and it's wrong to ignore this. To  pretend that
+there's only one ref, use SQL like `array_to_string(refs, E'\n')` or
+`array_to_string(refs, ';')`. The latter will reform the ref tag as it was in
+the original data.
+
 ## Contributing ##
 
 Bug reports, suggestions and (especially!) pull requests are very welcome on the Github issue tracker. Please check the tracker to see if your issue is already known, and be nice. For 
