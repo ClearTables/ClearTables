@@ -14,12 +14,12 @@ end
 
 function transform_address (tags)
     local cols = {}
-    cols["unit"] = tags["addr:unit"]
-    cols["housenumber"] = tags["addr:housenumber"]
-    cols["housename"] = tags["addr:housename"]
-    cols["street"] = tags["addr:street"]
-    cols["suburb"] = tags["addr:suburb"]
-    cols["city"] = tags["addr:city"]
+    cols.unit = tags["addr:unit"]
+    cols.housenumber = tags["addr:housenumber"]
+    cols.housename = tags["addr:housename"]
+    cols.street = tags["addr:street"]
+    cols.suburb = tags["addr:suburb"]
+    cols.city = tags["addr:city"]
 
     return cols
 end

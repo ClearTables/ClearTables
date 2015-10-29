@@ -15,15 +15,15 @@ function transform_building (tags)
     local cols = {}
     -- Prefer the information that it's a railway station or aeroway terminal to the building tag
     -- from accept_building we know railway=station or aeroway=terminal or non-no building
-    cols["building"] = tags["railway"] == "station" and "railway_station"
+    cols.building = tags["railway"] == "station" and "railway_station"
         or tags["aeroway"] == "terminal" and "aeroway_terminal"
         or tags["building"]
-    cols["name"] = tags["name"]
+    cols.name = tags["name"]
     if tags["building:levels"] and string.find(tags["building:levels"], "^%d+$") and tonumber(tags["building:levels"]) < 10000 then
-        cols["levels"] = tostring(tonumber(tags["building:levels"]))
+        cols.levels = tostring(tonumber(tags["building:levels"]))
     end
     if tags["height"] and string.find(tags["height"], "^%d+%.?%d*$") and tonumber(tags["height"]) < 10000 then
-        cols["height"] = tostring(tonumber(tags["height"]))
+        cols.height = tostring(tonumber(tags["height"]))
     end
     return cols
 end

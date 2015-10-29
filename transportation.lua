@@ -65,20 +65,20 @@ end
 
 function transform_road (tags)
     local cols = {}
-    cols["name"] = tags["name"]
-    cols["refs"] = split_list(tags["ref"])
+    cols.name = tags["name"]
+    cols.refs = split_list(tags["ref"])
     if highway[tags["highway"]] then
-        cols["class"] = highway[tags["highway"]]["class"]
-        cols["ramp"] = highway[tags["highway"]]["ramp"]
-        cols["layer"] = layer(tags["layer"])
+        cols.class = highway[tags["highway"]]["class"]
+        cols.ramp = highway[tags["highway"]]["ramp"]
+        cols.layer = layer(tags["layer"])
         -- Build access tags, taking the first non-nil value from the access hiarchy, or if that fails, taking a sane default
-        cols["motor_access"] = access(tags["motor_vehicle"] or
+        cols.motor_access = access(tags["motor_vehicle"] or
                 tags["vehicle"] or tags["access"] or highway[tags["highway"]]["motor_access"])
-        cols["bicycle_access"] = access(tags["bicycle"] or
+        cols.bicycle_access = access(tags["bicycle"] or
                 tags["vehicle"] or tags["access"] or highway[tags["highway"]]["bicycle_access"])
 
-        cols["z_order"] = tostring(tonumber(layer(tags["layer"]))*100 + (highway[tags["highway"]]["z"] or 0))
-        cols["oneway"] = oneway(tags["oneway"] or highway[tags["highway"]]["oneway"] or (tags["junction"] == "roundabout" and "yes") or nil)
+        cols.z_order = tostring(tonumber(layer(tags["layer"]))*100 + (highway[tags["highway"]]["z"] or 0))
+        cols.oneway = oneway(tags["oneway"] or highway[tags["highway"]]["oneway"] or (tags["junction"] == "roundabout" and "yes") or nil)
     end
     return cols
 end

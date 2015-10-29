@@ -20,8 +20,8 @@ end
 
 function transform_admin_area (tags)
     local cols = {}
-    cols["name"] = tags["name"]
-    cols["level"] = admin_level(tags["admin_level"])
+    cols.name = tags["name"]
+    cols.level = admin_level(tags["admin_level"])
     return cols
 end
 
