@@ -1,8 +1,8 @@
 --[[
-  This file is part of ClearTables
+This file is part of ClearTables
 
-  @author Paul Norman <penorman@mac.com>
-  @copyright 2015 Paul Norman, MIT license
+@author Paul Norman <penorman@mac.com>
+@copyright 2015 Paul Norman, MIT license
 ]]--
 
 require "transportation"
@@ -87,3 +87,6 @@ print("TESTING: transform_rail")
 assert(deepcompare(transform_rail({}), {}), "test failed: no tags")
 assert(deepcompare(transform_rail({name="foo"}), {name="foo"}), "test failed: name")
 assert(transform_rail({railway="subway"}).class == "subway", "test failed: subway class")
+
+assert(transform_rail({railway="rail", bridge="yes"}).bridge == "true", "test failed: bridge")
+assert(transform_rail({railway="rail", tunnel="yes"}).tunnel == "true", "test failed: tunnel")
