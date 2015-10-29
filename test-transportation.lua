@@ -80,6 +80,9 @@ assert(transform_road({highway="residential", junction="roundabout", oneway="no"
 assert(transform_road({highway="residential", junction="roundabout", oneway="-1"}).oneway == "reverse", "test failed: junction oneway=-1")
 assert(transform_road({highway="residential", junction="roundabout"}).oneway == "true", "test failed: junction no oneway")
 
+assert(transform_road({highway="residential", bridge="yes"}).bridge == "true", "test failed: bridge")
+assert(transform_road({highway="residential", tunnel="yes"}).tunnel == "true", "test failed: tunnel")
+
 print("TESTING: transform_rail")
 assert(deepcompare(transform_rail({}), {}), "test failed: no tags")
 assert(deepcompare(transform_rail({name="foo"}), {name="foo"}), "test failed: name")
