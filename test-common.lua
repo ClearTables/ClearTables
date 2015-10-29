@@ -69,6 +69,12 @@ assert(not isarea({area = "foo"}),       "test failed: isarea(area=foo)")
 assert(not isarea({natural = "water", area = "no"}),  "test failed: isarea(natural=water,area=no)")
 assert(isarea({natural = "water"}),  "test failed: isarea(natural=water)")
 
+print("TESTING: split_list")
+assert(split_list(nil) == nil, "test failed: single element")
+assert(split_list('1') == '{"1"}', "test failed: single element")
+assert(split_list('1;2') == '{"1","2"}', "test failed: multi-element")
+assert(split_list('a"b') == '{"a\"b"}', "test failed: element with quote")
+
 -- Utility functions for transform testing
 local function acceptfoo(tags)
     return tags["foo"] ~= nil

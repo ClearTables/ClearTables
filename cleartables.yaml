@@ -110,6 +110,8 @@
     type: text
   - name: class
     type: text
+  - name: refs
+    type: text[]
   - name: ramp
     type: boolean
   - name: oneway

@@ -81,6 +81,18 @@ function isarea (tags)
     end
 end
 
+--- Splits a semi-colon separated list into a PostgreSQL array
+-- @param array list to split
+-- @param delim Optional custom delimiter for non-standard PostgreSQL types
+function split_list (list, delim)
+    delim = delim or ','
+    -- Escape any quotes and then turn ";" into ",", also quoting each array value
+    if list ~= nil then
+        local inner = string.gsub(string.gsub(list, '"', '\"'), ';', '","')
+        return '{"'..inner..'"}'
+    end
+end
+
 --- Generic handling for a node
 function generic_node (tags, accept, transform)
     if accept(tags) then
