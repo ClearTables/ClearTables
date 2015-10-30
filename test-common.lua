@@ -73,7 +73,8 @@ print("TESTING: split_list")
 assert(split_list(nil) == nil, "test failed: single element")
 assert(split_list('1') == '{"1"}', "test failed: single element")
 assert(split_list('1;2') == '{"1","2"}', "test failed: multi-element")
-assert(split_list('a"b') == '{"a\"b"}', "test failed: element with quote")
+assert(split_list('a"b') == '{"a\\"b"}', "test failed: element with quote")
+assert(split_list('a"\195\188b"c') == '{"a\\"\195\188b\\"c"}', "test failed: unicode element with quote")
 
 -- Utility functions for transform testing
 local function acceptfoo(tags)

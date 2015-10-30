@@ -88,7 +88,7 @@ function split_list (list, delim)
     delim = delim or ','
     -- Escape any quotes and then turn ";" into ",", also quoting each array value
     if list ~= nil then
-        local inner = string.gsub(string.gsub(list, '"', '\"'), ';', '","')
+        local inner = string.gsub(string.gsub(list, '"', '\\"'), ';', '","')
         return '{"'..inner..'"}'
     end
 end
