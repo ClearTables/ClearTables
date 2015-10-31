@@ -21,4 +21,5 @@ check:
 	$$lua test-building.lua && \
 	$$lua test-address.lua && \
 	$$lua test-transportation.lua && \
-	$$lua test-admin.lua
+	$$lua test-admin.lua && \
+	$$lua test-aero.lua

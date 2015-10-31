@@ -148,6 +148,40 @@
     type: integer
   - name: z_order
     type: smallint
+- name: airport_point
+  type: point
+  tagtransform: aero.lua
+  tagtransform-node-function: airport_nodes
+  tagtransform-way-function: drop_all
+  tagtransform-relation-function: drop_all
+  tagtransform-relation-member-function: drop_all
+  tags:
+  - name: name
+    type: text
+  - name: airport
+    type: text
+  - name: iata
+    type: char(3)
+  - name: iaco
+    type: char(4)
+- name: airport_poly
+  type: polygon
+  tagtransform: aero.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: airport_ways
+  tagtransform-relation-function: airport_rels
+  tagtransform-relation-member-function: airport_rel_members
+  tags:
+  - name: name
+    type: text
+  - name: airport
+    type: text
+  - name: iata
+    type: char(3)
+  - name: iaco
+    type: char(4)
+  - name: way_area
+    type: real
 - name: admin_area
   type: polygon
   tagtransform: admin.lua
