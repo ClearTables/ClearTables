@@ -17,7 +17,7 @@ for table in definitions:
 
     for column in table["tags"]:
         # Only check columns that have a comment
-        if "comment" in column:
+        if "comment" in column and column["comment"] is not None:
             if not re.match('''^[a-zA-Z0-9_ ]+$''', column["name"]):
                 sys.exit('''Unsafe column name in table "''' + table["name"] + '''"."''' + column["name"] + '''"''')
 
