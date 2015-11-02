@@ -5,7 +5,7 @@ cleartables.json: cleartables.yaml
 
 sql/post/comments.sql: cleartables.yaml
 	mkdir -p sql/post && \
-	./createcomments.py < cleartables.yaml > sql/post/comments.sql || rm -f sql/post/comments.sql && exit 1
+	./createcomments.py < cleartables.yaml > sql/post/comments.sql || (rm -f sql/post/comments.sql && exit 1)
 
 clean:
 	rm cleartables.json
