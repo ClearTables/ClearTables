@@ -42,8 +42,10 @@
     type: text
   - name: city
     type: text
-  - name: way_area
+  - &way_area
+    name: way_area
     type: real
+    comment: Area
 - name: water_areas
   type: polygon
   tagtransform: water.lua
@@ -52,12 +54,13 @@
   tagtransform-relation-function: water_area_rels
   tagtransform-relation-member-function: water_area_rel_members
   tags:
-  - name: name
+  - &name
+    name: name
     type: text
+    comment: Name of the feature, in the local language
   - name: water
     type: text
-  - name: way_area
-    type: real
+  - <<: *way_area
 - name: waterways
   type: line
   tagtransform: water.lua
@@ -66,8 +69,7 @@
   tagtransform-relation-function: drop_all
   tagtransform-relation-member-function: drop_all
   tags:
-  - name: name
-    type: text
+  - <<: *name
   - name: waterway
     type: text
   - name: bridge
@@ -75,8 +77,6 @@
   - name: tunnel
     type: text
   - name: layer
-    type: integer
-  - name: z_order
     type: integer
   - name: intermittent
     type: boolean
@@ -88,16 +88,17 @@
   tagtransform-relation-function: building_rels
   tagtransform-relation-member-function: building_rel_members
   tags:
-  - name: name
-    type: text
+  - <<: *name
   - name: building
     type: text
+    comment: Type of the building
   - name: levels
     type: integer
+    comment: Number of building levels above ground
   - name: height
     type: real
-  - name: way_area
-    type: real
+    comment: Height of the building above ground
+  - <<: *way_area
 - name: roads
   type: line
   tagtransform: transportation.lua
@@ -106,12 +107,12 @@
   tagtransform-relation-function: drop_all
   tagtransform-relation-member-function: drop_all
   tags:
-  - name: name
-    type: text
+  - <<: *name
   - name: class
     type: text
   - name: ramp
     type: boolean
+    comment: If the road is an on- or off-ramp
   - name: refs
     type: text[]
   - name: oneway
@@ -126,8 +127,10 @@
     type: boolean
   - name: layer
     type: integer
-  - name: z_order
+  - &z_order
+    name: z_order
     type: smallint
+    comment: Order of the feature for rendering purposes
 - name: rail
   type: line
   tagtransform: transportation.lua
@@ -136,8 +139,7 @@
   tagtransform-relation-function: drop_all
   tagtransform-relation-member-function: drop_all
   tags:
-  - name: name
-    type: text
+  - <<: *name
   - name: class
     type: text
   - name: bridge
@@ -146,8 +148,7 @@
     type: boolean
   - name: layer
     type: integer
-  - name: z_order
-    type: smallint
+  - <<: *z_order
 - name: airport_point
   type: point
   tagtransform: aero.lua
@@ -156,8 +157,7 @@
   tagtransform-relation-function: drop_all
   tagtransform-relation-member-function: drop_all
   tags:
-  - name: name
-    type: text
+  - <<: *name
   - name: airport
     type: text
   - name: iata
@@ -172,16 +172,14 @@
   tagtransform-relation-function: airport_rels
   tagtransform-relation-member-function: airport_rel_members
   tags:
-  - name: name
-    type: text
+  - <<: *name
   - name: airport
     type: text
   - name: iata
     type: char(3)
   - name: iaco
     type: char(4)
-  - name: way_area
-    type: real
+  - <<: *way_area
 - name: admin_area
   type: polygon
   tagtransform: admin.lua
@@ -190,9 +188,7 @@
   tagtransform-relation-function: admin_area_rels
   tagtransform-relation-member-function: admin_area_rel_members
   tags:
-  - name: name
-    type: text
+  - <<: *name
   - name: level
     type: smallint
-  - name: way_area
-    type: text
+  - <<: *way_area
