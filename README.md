@@ -19,7 +19,9 @@ ClearTables is currently under rapid development, and schema changes will freque
     createdb <database>
     psql -d <database> -c 'CREATE EXTENSION postgis;'
     cat sql/types/*.sql | psql -1Xq -d <database>
+    # Add other osm2pgsql flags for large imports, updates, etc
     osm2pgsql -d <database> --output multi --style cleartables.json extract.osm.pbf
+    cat sql/post/*.sql | psql -1Xq -d <database>
 
 ## Principles ##
 

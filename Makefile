@@ -8,7 +8,7 @@ sql/post/comments.sql: cleartables.yaml
 	./createcomments.py < cleartables.yaml > sql/post/comments.sql || (rm -f sql/post/comments.sql && exit 1)
 
 clean:
-	rm cleartables.json
+	rm -f cleartables.json sql/post/comments.sql
 
 # Find a lua executable
 find_lua = \
