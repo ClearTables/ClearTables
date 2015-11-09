@@ -33,6 +33,39 @@ function oneway (v)
         ) or nil
 end
 
+-- Some regions have the annoying habit of using values like RO:urban rather than setting the maxspeed.
+-- These are the most common ones
+
+local regional_maxspeed = {
+    ["RO:urban"] = "50",
+    ["RU:urban"] = "60",
+    ["RU:rural"] = "90",
+    ["RO:rural"] = "90",
+    ["RO:trunk"] = "100",
+    ["RU:living_street"] = "20"
+}
+
+--- Normalizes speed
+-- @param v Speed tag value
+-- @return Speed in km/h
+function speed (v)
+    if v == nil then
+        return nil
+    end
+    if string.find(v, "^%d+%.?%d*$") then
+        return v
+    end
+    if string.find(v, "mph") then
+        return tostring(tonumber(string.match(v, "^(%d+.?%d*) ?mph"))*1.609)
+    end
+
+    if regional_maxspeed[v] then
+        -- calling speed() allows the value in the table to be in mph
+        return speed(regional_maxspeed[v])
+    end
+    return nil
+end
+
 --- Normalizes layer tags
 -- @param v The layer tag value
 -- @return An integer for the layer tag

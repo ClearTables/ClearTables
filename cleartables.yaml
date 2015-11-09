@@ -115,6 +115,9 @@
     comment: If the road is an on- or off-ramp
   - name: refs
     type: text[]
+  - name: maxspeed
+    type: float
+    comment: Maximum road speed, in km/h
   - name: oneway
     type: oneway
   - name: motor_access

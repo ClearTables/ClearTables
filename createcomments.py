@@ -19,7 +19,7 @@ for table in definitions:
                 sys.exit('''Unsafe column name in table "''' + table["name"] + '''"."''' + column["name"] + '''"''')
 
             # This is a slightly less restrictive character set, but the only one that needs escaping is '
-            if not re.match('''^[-a-zA-Z0-9_ ()"!,.']+$''', column["comment"]):
+            if not re.match('''^[-a-zA-Z0-9_ ()"!,/.']+$''', column["comment"]):
                 sys.exit('''Unsafe column comment for "''' + table["name"] +'''"."''' + column["name"] + '''"''')
             print ('''COMMENT ON COLUMN "{}"."{}" IS '{}';'''.format(
                 table["name"], column["name"], column["comment"].replace("'", "''")))

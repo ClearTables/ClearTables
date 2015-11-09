@@ -28,6 +28,8 @@ assert(deepcompare(transform_road({name="foo"}), {name="foo"}), "test failed: na
 
 assert(deepcompare(transform_road({ref="a;b"}), {refs='{"a","b"}'}), "test failed: ref")
 
+assert(transform_road({highway="motorway", maxspeed="80"}).maxspeed == "80", "test failed: maxspeed")
+
 assert(transform_road({highway="motorway"}).class == "motorway", "test failed: motorway class")
 assert(transform_road({highway="motorway_link"}).class == "motorway", "test failed: motorway_link class")
 assert(transform_road({highway="road"}).class == "unknown", "test failed: road class")

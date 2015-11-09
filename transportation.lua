@@ -81,6 +81,7 @@ function transform_road (tags)
         cols.bicycle_access = access(tags["bicycle"] or
                 tags["vehicle"] or tags["access"] or highway[tags["highway"]]["bicycle_access"])
 
+        cols.maxspeed = speed(tags["maxspeed"])
         cols.bridge = yesno(tags["bridge"])
         cols.tunnel = yesno(tags["tunnel"])
         cols.layer = layer(tags["layer"])
