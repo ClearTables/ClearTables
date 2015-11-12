@@ -21,6 +21,12 @@ for table in definitions:
     if not safe_name(table["name"]):
         sys.exit("Unsafe table name: " + table["name"])
 
+    if "comment" in table:
+        if not safe_comment(table["comment"]):
+            sys.exit('''Unsafe table comment for "''' + table["name"] +'''"''')
+
+        print('''COMMENT ON TABLE "{}" IS '{}';'''.format(
+            table["name"], escape_comment(table["comment"])))
     for column in table["tags"]:
         # Only check columns that have a comment
         if "comment" in column and column["comment"] is not None:
