@@ -4,50 +4,59 @@
 #  Copyright 2015 Paul Norman, MIT license
 - name: addresses_point
   type: point
+  comment: Addresses mapped as points
   tagtransform: address.lua
   tagtransform-node-function: address_nodes
   tagtransform-way-function: drop_all
   tagtransform-relation-function: drop_all
   tagtransform-relation-member-function: drop_all
   tags:
-  - name: unit
+  - &unit
+    name: unit
     type: text
-  - name: housenumber
+    comment: Unit number, if it exists
+  - &housenumber
+    name: housenumber
     type: text
-  - name: housename
+    comment: House number
+  - &housename
+    name: housename
     type: text
-  - name: street
+    comment: House name. Not common
+  - &street
+    name: street
     type: text
-  - name: suburb
+    comment: Street name
+  - &suburb
+    name: suburb
     type: text
-  - name: city
+    comment: Suburb, if in one
+  - &city
+    name: city
     type: text
+    comment: City, if explicitly indicated
 - name: addresses_poly
   type: polygon
+  comment: Addresses mapped as polygons
   tagtransform: address.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: address_ways
   tagtransform-relation-function: address_rels
   tagtransform-relation-member-function: address_rel_members
   tags:
-  - name: unit
-    type: text
-  - name: housenumber
-    type: text
-  - name: housename
-    type: text
-  - name: street
-    type: text
-  - name: suburb
-    type: text
-  - name: city
-    type: text
+  - <<: *unit
+  - <<: *housenumber
+  - <<: *housename
+  - <<: *street
+  - <<: *suburb
+  - <<: *city
   - &way_area
     name: way_area
     type: real
-    comment: Area
+    comment: Area of the feature, in projection units
 - name: water_areas
   type: polygon
+  comment: Areas which have surface water, not including oceans
   tagtransform: water.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: water_area_ways
@@ -60,9 +69,11 @@
     comment: Name of the feature, in the local language
   - name: water
     type: text
+    comment: Type of water feature
   - <<: *way_area
 - name: waterways
   type: line
+  comment: Linear flowing water
   tagtransform: water.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: waterway_ways
@@ -72,6 +83,7 @@
   - <<: *name
   - name: waterway
     type: text
+    comment: Type of waterway
   - name: bridge
     type: text
   - name: tunnel
@@ -154,6 +166,7 @@
   - <<: *z_order
 - name: airport_point
   type: point
+  comment: Airports mapped as points
   tagtransform: aero.lua
   tagtransform-node-function: airport_nodes
   tagtransform-way-function: drop_all
@@ -163,12 +176,17 @@
   - <<: *name
   - name: airport
     type: text
-  - name: iata
+  - &iata
+    name: iata
     type: char(3)
-  - name: iaco
+    comment: Commonly known three digit code for identifying an airport
+  - &iaco
+    name: iaco
     type: char(4)
+    comment: Four-digit code identifying an airport
 - name: airport_poly
   type: polygon
+  comment: Airports mapped as polygons
   tagtransform: aero.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: airport_ways
@@ -178,13 +196,12 @@
   - <<: *name
   - name: airport
     type: text
-  - name: iata
-    type: char(3)
-  - name: iaco
-    type: char(4)
+  - <<: *iata
+  - <<: *iaco
   - <<: *way_area
 - name: admin_area
   type: polygon
+  comment: Administrative boundaries as areas
   tagtransform: admin.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: drop_all
@@ -194,4 +211,5 @@
   - <<: *name
   - name: level
     type: smallint
+    comment: Administrative level of the area
   - <<: *way_area
