@@ -63,9 +63,9 @@ assert(transform_road({highway="residential", layer="4"}).layer == "4", "test fa
 -- z_order values by comparing two different layers, in effect reproducing the
 -- ORDER BY used in rendering
 assert(tonumber(transform_road({highway="residential", layer="3"}).z_order) >
-        tonumber(transform_road({highway="residential", layer="2"}).z_order), "test failed: residential layer z_order")
+       tonumber(transform_road({highway="residential", layer="2"}).z_order), "test failed: residential layer z_order")
 assert(tonumber(transform_road({highway="residential", tunnel="yes", layer="3"}).z_order) >
-        tonumber(transform_road({highway="motorway", layer="2", bridge="yes"}).z_order), "test failed: residential/motorway layer z_order")
+       tonumber(transform_road({highway="motorway", layer="2", bridge="yes"}).z_order), "test failed: residential/motorway layer z_order")
 
 assert(transform_road({highway="residential", oneway="yes"}).oneway == "true", "test failed: residential oneway=yes")
 assert(transform_road({highway="residential", oneway="no"}).oneway == "false", "test failed: residential oneway=no")
