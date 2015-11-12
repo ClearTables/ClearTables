@@ -2,24 +2,31 @@
 
 import sys, yaml, re
 
+def safe_name(name):
+    return re.match('''^[a-zA-Z0-9_ ]+$''', name)
+
+def safe_comment(comment):
+    # This is a slightly less restrictive character set, but the only one that needs escaping is '
+    return re.match('''^[-a-zA-Z0-9_ ()"!,/.']+$''', comment)
+
+def escape_comment(comment):
+    return comment.replace("'", "''")
 definitions = yaml.safe_load(sys.stdin)
 
 # Doesn't matter on newer versions, but prevents the use of \ in normal string literals
-print ("SET standard_conforming_strings = TRUE;");
+print("SET standard_conforming_strings = TRUE;");
 
 for table in definitions:
     # This requires all tables to be reasonably named
-    if not re.match('''^[a-zA-Z0-9_ ]+$''', table["name"]):
+    if not safe_name(table["name"]):
         sys.exit("Unsafe table name: " + table["name"])
 
     for column in table["tags"]:
         # Only check columns that have a comment
         if "comment" in column and column["comment"] is not None:
-            if not re.match('''^[a-zA-Z0-9_ ]+$''', column["name"]):
+            if not safe_name(column["name"]):
                 sys.exit('''Unsafe column name in table "''' + table["name"] + '''"."''' + column["name"] + '''"''')
-
-            # This is a slightly less restrictive character set, but the only one that needs escaping is '
-            if not re.match('''^[-a-zA-Z0-9_ ()"!,/.']+$''', column["comment"]):
+            if not safe_comment(column["comment"]):
                 sys.exit('''Unsafe column comment for "''' + table["name"] +'''"."''' + column["name"] + '''"''')
-            print ('''COMMENT ON COLUMN "{}"."{}" IS '{}';'''.format(
-                table["name"], column["name"], column["comment"].replace("'", "''")))
+            print('''COMMENT ON COLUMN "{}"."{}" IS '{}';'''.format(
+                table["name"], column["name"], escape_comment(column["comment"])))
