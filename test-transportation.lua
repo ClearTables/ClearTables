@@ -85,6 +85,14 @@ assert(transform_road({highway="residential", junction="roundabout"}).oneway == 
 assert(transform_road({highway="residential", bridge="yes"}).bridge == "true", "test failed: bridge")
 assert(transform_road({highway="residential", tunnel="yes"}).tunnel == "true", "test failed: tunnel")
 
+print("TESTING: accept_road_point")
+assert(not accept_road_point({}), "test failed: untagged")
+assert(not accept_road_point({foo="bar"}), "test failed: other tags")
+assert(not accept_road_point({highway="bar"}), "test failed: other highway tag")
+assert(accept_road_point({highway="crossing"}), "test failed: crossing")
+assert(accept_road_point({highway="traffic_signals"}), "test failed: traffic_signals")
+assert(accept_road_point({highway="motorway_junction"}), "test failed: motorway_junction")
+
 print("TESTING: transform_rail")
 assert(deepcompare(transform_rail({}), {}), "test failed: no tags")
 assert(deepcompare(transform_rail({name="foo"}), {name="foo"}), "test failed: name")

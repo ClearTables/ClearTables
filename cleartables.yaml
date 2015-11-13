@@ -146,6 +146,20 @@
     name: z_order
     type: smallint
     comment: Order of the feature for rendering purposes
+- name: road_points
+  type: point
+  comment: Traffic signals and other points that are part of the road network
+  tagtransform: transportation.lua
+  tagtransform-node-function: road_points
+  tagtransform-way-function: drop_all
+  tagtransform-relation-function: drop_all
+  tagtransform-relation-member-function: drop_all
+  tags:
+  - <<: *name
+  - name: type
+    type: text
+  - name: ref
+    type: text
 - name: rail
   type: line
   tagtransform: transportation.lua

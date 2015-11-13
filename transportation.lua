@@ -67,6 +67,21 @@ function accept_rail (tags)
     return railway[tags["railway"]]
 end
 
+function accept_road_point (tags)
+    return tags["highway"] and (
+        tags["highway"]== "crossing" or
+        tags["highway"]== "traffic_signals" or
+        tags["highway"]== "motorway_junction")
+end
+
+function transform_road_point (tags)
+    local cols = {}
+    cols.type = tags["highway"]
+    cols.name = tags["name"]
+    cols.ref = tags["ref"]
+    return cols
+end
+
 function transform_road (tags)
     local cols = {}
     cols.name = tags["name"]
@@ -106,6 +121,10 @@ end
 
 function road_ways (tags, num_keys)
     return generic_line_way(tags, accept_road, transform_road)
+end
+
+function road_points (tags, num_keys)
+    return generic_node(tags, accept_road_point, transform_road_point)
 end
 
 function rail_ways (tags, num_keys)
