@@ -130,6 +130,9 @@
   - name: maxspeed
     type: float
     comment: Maximum road speed, in km/h
+  - name: lanes
+    type: integer
+    comment: Number of lanes the road has
   - name: oneway
     type: oneway
   - name: motor_access

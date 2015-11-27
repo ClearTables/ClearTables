@@ -7,6 +7,16 @@ This file is part of ClearTables
 
 require "transportation"
 
+print("TESTING: lanes")
+assert(lanes(nil) == nil,           "test failed: nil")
+assert(lanes("0") == nil,           "test failed: 0")
+assert(lanes("-1") == nil,          "test failed: -1")
+assert(lanes("1") == "1",           "test failed: 1")
+assert(lanes("1.5") == nil,         "test failed: 1.5")
+assert(lanes("foo") == nil,         "test failed: text")
+assert(lanes("f1") == nil,          "test failed: char num")
+assert(lanes("1f") == nil,          "test failed: num char")
+
 print("TESTING: accept_road")
 assert(not accept_road({}), "test failed: untagged")
 assert(not accept_road({foo="bar"}), "test failed: other tags")

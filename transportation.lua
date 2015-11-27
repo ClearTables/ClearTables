@@ -59,6 +59,13 @@ local railway = {
     construction    = {z=40, class="construction"}
 }
 
+--- Normalizes lane tags
+-- @param v The lane tag value
+-- @return An integer > 0 or nil for the lane tag
+function lanes (v)
+    return v and string.find(v, "^%d+$") and tonumber(v) < 100 and tonumber(v) > 0 and v or nil
+end
+
 function accept_road (tags)
     return highway[tags["highway"]]
 end
