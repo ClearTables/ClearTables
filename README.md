@@ -20,8 +20,13 @@ ClearTables is currently under rapid development, and schema changes will freque
     psql -d <database> -c 'CREATE EXTENSION postgis;'
     cat sql/types/*.sql | psql -1Xq -d <database>
     # Add other osm2pgsql flags for large imports, updates, etc
-    osm2pgsql -d <database> --output multi --style cleartables.json extract.osm.pbf
+    osm2pgsql -d <database> --number-processes 2 --output multi --style cleartables.json extract.osm.pbf
     cat sql/post/*.sql | psql -1Xq -d <database>
+
+osm2pgsql will connect to PostgreSQL once per process for each table, for a total of processes * tables connections.
+If PostgreSQL [`max_connections`](http://www.postgresql.org/docs/9.3/static/runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS)
+is increased from the default, `--number-processes` can be increased. If `--number-processes` is omitted, osm2pgsql will
+attempt to use as many processes as hardware threads.
 
 ## Principles ##
 
