@@ -66,6 +66,10 @@ function lanes (v)
     return v and string.find(v, "^%d+$") and tonumber(v) < 100 and tonumber(v) > 0 and v or nil
 end
 
+function brunnel (tags)
+    return isset(tags["bridge"]) and "bridge" or isset(tags["tunnel"]) and "tunnel" or nil
+end
+
 function accept_road (tags)
     return highway[tags["highway"]]
 end

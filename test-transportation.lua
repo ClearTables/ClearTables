@@ -7,6 +7,14 @@ This file is part of ClearTables
 
 require "transportation"
 
+print("TESTING: brunnel")
+assert(brunnel({}) == nil, "test failed: nil")
+assert(brunnel({bridge="yes"}) == "bridge", "test failed: bridge=yes")
+assert(brunnel({bridge="no"}) == nil, "test failed: bridge=no")
+assert(brunnel({tunnel="yes"}) == "tunnel", "test failed: tunnel=yes")
+assert(brunnel({tunnel="no"}) == nil, "test failed: tunnel=no")
+assert(brunnel({bridge="yes", tunnel="yes"}) == "bridge", "test failed: tunnel+bridge")
+
 print("TESTING: lanes")
 assert(lanes(nil) == nil,           "test failed: nil")
 assert(lanes("0") == nil,           "test failed: 0")
