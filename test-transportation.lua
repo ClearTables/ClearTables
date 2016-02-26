@@ -72,8 +72,10 @@ assert(transform_road({highway="residential", vehicle="no"}).bicycle_access == "
 assert(transform_road({highway="residential", access="yes"}).bicycle_access == "yes", "test failed: residential bicycle bicycle_access yes")
 assert(transform_road({highway="residential", access="no"}).bicycle_access == "no", "test failed: residential bicycle bicycle_access no")
 
-assert(transform_road({highway="residential", bridge="yes"}).bridge == "true", "test failed: bridge")
-assert(transform_road({highway="residential", tunnel="yes"}).tunnel == "true", "test failed: tunnel")
+assert(transform_road({highway="residential", bridge="yes"}).brunnel == "bridge", "test failed: bridge")
+assert(transform_road({highway="residential", tunnel="yes"}).brunnel == "tunnel", "test failed: tunnel")
+assert(transform_road({highway="residential", bridge="yes", tunnel="yes"}).brunnel == "bridge", "test failed: bridge+tunnel")
+
 assert(transform_road({highway="residential"}).layer == "0", "test failed: layer 0")
 assert(transform_road({highway="residential", layer="4"}).layer == "4", "test failed: layer 4")
 
@@ -100,9 +102,6 @@ assert(transform_road({highway="residential", junction="roundabout", oneway="no"
 assert(transform_road({highway="residential", junction="roundabout", oneway="-1"}).oneway == "reverse", "test failed: junction oneway=-1")
 assert(transform_road({highway="residential", junction="roundabout"}).oneway == "true", "test failed: junction no oneway")
 
-assert(transform_road({highway="residential", bridge="yes"}).bridge == "true", "test failed: bridge")
-assert(transform_road({highway="residential", tunnel="yes"}).tunnel == "true", "test failed: tunnel")
-
 print("TESTING: accept_road_point")
 assert(not accept_road_point({}), "test failed: untagged")
 assert(not accept_road_point({foo="bar"}), "test failed: other tags")
@@ -116,5 +115,6 @@ assert(deepcompare(transform_rail({}), {}), "test failed: no tags")
 assert(deepcompare(transform_rail({name="foo"}), {name="foo"}), "test failed: name")
 assert(transform_rail({railway="subway"}).class == "subway", "test failed: subway class")
 
-assert(transform_rail({railway="rail", bridge="yes"}).bridge == "true", "test failed: bridge")
-assert(transform_rail({railway="rail", tunnel="yes"}).tunnel == "true", "test failed: tunnel")
+assert(transform_rail({railway="rail", bridge="yes"}).brunnel == "bridge", "test failed: bridge")
+assert(transform_rail({railway="rail", tunnel="yes"}).brunnel == "tunnel", "test failed: tunnel")
+assert(transform_rail({railway="rail", bridge="yes", tunnel="yes"}).brunnel == "bridge", "test failed: bridge+tunnel")
