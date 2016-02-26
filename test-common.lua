@@ -20,6 +20,13 @@ assert(not deepcompare({{}, {}}, {{}, {}, {}}),         "test failed: deepcompar
 assert(deepcompare({{a=1, b=2}, {c=3, d=4}}, {{a=1, b=2}, {c=3, d=4}}), "test failed: deepcompare table of tables")
 assert(not deepcompare({{a=1, b=2}, {c=3, d=4}}, {{a=1, b=2}, {c=3, d="foo"}}), "test failed: deepcompare table of different tables")
 
+print("TESTING: isset")
+assert(isset(nil) == nil, "test failed: nil")
+assert(isset('no') == false, "test failed: no")
+assert(isset('false') == false, "test failed: false")
+assert(isset('yes'), "test failed: yes")
+assert(isset('foo'), "test failed: foo")
+
 print("TESTING: yesno")
 assert(yesno(nil) == nil,           "test failed: yesno(nil) == nil")
 assert(yesno('no') == 'false',      "test failed: yesno('no') == 'false'")
