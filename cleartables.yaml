@@ -86,7 +86,7 @@
     comment: Type of waterway
   - &brunnel
     name: brunnel
-    type: text
+    type: brunnel
     comment: Bridge, tunnel, or neither
   - name: layer
     type: integer
