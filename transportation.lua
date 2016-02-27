@@ -66,6 +66,10 @@ function lanes (v)
     return v and string.find(v, "^%d+$") and tonumber(v) < 100 and tonumber(v) > 0 and v or nil
 end
 
+function brunnel (tags)
+    return isset(tags["bridge"]) and "bridge" or isset(tags["tunnel"]) and "tunnel" or nil
+end
+
 function accept_road (tags)
     return highway[tags["highway"]]
 end
@@ -104,8 +108,7 @@ function transform_road (tags)
                 tags["vehicle"] or tags["access"] or highway[tags["highway"]]["bicycle_access"])
 
         cols.maxspeed = speed(tags["maxspeed"])
-        cols.bridge = yesno(tags["bridge"])
-        cols.tunnel = yesno(tags["tunnel"])
+        cols.brunnel = brunnel(tags)
         cols.layer = layer(tags["layer"])
         cols.z_order = tostring(tonumber(layer(tags["layer"]))*100 + (highway[tags["highway"]]["z"] or 0))
     end
@@ -117,8 +120,7 @@ function transform_rail (tags)
     cols.name = tags["name"]
     if railway[tags["railway"]] then
         cols.class = railway[tags["railway"]]["class"]
-        cols.bridge = yesno(tags["bridge"])
-        cols.tunnel = yesno(tags["tunnel"])
+        cols.brunnel = brunnel(tags)
         cols.layer = layer(tags["layer"])
         cols.z_order = tostring(tonumber(layer(tags["layer"]))*100 + (railway[tags["railway"]]["z"] or 0))
     end

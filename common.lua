@@ -11,13 +11,27 @@ This file is part of ClearTables
 -- is the idiomatic way to do an inline conditional in lua
 
 --- Normalizes a tag value to true/false
+-- This is used internally for logic, and not directly returned to PostgreSQL
+-- @param v The tag value
+-- @return The true, false, or nil
+function isset (v)
+    if v == nil then
+        return nil
+    end
+    if v == "no" or v == "false" then
+        return false
+    end
+    return true
+end
+
+--- Normalizes a tag value to true/false string
 -- Typical usage would be on a tag like bridge, tunnel, or shelter which are expected
 -- to be yes, no, or unset, but not a tag like oneway which could be 
 -- yes, no, reverse, or unset.
 -- @param v The tag value
 -- @return The string true or false, or nil, which is turned into a boolean by PostgreSQL
 function yesno (v)
-    return v ~= nil and ((v == "no" or v == "false") and "false" or "true") or nil
+    return v~= nil and (isset(v) and "true" or "false") or nil
 end
 
 --- Normalizes oneway for roads/etc

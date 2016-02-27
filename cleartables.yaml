@@ -84,10 +84,10 @@
   - name: waterway
     type: text
     comment: Type of waterway
-  - name: bridge
-    type: text
-  - name: tunnel
-    type: text
+  - &brunnel
+    name: brunnel
+    type: brunnel
+    comment: Bridge, tunnel, or neither
   - name: layer
     type: integer
   - name: intermittent
@@ -152,10 +152,7 @@
     type: access
   - name: bicycle_access
     type: access
-  - name: bridge
-    type: boolean
-  - name: tunnel
-    type: boolean
+  - <<: *brunnel
   - name: layer
     type: integer
   - &z_order
@@ -187,10 +184,7 @@
   - <<: *name
   - name: class
     type: text
-  - name: bridge
-    type: boolean
-  - name: tunnel
-    type: boolean
+  - <<: *brunnel
   - name: layer
     type: integer
   - <<: *z_order
