@@ -237,3 +237,40 @@
     type: smallint
     comment: Administrative level of the area
   - <<: *way_area
+- name: place_point
+  type: point
+  comment: Geographic places
+  tagtransform: place.lua
+  tagtransform-node-function: place_nodes
+  tagtransform-way-function: drop_all
+  tagtransform-relation-function: drop_all
+  tagtransform-relation-member-function: drop_all
+  tags:
+  - <<: *name
+  - name: class
+    type: text
+    comment: Classification of place
+  - name: rank
+    type: place
+    comment: Ranking of place
+  - &population
+    name: population
+    type: integer
+    comment: Population of the place
+- name: place_poly
+  type: polygon
+  comment: Geographic places
+  tagtransform: place.lua
+  tagtransform-node-function: drop_all
+  tagtransform-wa/y-function: place_ways
+  tagtransform-relation-function: place_rels
+  tagtransform-relation-member-function: place_rel_members
+  tags:
+  - <<: *name
+  - name: class
+    type: text
+    comment: Classification of place
+  - name: rank
+    type: place
+    comment: Ranking of place
+  - <<: *population

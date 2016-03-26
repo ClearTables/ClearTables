@@ -27,4 +27,5 @@ check:
 	$$lua test-transportation.lua && \
 	$$lua test-admin.lua && \
 	$$lua test-aero.lua && \
-	$$lua test-education.lua
+	$$lua test-education.lua && \
+	$$lua test-place.lua
