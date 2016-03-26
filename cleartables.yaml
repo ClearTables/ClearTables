@@ -253,6 +253,24 @@
   - name: rank
     type: place
     comment: Ranking of place
-  - name: population
+  - &population
+    name: population
     type: integer
     comment: Population of the place
+- name: place_poly
+  type: polygon
+  comment: Geographic places
+  tagtransform: place.lua
+  tagtransform-node-function: drop_all
+  tagtransform-wa/y-function: place_ways
+  tagtransform-relation-function: place_rels
+  tagtransform-relation-member-function: place_rel_members
+  tags:
+  - <<: *name
+  - name: class
+    type: text
+    comment: Classification of place
+  - name: rank
+    type: place
+    comment: Ranking of place
+  - <<: *population

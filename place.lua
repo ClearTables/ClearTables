@@ -41,7 +41,7 @@ function transform_place (tags)
         cols.class = "settlement"
         cols.rank = tags["place"]
     else
-        cols.class = subregions[tags["place"]] and "subregion" or other[tags["place"]] and "other" or nil
+        cols.class = subregions[tags["place"]] and "subregion" or tags["place"]
     end
     cols.name = tags["name"]
     cols.population = population(tags["population"])
@@ -50,4 +50,19 @@ end
 
 function place_nodes (tags, num_keys)
     return generic_node(tags, accept_place, transform_place)
+end
+
+function place_ways (tags, num_keys)
+    return generic_polygon_way(tags, accept_place, transform_place)
+end
+
+function place_rels (tags, num_keys)
+    if (tags["type"] == "multipolygon" and accept_place(tags)) then
+        return 0, tags
+    end
+    return 1, {}
+end
+
+function place_rel_members (tags, member_tags, member_roles, membercount)
+    return generic_multipolygon_members(tags, member_tags, membercount, accept_place, transform_place)
 end

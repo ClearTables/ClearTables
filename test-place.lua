@@ -46,5 +46,7 @@ assert(transform_place({place="isolated_dwelling"}).class == "settlement", "test
 assert(transform_place({place="isolated_dwelling"}).rank == "isolated_dwelling", "test failed: isolated_dwelling rank")
 assert(transform_place({place="suburb"}).class == "subregion", "test failed: suburb")
 assert(transform_place({place="neighbourhood"}).class == "subregion", "test failed: neighbourhood")
+assert(transform_place({place="locality"}).class == "locality", "test failed: locality")
+assert(transform_place({place="farm"}).class == "farm", "test failed: farm")
 
 assert(transform_place({place="city", population="100"}).population == "100", "test failed: population")
