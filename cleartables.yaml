@@ -262,7 +262,7 @@
   comment: Geographic places
   tagtransform: place.lua
   tagtransform-node-function: drop_all
-  tagtransform-wa/y-function: place_ways
+  tagtransform-way-function: place_ways
   tagtransform-relation-function: place_rels
   tagtransform-relation-member-function: place_rel_members
   tags:
