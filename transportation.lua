@@ -25,7 +25,7 @@ local highway = {
     unclassified    = {z=31, class="minor", motor_access="yes", bicycle="yes", ramp="false"},
     residential     = {z=31, class="minor", motor_access="yes", bicycle="yes", ramp="false"},
     road            = {z=31, class="unknown", motor_access="yes"},
-    living_street   = {z=30},
+    living_street   = {z=30, class="minor", motor_access="yes"},
 
     motorway_link   = {z=26, class="motorway", oneway="yes", motor_access="yes", ramp="true"},
     trunk_link      = {z=25, class="trunk", oneway="yes", motor_access="yes", ramp="true"},
