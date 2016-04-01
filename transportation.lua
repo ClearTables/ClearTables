@@ -110,7 +110,7 @@ function transform_road (tags)
         cols.maxspeed = speed(tags["maxspeed"])
         cols.brunnel = brunnel(tags)
         cols.layer = layer(tags["layer"])
-        cols.z_order = tostring(tonumber(layer(tags["layer"]))*100 + (highway[tags["highway"]]["z"] or 0))
+        cols.z_order = highway[tags["highway"]]["z"] or 0
     end
     return cols
 end
@@ -122,7 +122,7 @@ function transform_rail (tags)
         cols.class = railway[tags["railway"]]["class"]
         cols.brunnel = brunnel(tags)
         cols.layer = layer(tags["layer"])
-        cols.z_order = tostring(tonumber(layer(tags["layer"]))*100 + (railway[tags["railway"]]["z"] or 0))
+        cols.z_order = railway[tags["railway"]]["z"] or 0
     end
     return cols
 end
