@@ -6,6 +6,7 @@ This file is part of ClearTables
 ]]--
 
 require "aero"
+print("aero.lua tests")
 
 print("TESTING: accept_airport")
 assert(not accept_airport({}), "test failed: untagged")

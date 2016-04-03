@@ -6,6 +6,7 @@ This file is part of ClearTables
 ]]--
 
 require "education"
+print("education.lua tests")
 
 print("TESTING: accept_education")
 assert(not accept_education({}), "test failed: untagged")

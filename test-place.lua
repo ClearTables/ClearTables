@@ -6,6 +6,7 @@ This file is part of ClearTables
 ]]--
 
 require "place"
+print("place.lua tests")
 
 print("TESTING: population")
 assert(population(nil) == nil, "test failed: nil")

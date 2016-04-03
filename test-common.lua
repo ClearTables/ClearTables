@@ -6,6 +6,7 @@ This file is part of ClearTables
 ]]--
 
 require ("common")
+print("common.lua tests")
 
 print("TESTING: deepcompare")
 local t1={}

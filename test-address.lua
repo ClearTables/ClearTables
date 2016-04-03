@@ -6,6 +6,7 @@ This file is part of ClearTables
 ]]--
 
 require "address"
+print("address.lua tests")
 
 print("TESTING: accept_address")
 assert(not accept_address({}), "test failed: untagged")

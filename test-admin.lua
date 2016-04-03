@@ -6,6 +6,7 @@ This file is part of ClearTables
 ]]--
 
 require "admin"
+print("admin.lua tests")
 
 print("TESTING: admin_level")
 assert(admin_level(nil) == nil, "test failed: nil")

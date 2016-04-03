@@ -6,6 +6,7 @@ This file is part of ClearTables
 ]]--
 
 require "building"
+print("building.lua tests")
 
 print("TESTING: accept_building")
 assert(not accept_building({}), "test failed: untagged")

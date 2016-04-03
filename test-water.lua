@@ -6,6 +6,7 @@ This file is part of ClearTables
 ]]--
 
 require "water"
+print("water.lua tests")
 
 print("TESTING: accept_water_area")
 assert(not accept_water_area({}), "test failed: untagged")

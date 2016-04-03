@@ -6,6 +6,7 @@ This file is part of ClearTables
 ]]--
 
 require "transportation"
+print("transportation.lua tests")
 
 print("TESTING: brunnel")
 assert(brunnel({}) == nil, "test failed: nil")
