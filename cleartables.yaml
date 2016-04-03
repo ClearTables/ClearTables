@@ -223,6 +223,21 @@
   - <<: *iata
   - <<: *iaco
   - <<: *way_area
+- name: aeroway_line
+  type: line
+  comment: Airport-related linear features
+  tagtransform: aero.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: aeroway_ways
+  tagtransform-relation-function: drop_all
+  tagtransform-relation-member-function: drop_all
+  tags:
+  - name: aeroway
+    type: text
+    comment: Type of aeroway feature
+  - name: ref
+    type: text
+    comment: Reference of the feature
 - name: admin_area
   type: polygon
   comment: Administrative boundaries as areas

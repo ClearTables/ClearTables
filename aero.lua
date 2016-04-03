@@ -2,13 +2,17 @@
 This file is part of ClearTables
 
 @author Paul Norman <penorman@mac.com>
-@copyright 2015 Paul Norman, MIT license
+@copyright 2015-2016 Paul Norman, MIT license
 ]]--
 
 require "common"
 
 function accept_airport (tags)
     return tags["aeroway"] and (tags["aeroway"] == "aerodrome" or tags["aeroway"] == "heliport")
+end
+
+function accept_aeroway (tags)
+    return tags["aeroway"] and (tags["aeroway"] == "taxiway" or tags["aeroway"] == "runway")
 end
 
 function transform_airport(tags)
@@ -18,6 +22,13 @@ function transform_airport(tags)
     cols.iata = tags["iata"] and string.sub(tags["iata"],0,3) or nil
     cols.iaco = tags["iaco"] and string.sub(tags["iaco"],0,4) or nil
     cols.ref = tags["ref"] or cols.iata or cols.iaco or nil
+    return cols
+end
+
+function transform_aeroway(tags)
+    local cols = {}
+    cols.ref = tags["ref"]
+    cols.aeroway =  tags["aeroway"]
     return cols
 end
 
@@ -38,4 +49,8 @@ end
 
 function airport_rel_members (tags, member_tags, member_roles, membercount)
     return generic_multipolygon_members(tags, member_tags, membercount, accept_airport, transform_airport)
+end
+
+function aeroway_ways (tags, num_keys)
+    return generic_line_way(tags, accept_aeroway, transform_aeroway)
 end
