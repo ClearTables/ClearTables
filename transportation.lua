@@ -132,6 +132,21 @@ function road_ways (tags, num_keys)
     return generic_line_way(tags, accept_road, transform_road)
 end
 
+function road_area_ways (tags, num_keys)
+    return generic_polygon_way(tags, accept_road, transform_road) -- uses the same accept/transform functions as lines
+end
+
+function road_area_rels (tags, num_keys)
+    if (tags["type"] == "multipolygon" and accept_road(tags)) then
+        return 0, tags
+    end
+    return 1, {}
+end
+
+function road_area_rel_members (tags, member_tags, member_roles, membercount)
+    return generic_multipolygon_members(tags, member_tags, membercount, accept_road, transform_road)
+end
+
 function road_points (tags, num_keys)
     return generic_node(tags, accept_road_point, transform_road_point)
 end

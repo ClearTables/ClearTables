@@ -159,6 +159,31 @@
     name: z_order
     type: smallint
     comment: Order of the feature for rendering purposes
+- name: road_areas
+  type: polygon
+  tagtransform: transportation.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: road_area_ways
+  tagtransform-relation-function: road_area_rels
+  tagtransform-relation-member-function: road_area_rel_members
+  tags:
+  - <<: *name
+  - name: class
+    type: text
+  - name: refs
+    type: text[]
+  - name: maxspeed
+    type: float
+    comment: Maximum road speed, in km/h
+  - name: motor_access
+    type: access
+  - name: bicycle_access
+    type: access
+  - <<: *brunnel
+  - name: layer
+    type: integer
+  - <<: *z_order
+  - <<: *way_area
 - name: road_points
   type: point
   comment: Traffic signals and other points that are part of the road network
