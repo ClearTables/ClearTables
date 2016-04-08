@@ -314,3 +314,4 @@
     type: place
     comment: Ranking of place
   - <<: *population
+  - <<: *way_area
