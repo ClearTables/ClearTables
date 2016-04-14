@@ -5,8 +5,15 @@ cache: apt
 addons:
   apt:
     packages:
-    - lua5.2
+    - lua5.1
+    - luarocks
     - python-yaml
+before_install:
+  - luarocks install --local luacov-coveralls
 script:
   - make
   - make check
+  - LUA_PATH="?;?.lua;$HOME/.luarocks/share/lua/5.1/?.lua"
+    find . -name 'test-*.lua' -exec lua -lluacov {} \;
+after_success:
+  - $HOME/.luarocks/bin/luacov-coveralls
