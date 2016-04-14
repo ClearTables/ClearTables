@@ -111,6 +111,12 @@ assert(accept_road_point({highway="crossing"}), "test failed: crossing")
 assert(accept_road_point({highway="traffic_signals"}), "test failed: traffic_signals")
 assert(accept_road_point({highway="motorway_junction"}), "test failed: motorway_junction")
 
+print("TESTING: transform_road_point")
+assert(deepcompare(transform_road_point({}), {}), "test failed: no tags")
+assert(transform_road_point({name="foo"}).name == "foo", "test failed: name")
+assert(transform_road_point({ref="A1"}).ref == "A1", "test failed: ref")
+assert(transform_road_point({highway="crossing"}).type == "crossing", "test failed: highway")
+
 print("TESTING: transform_rail")
 assert(deepcompare(transform_rail({}), {}), "test failed: no tags")
 assert(deepcompare(transform_rail({name="foo"}), {name="foo"}), "test failed: name")
