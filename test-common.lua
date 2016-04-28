@@ -93,7 +93,7 @@ assert(not isarea({natural = "water", area = "no"}),  "test failed: isarea(natur
 assert(isarea({natural = "water"}),  "test failed: isarea(natural=water)")
 
 print("TESTING: split_list")
-assert(split_list(nil) == nil, "test failed: single element")
+assert(split_list(nil) == nil, "test failed: empty")
 assert(split_list('1') == '{"1"}', "test failed: single element")
 assert(split_list('1;2') == '{"1","2"}', "test failed: multi-element")
 assert(split_list('a"b') == '{"a\\"b"}', "test failed: element with quote")
