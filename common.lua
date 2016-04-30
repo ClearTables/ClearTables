@@ -140,6 +140,19 @@ function split_list (list, delim)
     end
 end
 
+--- Turns a lua table into a PostgreSQL hstore
+-- @param table table to convert
+-- @return table in hstore string format
+function hstore (table)
+    if table ~= nil then
+        local s = ''
+        for k,v in pairs(table) do
+            s = s..',"'..string.gsub(k,'"', '\\"')..'"=>"'..string.gsub(v,'"', '\\"')..'"'
+        end
+        return string.sub(s, 2) -- clean up first ,
+    end
+end
+
 --- Generic handling for a node
 function generic_node (tags, accept, transform)
     if accept(tags) then
