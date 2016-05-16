@@ -74,6 +74,11 @@ questions, please use IRC (irc.oftc.net or http://irc.osm.org, channel #osm-dev)
 
 * Always set columns to strings, even if they're only true/false. It's unwise to count on anything else making it from Lua to C to C++ to PostgreSQL. This lets PostgreSQL do the only coversion.
 
+## Similar projects ##
+
+* [GeoFabrik Shapefiles](http://www.geofabrik.de/data/shapefiles.html)
+* [CartoDB OSM POIs](https://github.com/CartoDB/cartodb-osm-pois)
+
 ## Additional Reading ##
 
 * [osm2pgsql lua docs](https://github.com/openstreetmap/osm2pgsql/blob/master/docs/lua.md)
