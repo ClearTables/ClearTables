@@ -19,6 +19,7 @@ function transform_building (tags)
         or tags["aeroway"] == "terminal" and "aeroway_terminal"
         or tags["building"]
     cols.name = tags["name"]
+    cols.names = names(tags)
     if tags["building:levels"] and string.find(tags["building:levels"], "^%d+$") and tonumber(tags["building:levels"]) < 10000 then
         cols.levels = tostring(tonumber(tags["building:levels"]))
     end

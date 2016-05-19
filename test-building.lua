@@ -30,6 +30,7 @@ assert(deepcompare(transform_building({aeroway="terminal"}), {building="aeroway_
 assert(deepcompare(transform_building({aeroway="terminal", building="foo"}), {building="aeroway_terminal"}), "test failed: aeroway=terminal with building tag")
 
 assert(deepcompare(transform_building({name="foo"}), {name="foo"}), "test failed: name")
+assert(deepcompare(transform_building({["name:en"]="foo"}), {names='"en"=>"foo"'}), "test failed: names")
 assert(deepcompare(transform_building({name="foo", bar="baz"}), {name="foo"}), "test failed: dropping other tags")
 assert(deepcompare(transform_building({["building:levels"]="5"}), {levels="5"}), "test failed: levels")
 assert(deepcompare(transform_building({["building:levels"]="2.5"}), {}), "test failed: levels float")

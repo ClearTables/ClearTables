@@ -21,6 +21,7 @@ end
 function transform_admin_area (tags)
     local cols = {}
     cols.name = tags["name"]
+    cols.names = names(tags)
     cols.level = admin_level(tags["admin_level"])
     return cols
 end

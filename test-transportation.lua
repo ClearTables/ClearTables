@@ -44,6 +44,7 @@ assert(accept_rail({railway="rail"}), "test failed: rail")
 print("TESTING: transform_road")
 assert(deepcompare(transform_road({}), {}), "test failed: no tags")
 assert(deepcompare(transform_road({name="foo"}), {name="foo"}), "test failed: name")
+assert(deepcompare(transform_road({["name:en"]="foo"}), {names='"en"=>"foo"'}), "test failed: names")
 
 assert(deepcompare(transform_road({ref="a;b"}), {refs='{"a","b"}'}), "test failed: ref")
 
@@ -114,12 +115,14 @@ assert(accept_road_point({highway="motorway_junction"}), "test failed: motorway_
 print("TESTING: transform_road_point")
 assert(deepcompare(transform_road_point({}), {}), "test failed: no tags")
 assert(transform_road_point({name="foo"}).name == "foo", "test failed: name")
+assert(transform_road_point({["name:en"]="foo"}), {names='"en"=>"foo"'}, "test failed: names")
 assert(transform_road_point({ref="A1"}).ref == "A1", "test failed: ref")
 assert(transform_road_point({highway="crossing"}).type == "crossing", "test failed: highway")
 
 print("TESTING: transform_rail")
 assert(deepcompare(transform_rail({}), {}), "test failed: no tags")
 assert(deepcompare(transform_rail({name="foo"}), {name="foo"}), "test failed: name")
+assert(deepcompare(transform_rail({["name:en"]="foo"}), {names='"en"=>"foo"'}), "test failed: names")
 assert(transform_rail({railway="subway"}).class == "subway", "test failed: subway class")
 
 assert(transform_rail({railway="rail", bridge="yes"}).brunnel == "bridge", "test failed: bridge")

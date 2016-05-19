@@ -99,6 +99,22 @@ assert(split_list('1;2') == '{"1","2"}', "test failed: multi-element")
 assert(split_list('a"b') == '{"a\\"b"}', "test failed: element with quote")
 assert(split_list('a"\195\188b"c') == '{"a\\"\195\188b\\"c"}', "test failed: unicode element with quote")
 
+print("TESTING: hstore")
+assert(hstore(nil) == nil, "test failed: nil")
+assert(hstore({}) == '', "test failed: empty")
+assert(hstore({foo='bar'}) == '"foo"=>"bar"', "test failed: single element")
+local h1 = hstore({foo='bar', baz='2'}) -- pairs does not guarantee any order, so we have to check all
+assert(h1 == '"foo"=>"bar","baz"=>"2"' or h1 == '"baz"=>"2","foo"=>"bar"', "test failed: two elements")
+assert(hstore({foo='ba"r'}) == '"foo"=>"ba\\"r"', "test failed: quoted value")
+
+print("TESTING: names")
+assert(names(nil) == nil, "test failed: nil")
+assert(names({}) == nil, "test failed: empty")
+assert(names({foo="bar"}) == nil, "test failed: non-names")
+assert(names({["name:foo"]="bar"}) == '"foo"=>"bar"', "test failed: one lang")
+local name1 = names({["name:aa"]="foo", ["name:zz"]="bar"})
+assert(name1 == '"aa"=>"foo","zz"=>"bar"' or name1 == '"zz"=>"bar","aa"=>"foo"', "test failed: two langs")
+
 -- Utility functions for transform testing
 local function acceptfoo(tags)
     return tags["foo"] ~= nil
