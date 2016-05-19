@@ -17,7 +17,7 @@ ClearTables is currently under rapid development, and schema changes will freque
 
     make
     createdb <database>
-    psql -d <database> -c 'CREATE EXTENSION postgis;'
+    psql -d <database> -c 'CREATE EXTENSION postgis; CREATE EXTENSION hstore;'
     cat sql/types/*.sql | psql -1Xq -d <database>
     # Add other osm2pgsql flags for large imports, updates, etc
     osm2pgsql -d <database> --number-processes 2 --output multi --style cleartables.json extract.osm.pbf

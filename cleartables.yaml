@@ -67,6 +67,10 @@
     name: name
     type: text
     comment: Name of the feature, in the local language
+  - &names
+    name: names
+    type: hstore
+    comment: Name of the feature in other languages, as lang name pairs
   - name: water
     type: text
     comment: Type of water feature
@@ -81,6 +85,7 @@
   tagtransform-relation-member-function: drop_all
   tags:
   - <<: *name
+  - <<: *names
   - name: waterway
     type: text
     comment: Type of waterway
@@ -101,6 +106,7 @@
   tagtransform-relation-member-function: building_rel_members
   tags:
   - <<: *name
+  - <<: *names
   - name: building
     type: text
     comment: Type of the building
@@ -120,6 +126,7 @@
   tagtransform-relation-member-function: education_rel_members
   tags:
   - <<: *name
+  - <<: *names
   - name: education
     type: text
     comment: Type of education facility
@@ -133,6 +140,7 @@
   tagtransform-relation-member-function: drop_all
   tags:
   - <<: *name
+  - <<: *names
   - name: class
     type: text
   - name: ramp
@@ -168,6 +176,7 @@
   tagtransform-relation-member-function: road_area_rel_members
   tags:
   - <<: *name
+  - <<: *names
   - name: class
     type: text
   - name: refs
@@ -194,6 +203,7 @@
   tagtransform-relation-member-function: drop_all
   tags:
   - <<: *name
+  - <<: *names
   - name: type
     type: text
   - name: ref
@@ -207,6 +217,7 @@
   tagtransform-relation-member-function: drop_all
   tags:
   - <<: *name
+  - <<: *names
   - name: class
     type: text
   - <<: *brunnel
@@ -223,6 +234,7 @@
   tagtransform-relation-member-function: drop_all
   tags:
   - <<: *name
+  - <<: *names
   - name: airport
     type: text
   - &iata
@@ -243,6 +255,7 @@
   tagtransform-relation-member-function: airport_rel_members
   tags:
   - <<: *name
+  - <<: *names
   - name: airport
     type: text
   - <<: *iata
@@ -273,6 +286,7 @@
   tagtransform-relation-member-function: admin_area_rel_members
   tags:
   - <<: *name
+  - <<: *names
   - name: level
     type: smallint
     comment: Administrative level of the area
@@ -287,6 +301,7 @@
   tagtransform-relation-member-function: drop_all
   tags:
   - <<: *name
+  - <<: *names
   - name: class
     type: text
     comment: Classification of place
@@ -307,6 +322,7 @@
   tagtransform-relation-member-function: place_rel_members
   tags:
   - <<: *name
+  - <<: *names
   - name: class
     type: text
     comment: Classification of place

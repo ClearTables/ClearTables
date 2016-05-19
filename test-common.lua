@@ -107,6 +107,14 @@ local h1 = hstore({foo='bar', baz='2'}) -- pairs does not guarantee any order, s
 assert(h1 == '"foo"=>"bar","baz"=>"2"' or h1 == '"baz"=>"2","foo"=>"bar"', "test failed: two elements")
 assert(hstore({foo='ba"r'}) == '"foo"=>"ba\\"r"', "test failed: quoted value")
 
+print("TESTING: names")
+assert(names(nil) == nil, "test failed: nil")
+assert(names({}) == nil, "test failed: empty")
+assert(names({foo="bar"}) == nil, "test failed: non-names")
+assert(names({["name:foo"]="bar"}) == '"foo"=>"bar"', "test failed: one lang")
+local name1 = names({["name:aa"]="foo", ["name:zz"]="bar"})
+assert(name1 == '"aa"=>"foo","zz"=>"bar"' or name1 == '"zz"=>"bar","aa"=>"foo"', "test failed: two langs")
+
 -- Utility functions for transform testing
 local function acceptfoo(tags)
     return tags["foo"] ~= nil

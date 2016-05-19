@@ -19,6 +19,7 @@ function transform_airport(tags)
     local cols = {}
     cols.airport = tags["aeroway"] -- guaranteed by accept_airport to be either aerodrome or heliport
     cols.name = tags["name"]
+    cols.names = names(tags)
     cols.iata = tags["iata"] and string.sub(tags["iata"],0,3) or nil
     cols.iaco = tags["iaco"] and string.sub(tags["iaco"],0,4) or nil
     cols.ref = tags["ref"] or cols.iata or cols.iaco or nil

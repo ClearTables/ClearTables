@@ -44,6 +44,7 @@ function transform_place (tags)
         cols.class = subregions[tags["place"]] and "subregion" or tags["place"]
     end
     cols.name = tags["name"]
+    cols.names = names(tags)
     cols.population = population(tags["population"])
     return cols
 end

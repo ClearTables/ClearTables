@@ -89,6 +89,7 @@ function transform_road_point (tags)
     local cols = {}
     cols.type = tags["highway"]
     cols.name = tags["name"]
+    cols.names = names(tags)
     cols.ref = tags["ref"]
     return cols
 end
@@ -96,6 +97,7 @@ end
 function transform_road (tags)
     local cols = {}
     cols.name = tags["name"]
+    cols.names = names(tags)
     cols.refs = split_list(tags["ref"])
     if highway[tags["highway"]] then
         cols.class = highway[tags["highway"]]["class"]
@@ -118,6 +120,7 @@ end
 function transform_rail (tags)
     local cols = {}
     cols.name = tags["name"]
+    cols.names = names(tags)
     if railway[tags["railway"]] then
         cols.class = railway[tags["railway"]]["class"]
         cols.brunnel = brunnel(tags)

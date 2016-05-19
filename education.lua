@@ -18,6 +18,7 @@ end
 function transform_education (tags)
     local cols = {}
     cols.name = tags["name"]
+    cols.names = names(tags)
     cols.education = tags["amenity"]
     return cols
 end

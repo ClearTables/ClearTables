@@ -10,6 +10,21 @@ This file is part of ClearTables
 -- cond and "a" or "b" evaluates to a if cond is true, b if cond is false. This
 -- is the idiomatic way to do an inline conditional in lua
 
+--- Gets multi-lingual names
+-- @param tags OSM tags
+-- @return string hstore with other names
+function names (tags)
+    if tags ~= nil and next(tags) ~= nil then
+        local n = {}
+        for k, v in pairs(tags) do
+            if string.sub(k, 1, 5) == "name:" then
+                n[string.sub(k,6)] = v
+            end
+        end
+        return next(n) ~= nil and hstore(n) or nil
+    end
+end
+
 --- Normalizes a tag value to true/false
 -- This is used internally for logic, and not directly returned to PostgreSQL
 -- @param v The tag value
