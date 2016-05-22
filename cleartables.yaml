@@ -142,7 +142,7 @@
   - <<: *name
   - <<: *names
   - name: class
-    type: text
+    type: transportation_class
   - name: ramp
     type: boolean
     comment: If the road is an on- or off-ramp
@@ -178,7 +178,7 @@
   - <<: *name
   - <<: *names
   - name: class
-    type: text
+    type: transportation_class
   - name: refs
     type: text[]
   - name: maxspeed
@@ -219,7 +219,7 @@
   - <<: *name
   - <<: *names
   - name: class
-    type: text
+    type: transportation_class
   - <<: *brunnel
   - name: layer
     type: integer
