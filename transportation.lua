@@ -54,9 +54,7 @@ local railway = {
     monorail        = {z=42, class="monorail"},
     miniature       = {z=42, class="miniature"},
     turntable       = {z=42, class="turntable"},
-    tram            = {z=41, class="tram"},
-    disused         = {z=40, class="disused"},
-    construction    = {z=40, class="construction"}
+    tram            = {z=41, class="tram"}
 }
 
 --- Normalizes lane tags
