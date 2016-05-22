@@ -123,7 +123,7 @@ print("TESTING: transform_rail")
 assert(deepcompare(transform_rail({}), {}), "test failed: no tags")
 assert(transform_rail({name="foo"}).name == "foo", "test failed: name")
 assert(transform_rail({["name:en"]="foo"}).names == '"en"=>"foo"', "test failed: names")
-assert(transform_rail({railway="subway"}).class == "subway", "test failed: subway class")
+assert(transform_rail({railway="subway"}).class == "transit", "test failed: subway class")
 
 assert(transform_rail({railway="rail", bridge="yes"}).brunnel == "bridge", "test failed: bridge")
 assert(transform_rail({railway="rail", tunnel="yes"}).brunnel == "tunnel", "test failed: tunnel")

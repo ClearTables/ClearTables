@@ -46,17 +46,13 @@ local highway = {
 
 local railway = {
     rail            = {z=44, class="rail"},
-    subway          = {z=42, class="subway"},
-    narrow_gauge    = {z=42, class="narrow_gauge"},
-    light_rail      = {z=42, class="light_rail"},
-    preserved       = {z=42, class="preserved"},
-    funicular       = {z=42, class="funicular"},
-    monorail        = {z=42, class="monorail"},
-    miniature       = {z=42, class="miniature"},
-    turntable       = {z=42, class="turntable"},
-    tram            = {z=41, class="tram"},
-    disused         = {z=40, class="disused"},
-    construction    = {z=40, class="construction"}
+    narrow_gauge    = {z=42, class="rail"},
+    preserved       = {z=42, class="rail"},
+    funicular       = {z=42, class="rail"},
+    subway          = {z=42, class="transit"},
+    light_rail      = {z=42, class="transit"},
+    monorail        = {z=42, class="transit"},
+    tram            = {z=41, class="transit"}
 }
 
 --- Normalizes lane tags
