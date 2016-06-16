@@ -21,7 +21,8 @@
     name: names
     type: hstore
     comment: Name of the feature in other languages, as lang name pairs
-  - name: level
+  - &admin_level
+    name: level
     type: smallint
     comment: Administrative level of the area
   - &way_area

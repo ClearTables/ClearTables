@@ -27,13 +27,27 @@ function transform_admin_area (tags)
 end
 
 function admin_area_rels (tags, num_keys)
-    if (tags["type"] == "boundary" and accept_admin_area(tags)) then
-        tags["type"] = "multipolygon" -- Pretend it's a MP for later rel member processing
+    if accept_admin_area(tags) then
         return 0, tags
     end
     return 1, {}
 end
 
+--- Administrative area handling
+-- @param tags OSM tags
+-- @param member_tags OSM tags of relation members
+-- @param membercount number of members
+-- @param accept function that takes osm keys and returns true if the feature should be in the table
+-- @param transform function that takes osm keys and returns tags for the tables
+-- @return filter, cols, member_superseded, boundary, polygon, roads
 function admin_area_rel_members (tags, member_tags, member_roles, membercount)
-    return generic_multipolygon_members(tags, member_tags, membercount, accept_admin_area, transform_admin_area)
+    members_superseeded = {}
+    for i = 1, membercount do
+        members_superseeded[i] = 0
+    end
+
+    if (accept_admin_area(tags)) then
+        return 0, transform_admin_area(tags), members_superseeded, 0, 1, 0
+    end
+    return 1, {}, members_superseeded, 0, 0, 0
 end
