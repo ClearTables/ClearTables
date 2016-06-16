@@ -328,8 +328,24 @@
     comment: Height of the building above ground
   - <<: *way_area
 # POIs
+- name: education_point
+  type: point
+  comment: Education facilities mapped as points
+  tagtransform: education.lua
+  tagtransform-node-function: education_nodes
+  tagtransform-way-function: drop_all
+  tagtransform-relation-function: drop_all
+  tagtransform-relation-member-function: drop_all
+  tags:
+  - <<: *name
+  - <<: *names
+  - &education
+    name: education
+    type: text
+    comment: Type of education facility
 - name: education_poly
   type: polygon
+  comment: Education facilities mapped as polygons
   tagtransform: education.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: education_ways
@@ -338,7 +354,5 @@
   tags:
   - <<: *name
   - <<: *names
-  - name: education
-    type: text
-    comment: Type of education facility
+  - <<: *education
   - <<: *way_area

@@ -23,6 +23,10 @@ function transform_education (tags)
     return cols
 end
 
+function education_nodes (tags, num_keys)
+    return generic_node(tags, accept_education, transform_education)
+end
+
 function education_ways (tags, num_keys)
     return generic_polygon_way(tags, accept_education, transform_education)
 end
