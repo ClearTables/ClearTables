@@ -145,8 +145,10 @@
   tags:
   - <<: *name
   - <<: *names
-  - name: class
+  - &road_class
+    name: class
     type: transportation_class
+    comment: Type of road
   - name: ramp
     type: boolean
     comment: If the road is an on- or off-ramp
@@ -180,8 +182,7 @@
   tags:
   - <<: *name
   - <<: *names
-  - name: class
-    type: transportation_class
+  - <<: *road_class
   - name: refs
     type: text[]
   - name: maxspeed
