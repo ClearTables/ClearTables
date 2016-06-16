@@ -74,6 +74,10 @@
   - name: water
     type: text
     comment: Type of water feature
+  - &intermittent
+    name: intermittent
+    type: boolean
+    comment: If the water is intermittent
   - <<: *way_area
 - name: waterways
   type: line
@@ -96,8 +100,7 @@
   - &layer
     name: layer
     type: smallint
-  - name: intermittent
-    type: boolean
+  - <<: *intermittent
 - name: buildings
   type: polygon
   tagtransform: building.lua
