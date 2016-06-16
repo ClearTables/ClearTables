@@ -2,66 +2,16 @@
 #
 #  Paul Norman <penorman@mac.com>
 #  Copyright 2015-2016 Paul Norman, MIT license
-- name: addresses_point
-  type: point
-  comment: Addresses mapped as points
-  tagtransform: address.lua
-  tagtransform-node-function: address_nodes
+
+# Administrative and geographic places
+- name: admin_area
+  type: polygon
+  comment: Administrative boundaries as areas
+  tagtransform: admin.lua
+  tagtransform-node-function: drop_all
   tagtransform-way-function: drop_all
-  tagtransform-relation-function: drop_all
-  tagtransform-relation-member-function: drop_all
-  tags:
-  - &unit
-    name: unit
-    type: text
-    comment: Unit number, if it exists
-  - &housenumber
-    name: housenumber
-    type: text
-    comment: House number
-  - &housename
-    name: housename
-    type: text
-    comment: House name. Not common
-  - &street
-    name: street
-    type: text
-    comment: Street name
-  - &suburb
-    name: suburb
-    type: text
-    comment: Suburb, if in one
-  - &city
-    name: city
-    type: text
-    comment: City, if explicitly indicated
-- name: addresses_poly
-  type: polygon
-  comment: Addresses mapped as polygons
-  tagtransform: address.lua
-  tagtransform-node-function: drop_all
-  tagtransform-way-function: address_ways
-  tagtransform-relation-function: address_rels
-  tagtransform-relation-member-function: address_rel_members
-  tags:
-  - <<: *unit
-  - <<: *housenumber
-  - <<: *housename
-  - <<: *street
-  - <<: *suburb
-  - <<: *city
-  - &way_area
-    name: way_area
-    type: real
-    comment: Area of the feature, in projection units
-- name: water_areas
-  type: polygon
-  comment: Areas which have surface water, not including oceans
-  tagtransform: water.lua
-  tagtransform-node-function: drop_all
-  tagtransform-way-function: water_area_ways
-  tagtransform-relation-function: water_area_rels
-  tagtransform-relation-member-function: water_area_rel_members
+  tagtransform-relation-function: admin_area_rels
+  tagtransform-relation-member-function: admin_area_rel_members
   tags:
   - &name
     name: name
@@ -71,6 +21,65 @@
     name: names
     type: hstore
     comment: Name of the feature in other languages, as lang name pairs
+  - name: level
+    type: smallint
+    comment: Administrative level of the area
+  - &way_area
+    name: way_area
+    type: real
+    comment: Area of the feature, in projection units
+- name: place_point
+  type: point
+  comment: Geographic places
+  tagtransform: place.lua
+  tagtransform-node-function: place_nodes
+  tagtransform-way-function: drop_all
+  tagtransform-relation-function: drop_all
+  tagtransform-relation-member-function: drop_all
+  tags:
+  - <<: *name
+  - <<: *names
+  - name: class
+    type: text
+    comment: Classification of place
+  - name: rank
+    type: place
+    comment: Ranking of place
+  - &population
+    name: population
+    type: integer
+    comment: Population of the place
+- name: place_poly
+  type: polygon
+  comment: Geographic places
+  tagtransform: place.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: place_ways
+  tagtransform-relation-function: place_rels
+  tagtransform-relation-member-function: place_rel_members
+  tags:
+  - <<: *name
+  - <<: *names
+  - name: class
+    type: text
+    comment: Classification of place
+  - name: rank
+    type: place
+    comment: Ranking of place
+  - <<: *population
+  - <<: *way_area
+# Natural type area features
+- name: water_areas
+  type: polygon
+  comment: Areas which have surface water, not including oceans
+  tagtransform: water.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: water_area_ways
+  tagtransform-relation-function: water_area_rels
+  tagtransform-relation-member-function: water_area_rel_members
+  tags:
+  - <<: *name
+  - <<: *names
   - name: water
     type: text
     comment: Type of water feature
@@ -79,6 +88,7 @@
     type: boolean
     comment: If the water is intermittent
   - <<: *way_area
+# Natural type linear features
 - name: waterways
   type: line
   comment: Linear flowing water
@@ -101,40 +111,26 @@
     name: layer
     type: smallint
   - <<: *intermittent
-- name: buildings
-  type: polygon
-  tagtransform: building.lua
+# Transportation
+- name: rail
+  type: line
+  tagtransform: transportation.lua
   tagtransform-node-function: drop_all
-  tagtransform-way-function: building_ways
-  tagtransform-relation-function: building_rels
-  tagtransform-relation-member-function: building_rel_members
+  tagtransform-way-function: rail_ways
+  tagtransform-relation-function: drop_all
+  tagtransform-relation-member-function: drop_all
   tags:
   - <<: *name
   - <<: *names
-  - name: building
-    type: text
-    comment: Type of the building
-  - name: levels
-    type: integer
-    comment: Number of building levels above ground
-  - name: height
-    type: real
-    comment: Height of the building above ground
-  - <<: *way_area
-- name: education_poly
-  type: polygon
-  tagtransform: education.lua
-  tagtransform-node-function: drop_all
-  tagtransform-way-function: education_ways
-  tagtransform-relation-function: education_rels
-  tagtransform-relation-member-function: education_rel_members
-  tags:
-  - <<: *name
-  - <<: *names
-  - name: education
-    type: text
-    comment: Type of education facility
-  - <<: *way_area
+  - name: class
+    type: transportation_class
+    comment: Type of rail
+  - <<: *brunnel
+  - <<: *layer
+  - &z_order
+    name: z_order
+    type: smallint
+    comment: Order of the feature for rendering purposes
 - name: roads
   type: line
   tagtransform: transportation.lua
@@ -168,10 +164,7 @@
     type: access
   - <<: *brunnel
   - <<: *layer
-  - &z_order
-    name: z_order
-    type: smallint
-    comment: Order of the feature for rendering purposes
+  - <<: *z_order
 - name: road_areas
   type: polygon
   tagtransform: transportation.lua
@@ -211,22 +204,7 @@
     type: text
   - name: ref
     type: text
-- name: rail
-  type: line
-  tagtransform: transportation.lua
-  tagtransform-node-function: drop_all
-  tagtransform-way-function: rail_ways
-  tagtransform-relation-function: drop_all
-  tagtransform-relation-member-function: drop_all
-  tags:
-  - <<: *name
-  - <<: *names
-  - name: class
-    type: transportation_class
-    comment: Type of rail
-  - <<: *brunnel
-  - <<: *layer
-  - <<: *z_order
+# Air travel
 - name: airport_point
   type: point
   comment: Airports mapped as points
@@ -279,58 +257,88 @@
   - name: ref
     type: text
     comment: Reference of the feature
-- name: admin_area
-  type: polygon
-  comment: Administrative boundaries as areas
-  tagtransform: admin.lua
-  tagtransform-node-function: drop_all
-  tagtransform-way-function: drop_all
-  tagtransform-relation-function: admin_area_rels
-  tagtransform-relation-member-function: admin_area_rel_members
-  tags:
-  - <<: *name
-  - <<: *names
-  - name: level
-    type: smallint
-    comment: Administrative level of the area
-  - <<: *way_area
-- name: place_point
+# addressing
+- name: addresses_point
   type: point
-  comment: Geographic places
-  tagtransform: place.lua
-  tagtransform-node-function: place_nodes
+  comment: Addresses mapped as points
+  tagtransform: address.lua
+  tagtransform-node-function: address_nodes
   tagtransform-way-function: drop_all
   tagtransform-relation-function: drop_all
   tagtransform-relation-member-function: drop_all
   tags:
-  - <<: *name
-  - <<: *names
-  - name: class
+  - &unit
+    name: unit
     type: text
-    comment: Classification of place
-  - name: rank
-    type: place
-    comment: Ranking of place
-  - &population
-    name: population
-    type: integer
-    comment: Population of the place
-- name: place_poly
+    comment: Unit number, if it exists
+  - &housenumber
+    name: housenumber
+    type: text
+    comment: House number
+  - &housename
+    name: housename
+    type: text
+    comment: House name. Not common
+  - &street
+    name: street
+    type: text
+    comment: Street name
+  - &suburb
+    name: suburb
+    type: text
+    comment: Suburb, if in one
+  - &city
+    name: city
+    type: text
+    comment: City, if explicitly indicated
+- name: addresses_poly
   type: polygon
-  comment: Geographic places
-  tagtransform: place.lua
+  comment: Addresses mapped as polygons
+  tagtransform: address.lua
   tagtransform-node-function: drop_all
-  tagtransform-way-function: place_ways
-  tagtransform-relation-function: place_rels
-  tagtransform-relation-member-function: place_rel_members
+  tagtransform-way-function: address_ways
+  tagtransform-relation-function: address_rels
+  tagtransform-relation-member-function: address_rel_members
+  tags:
+  - <<: *unit
+  - <<: *housenumber
+  - <<: *housename
+  - <<: *street
+  - <<: *suburb
+  - <<: *city
+  - <<: *way_area
+- name: buildings
+  type: polygon
+  tagtransform: building.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: building_ways
+  tagtransform-relation-function: building_rels
+  tagtransform-relation-member-function: building_rel_members
   tags:
   - <<: *name
   - <<: *names
-  - name: class
+  - name: building
     type: text
-    comment: Classification of place
-  - name: rank
-    type: place
-    comment: Ranking of place
-  - <<: *population
+    comment: Type of the building
+  - name: levels
+    type: integer
+    comment: Number of building levels above ground
+  - name: height
+    type: real
+    comment: Height of the building above ground
+  - <<: *way_area
+# POIs
+- name: education_poly
+  type: polygon
+  tagtransform: education.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: education_ways
+  tagtransform-relation-function: education_rels
+  tagtransform-relation-member-function: education_rel_members
+  tags:
+  - <<: *name
+  - <<: *names
+  - name: education
+    type: text
+    comment: Type of education facility
   - <<: *way_area
