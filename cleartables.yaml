@@ -93,8 +93,9 @@
     name: brunnel
     type: brunnel
     comment: Bridge, tunnel, or neither
-  - name: layer
-    type: integer
+  - &layer
+    name: layer
+    type: smallint
   - name: intermittent
     type: boolean
 - name: buildings
@@ -161,8 +162,7 @@
   - name: bicycle_access
     type: access
   - <<: *brunnel
-  - name: layer
-    type: integer
+  - <<: *layer
   - &z_order
     name: z_order
     type: smallint
@@ -189,8 +189,7 @@
   - name: bicycle_access
     type: access
   - <<: *brunnel
-  - name: layer
-    type: integer
+  - <<: *layer
   - <<: *z_order
   - <<: *way_area
 - name: road_points
@@ -221,8 +220,7 @@
   - name: class
     type: transportation_class
   - <<: *brunnel
-  - name: layer
-    type: integer
+  - <<: *layer
   - <<: *z_order
 - name: airport_point
   type: point
