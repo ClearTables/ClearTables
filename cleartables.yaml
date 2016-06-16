@@ -223,6 +223,7 @@
   - <<: *names
   - name: class
     type: transportation_class
+    comment: Type of rail
   - <<: *brunnel
   - <<: *layer
   - <<: *z_order
