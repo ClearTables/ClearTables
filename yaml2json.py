@@ -1,3 +1,7 @@
 #!/usr/bin/env python
 import sys, yaml, json
-json.dump(yaml.safe_load(sys.stdin), sys.stdout, indent=2, separators=(',', ': '))
+try:
+    json.dump(yaml.safe_load(sys.stdin), sys.stdout, indent=2, separators=(',', ': '))
+except yaml.YAMLError, e:
+    sys.stderr.write("YAML error:\n%s\n" % e)
+    sys.exit(1)
