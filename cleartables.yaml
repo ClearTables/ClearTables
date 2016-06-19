@@ -49,7 +49,7 @@
     name: population
     type: integer
     comment: Population of the place
-- name: place_poly
+- name: place_polygon
   type: polygon
   comment: Geographic places
   tagtransform: place.lua
@@ -226,7 +226,7 @@
     name: iaco
     type: char(4)
     comment: Four-digit code identifying an airport
-- name: airport_poly
+- name: airport_polygon
   type: polygon
   comment: Airports mapped as polygons
   tagtransform: aero.lua
@@ -291,7 +291,7 @@
     name: city
     type: text
     comment: City, if explicitly indicated
-- name: addresses_poly
+- name: addresses_polygon
   type: polygon
   comment: Addresses mapped as polygons
   tagtransform: address.lua
@@ -343,7 +343,7 @@
     name: education
     type: text
     comment: Type of education facility
-- name: education_poly
+- name: education_polygon
   type: polygon
   comment: Education facilities mapped as polygons
   tagtransform: education.lua
