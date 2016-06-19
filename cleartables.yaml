@@ -29,6 +29,18 @@
     name: way_area
     type: real
     comment: Area of the feature, in projection units
+- name: admin_line
+  type: line
+  comment: Administrative boundaries as lines
+  tagtransform: admin.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: drop_all
+  tagtransform-relation-function: admin_line_rels
+  tagtransform-relation-member-function: admin_line_rel_members
+  tags:
+  - <<: *name
+  - <<: *names
+  - <<: *admin_level
 - name: place_point
   type: point
   comment: Geographic places

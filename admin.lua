@@ -51,3 +51,30 @@ function admin_area_rel_members (tags, member_tags, member_roles, membercount)
     end
     return 1, {}, members_superseeded, 0, 0, 0
 end
+
+function admin_line_rels (tags, num_keys)
+    if accept_admin_area(tags) then
+        print("accepted rel with name="..tags.name)
+        return 0, tags
+    end
+    return 1, {}
+end
+
+-- Administrative line handling
+-- @param tags OSM tags
+-- @param member_tags OSM tags of relation members
+-- @param membercount number of members
+-- @param accept function that takes osm keys and returns true if the feature should be in the table
+-- @param transform function that takes osm keys and returns tags for the tables
+-- @return filter, cols, member_superseded, boundary, polygon, roads
+function admin_line_rel_members (tags, member_tags, member_roles, membercount)
+    members_superseeded = {}
+    for i = 1, membercount do
+        members_superseeded[i] = 0
+    end
+    if (accept_admin_area(tags)) then
+        print("accepted rel members with name="..tags.name)
+        return 0, transform_admin_area(tags), members_superseeded, 0, 0, 0
+    end
+    return 1, {}, members_superseeded, 0, 0, 0
+end
