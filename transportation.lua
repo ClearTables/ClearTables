@@ -74,8 +74,10 @@ function speed (v)
     if v == nil then
         return nil
     end
+    -- speeds in km/h
     if string.find(v, "^%d+%.?%d*$") then
-        return v
+        -- Cap speed at 1000 km/h
+        return v and tonumber(v) < 1000 and v or nil
     end
     if string.find(v, "mph") then
         return tostring(tonumber(string.match(v, "^(%d+.?%d*) ?mph"))*1.609)
