@@ -2,7 +2,7 @@
 This file is part of ClearTables
 
 @author Paul Norman <penorman@mac.com>
-@copyright 2015 Paul Norman, MIT license
+@copyright 2015-2016 Paul Norman, MIT license
 ]]--
 
 require "common"
