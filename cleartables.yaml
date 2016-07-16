@@ -328,6 +328,26 @@
     comment: Height of the building above ground
   - <<: *way_area
 # POIs
+- name: landform_point
+  # Should this be a _point table without a _polygon?
+  type: point
+  comment: Natural landforms
+  tagtransform: landform.lua
+  tagtransform-node-function: landform_nodes
+  tagtransform-way-function: drop_all
+  tagtransform-relation-function: drop_all
+  tagtransform-relation-member-function: drop_all
+  tags:
+  - <<: *name
+  - <<: *names
+  - &landform
+    name: landform
+    type: text
+    comment: Type of natural feature
+  - &elevation
+    name: elevation
+    type: real
+    comment: Height above mean sea level in metres
 - name: education_point
   type: point
   comment: Education facilities mapped as points
