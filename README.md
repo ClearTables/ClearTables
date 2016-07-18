@@ -6,7 +6,7 @@ ClearTables is currently under rapid development, and schema changes will freque
 
 ## Requirements ##
 
-- [osm2pgsql 0.88.0](https://github.com/openstreetmap/osm2pgsql) or later. The multi-backend is used, which 0.86.0 does not support.
+- [osm2pgsql 0.90.1](https://github.com/openstreetmap/osm2pgsql) or later. Early versions after 0.86.0 may still work with bugs.
 - [Lua](http://www.lua.org/), required for both osm2pgsql and testing the transforms
 - [PostgreSQL](http://www.postgresql.org/) 9.1 or later
 - [PostGIS](http://postgis.net/) 2.0 or later
