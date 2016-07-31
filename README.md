@@ -56,6 +56,18 @@ there's only one ref, use SQL like `array_to_string(refs, E'\n')` or
 `array_to_string(refs, ';')`. The latter will reform the ref tag as it was in
 the original data.
 
+### Why no support for osm2pgsql `--hstore`? ###
+
+ClearTables uses the hstore type but doesn't support `--hstore`.
+
+1. The goal of ClearTables is to abstract away OSM tagging. Copying all the tags to the output is contrary to this.
+
+2. Copying all tags is technically possible, but wouldn't be done with `--hstore`, instead it would be done similar to the names column. The `--hstore` option doesn't work well when using custom column names which may collide with OSM tags.
+
+3. With tables for different types of features fine-grained selection of appropriate columns is possible and hstore isn't necessary.
+
+4. Values within a hstore are untyped which is contrary to the principle of using appropriate types.
+
 ## Contributing ##
 
 Bug reports, suggestions and (especially!) pull requests are very welcome on the Github issue tracker. Please check the tracker to see if your issue is already known, and be nice. For 
