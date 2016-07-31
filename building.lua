@@ -23,9 +23,7 @@ function transform_building (tags)
     if tags["building:levels"] and string.find(tags["building:levels"], "^%d+$") and tonumber(tags["building:levels"]) < 10000 then
         cols.levels = tostring(tonumber(tags["building:levels"]))
     end
-    if tags["height"] and string.find(tags["height"], "^%d+%.?%d*$") and tonumber(tags["height"]) < 10000 then
-        cols.height = tostring(tonumber(tags["height"]))
-    end
+    cols.height = height(tags["height"])
     return cols
 end
 

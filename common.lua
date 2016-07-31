@@ -82,6 +82,13 @@ function access (v)
     ) or nil
 end
 
+--- Normalize height tag values
+-- @param h Height tag value
+-- @return Height in meters as a string
+function height (h)
+    return h ~= nil and string.find(h, "^%d+%.?%d*$") and tonumber(h) < 31000 and tostring(tonumber(h)) or nil
+end
+
 --- Drops all objects
 -- @return osm2pgsql return to disregard an object as uninteresting
 function drop_all (...)

@@ -22,8 +22,3 @@ assert(transform_landform({natural="peak"}).landform == "peak", "test failed: pe
 assert(transform_landform({name="foo"}).name == "foo", "test failed: name")
 assert(transform_landform({["name:en"]="foo"}).names == '"en"=>"foo"', "test failed: names")
 assert(transform_landform({["ele"]="5"}).elevation == "5", "test failed: ele")
-assert(transform_landform({["ele"]="56"}).elevation == "56", "test failed: multi-digit ele")
-assert(transform_landform({["ele"]="foo"}).elevation == nil, "test failed: ele text")
-assert(transform_landform({["ele"]="5.5"}).elevation == "5.5", "test failed: ele fractional")
-assert(transform_landform({["ele"]="10a5"}).elevation == nil, "test failed: ele num char num")
-assert(transform_landform({["ele"]="10000000000"}).elevation == nil, "test failed: ele overflow")

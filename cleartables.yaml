@@ -217,6 +217,23 @@
     type: text
   - name: ref
     type: text
+# Barriers
+- name: barrier_line
+  type: line
+  comment: Barriers and other obstructions
+  tagtransform: barrier.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: barrier_line_ways
+  tagtransform-relation-function: drop_all
+  tagtransform-relation-member-function: drop_all
+  tags:
+  - name: barrier
+    type: text
+    comment: Type of barrier
+  - &height
+    name: height
+    type: real
+    comment: Height above ground in meters
 # Air travel
 - name: airport_point
   type: point
@@ -336,9 +353,7 @@
   - name: levels
     type: integer
     comment: Number of building levels above ground
-  - name: height
-    type: real
-    comment: Height of the building above ground
+  - <<: *height
   - <<: *way_area
 # POIs
 - name: landform_point
