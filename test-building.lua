@@ -38,8 +38,3 @@ assert(transform_building({["building:levels"]="bar"}).levels == nil, "test fail
 assert(transform_building({["building:levels"]="1e6"}).levels == nil, "test failed: levels number with text")
 assert(transform_building({["building:levels"]="10000000000"}).levels == nil, "test failed: levels overflow")
 assert(transform_building({["height"]="5"}).height == "5", "test failed: height")
-assert(transform_building({["height"]="56"}).height == "56", "test failed: multi-digit height")
-assert(transform_building({["height"]="foo"}).height == nil, "test failed: height text")
-assert(transform_building({["height"]="5.5"}).height == "5.5", "test failed: height fractional")
-assert(transform_building({["height"]="10a5"}).height == nil, "test failed: height num char num")
-assert(transform_building({["height"]="10000000000"}).height == nil, "test failed: height overflow")

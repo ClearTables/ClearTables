@@ -65,6 +65,15 @@ assert(access("designated") == "yes", "test failed: designated")
 assert(access("destination") == "partial", "test failed: destination")
 assert(access("customers") == "partial", "test failed: customers")
 
+print("TESTING: height")
+assert(height(nil) == nil, "test failed: nil")
+assert(height("foo") == nil, "test failed: unknown")
+assert(height("5") == "5", "test failed: 1 digit")
+assert(height("56") == "56", "test failed: multi-digit")
+assert(height("5.6") == "5.6", "test failed: decimal")
+assert(height("5e6") == nil, "test failed: number with text")
+assert(height("10000000000") == nil, "test failed: overflow")
+
 print("TESTING: drop_all")
 assert(deepcompare({drop_all()}, {1, {}}), "test failed: drop_all()")
 

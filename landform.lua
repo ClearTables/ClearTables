@@ -19,9 +19,7 @@ function transform_landform (tags)
     cols.name = tags["name"]
     cols.names = names(tags)
     cols.landform = tags["natural"]
-    if tags["ele"] and string.find(tags["ele"], "^%d+%.?%d*$") and tonumber(tags["ele"]) < 100000 then
-        cols.elevation = tostring(tonumber(tags["ele"]))
-    end
+    cols.elevation = height(tags["ele"])
     return cols
 end
 
