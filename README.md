@@ -38,7 +38,7 @@ These are still a bit vague, and might be split into principles and practices
 
 * Use boolean for yes/no values
 
-* Use enum types where there's a defined list of possibilities
+* Use enum types where there's a limited list of possibilities independent of data to be included, or a well defined ordering
 
 ## FAQ ##
 
