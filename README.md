@@ -61,18 +61,21 @@ the original data.
 Bug reports, suggestions and (especially!) pull requests are very welcome on the Github issue tracker. Please check the tracker to see if your issue is already known, and be nice. For 
 questions, please use IRC (irc.oftc.net or http://irc.osm.org, channel #osm-dev) and http://help.osm.org.
 
-## Code style ##
+### Code style ##
 
 * 2sp for YAML, 4sp for Lua
 * `tags` are OSM tags, `cols` are database columns
 * Space after function name when defining a function, e.g. ``function f (args)`
 * Tests for all Lua functions except ones which are only [tail calls](http://www.lua.org/pil/6.3.html)
 
-### Lua tricks ###
-
-* Tag acceptance functions need to exit quickly in the common case of possible match
+### Lua guidelines ###
 
 * Always set columns to strings, even if they're only true/false. It's unwise to count on anything else making it from Lua to C to C++ to PostgreSQL. This lets PostgreSQL do the only coversion.
+* Test particular columns of a transform function instead of the entire output table, e.g. `assert(transform({foo="bar"}).baz == "qux")` instead of `assert(deepcompare(transform({foo="bar"}), {baz="qux"}))`.
+
+### Getting started ###
+
+Issues tagged with [new column](https://github.com/ClearTables/ClearTables/issues?utf8=%E2%9C%93&q=is%3Aopen%20is%3Aissue%20label%3A%22new%20column%22%20) are often good ones to get started with. Issues tagged [experimental](https://github.com/ClearTables/ClearTables/issues?q=is%3Aopen+is%3Aissue+label%3Aexperimental) are focused on researching new best practices and state of the art.
 
 ## Similar projects ##
 
