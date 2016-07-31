@@ -54,7 +54,6 @@ end
 
 function admin_line_rels (tags, num_keys)
     if accept_admin_area(tags) then
-        print("accepted rel with name="..tags.name)
         return 0, tags
     end
     return 1, {}
@@ -73,7 +72,6 @@ function admin_line_rel_members (tags, member_tags, member_roles, membercount)
         members_superseeded[i] = 0
     end
     if (accept_admin_area(tags)) then
-        print("accepted rel members with name="..tags.name)
         return 0, transform_admin_area(tags), members_superseeded, 0, 0, 0
     end
     return 1, {}, members_superseeded, 0, 0, 0
