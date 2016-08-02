@@ -8,17 +8,23 @@ This file is part of ClearTables
 require "common"
 
 function accept_landform_point (tags)
-    return (tags["natural"] == "peak" or
-            tags["natural"] == "saddle" or
-            tags["natural"] == "volcano" or
-            tags["natural"] == "cave_entrance") -- cliff?
+    return tags["natural"] == "peak" or
+           tags["natural"] == "saddle" or
+           tags["natural"] == "volcano" or
+           tags["natural"] == "cave_entrance" or
+           tags["natural"] == "cliff"
 end
 
 function transform_landform_point (tags)
     local cols = {}
     cols.name = tags["name"]
     cols.names = names(tags)
-    cols.landform = tags["natural"]
+    cols.landform = tags["natural"] == "peak" and "peak" or
+                    tags["natural"] == "saddle" and "saddle" or
+                    tags["natural"] == "volcano" and "volcano" or
+                    tags["natural"] == "cave_entrance" and "cave_entrance" or
+                    tags["natural"] == "cliff" and "rock_spire" or
+                    nil
     cols.elevation = height(tags["ele"])
     return cols
 end
