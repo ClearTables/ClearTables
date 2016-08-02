@@ -7,14 +7,14 @@ This file is part of ClearTables
 
 require "common"
 
-function accept_landform (tags)
+function accept_landform_point (tags)
     return (tags["natural"] == "peak" or
             tags["natural"] == "saddle" or
             tags["natural"] == "volcano" or
             tags["natural"] == "cave_entrance") -- cliff?
 end
 
-function transform_landform (tags)
+function transform_landform_point (tags)
     local cols = {}
     cols.name = tags["name"]
     cols.names = names(tags)
@@ -45,7 +45,7 @@ function transform_landform_line (tags)
 end
 
 function landform_nodes (tags, num_keys)
-    return generic_node(tags, accept_landform, transform_landform)
+    return generic_node(tags, accept_landform_point, transform_landform_point)
 end
 
 function landform_ways (tags, num_keys)
