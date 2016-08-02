@@ -15,9 +15,9 @@ function transform_building (tags)
     local cols = {}
     -- Prefer the information that it's a railway station or aeroway terminal to the building tag
     -- from accept_building we know railway=station or aeroway=terminal or non-no building
-    cols.building = tags["railway"] == "station" and "railway_station"
-        or tags["aeroway"] == "terminal" and "aeroway_terminal"
-        or tags["building"]
+    cols.building = tags["railway"] == "station" and "railway_station" or
+                    tags["aeroway"] == "terminal" and "aeroway_terminal" or
+                    tags["building"]
     cols.name = tags["name"]
     cols.names = names(tags)
     if tags["building:levels"] and string.find(tags["building:levels"], "^%d+$") and tonumber(tags["building:levels"]) < 10000 then

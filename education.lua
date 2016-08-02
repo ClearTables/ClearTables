@@ -8,11 +8,11 @@ This file is part of ClearTables
 require "common"
 
 function accept_education (tags)
-    return (tags["amenity"] == "school" or
-            tags["amenity"] == "university" or
-            tags["amenity"] == "kindergarten" or
-            tags["amenity"] == "college" or
-            tags["amenity"] == "library")
+    return tags["amenity"] == "school" or
+           tags["amenity"] == "university" or
+           tags["amenity"] == "kindergarten" or
+           tags["amenity"] == "college" or
+           tags["amenity"] == "library"
 end
 
 function transform_education (tags)
