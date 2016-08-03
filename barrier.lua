@@ -8,7 +8,10 @@ This file is part of ClearTables
 require "common"
 
 function accept_barrier_line (tags)
-    return tags["barrier"] == "fence" or tags["barrier"] == "wall" or tags["barrier"] == "hedge"
+    return tags["barrier"] == "fence" or
+           tags["barrier"] == "wall" or
+           tags["barrier"] == "hedge" or
+           tags["barrier"] == "retaining_wall"
 end
 
 function transform_barrier_line (tags)
