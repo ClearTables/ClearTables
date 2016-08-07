@@ -10,38 +10,35 @@ Code for the transportation layers. These are some of the most complex. There's 
 
  - Separate tables are needed for roads and rail
  - A way might appear in both if it's both a road and rail
- - z_order is consistent across highways and rail, allowing a UNION ALL to be done
  - Non-moterized lines are processed to avoid highway=path insanity
 
 ]]--
 require "common"
 
 local highway = {
-    motorway        = {z=36, class="motorway", oneway="yes", motor_access="yes", bicycle="no", ramp="false"},
-    trunk           = {z=35, class="trunk", motor_access="yes", ramp="false"},
-    primary         = {z=34, class="primary", motor_access="yes", bicycle="yes", ramp="false"},
-    secondary       = {z=33, class="secondary", motor_access="yes", bicycle="yes", ramp="false"},
-    tertiary        = {z=32, class="tertiary", motor_access="yes", bicycle="yes", ramp="false"},
-    unclassified    = {z=31, class="minor", motor_access="yes", bicycle="yes", ramp="false"},
-    residential     = {z=31, class="minor", motor_access="yes", bicycle="yes", ramp="false"},
-    road            = {z=31, class="unknown", motor_access="yes"}, -- Should this be a class of nil?
-    living_street   = {z=30, class="minor", motor_access="yes"},
+    motorway        = {class="motorway", oneway="yes", motor_access="yes", bicycle="no", ramp="false"},
+    trunk           = {class="trunk", motor_access="yes", ramp="false"},
+    primary         = {class="primary", motor_access="yes", bicycle="yes", ramp="false"},
+    secondary       = {class="secondary", motor_access="yes", bicycle="yes", ramp="false"},
+    tertiary        = {class="tertiary", motor_access="yes", bicycle="yes", ramp="false"},
+    unclassified    = {class="minor", motor_access="yes", bicycle="yes", ramp="false"},
+    residential     = {class="minor", motor_access="yes", bicycle="yes", ramp="false"},
+    road            = {class="unknown", motor_access="yes"}, -- Should this be a class of nil?
+    living_street   = {class="minor", motor_access="yes"},
 
-    motorway_link   = {z=26, class="motorway", oneway="yes", motor_access="yes", ramp="true"},
-    trunk_link      = {z=25, class="trunk", oneway="yes", motor_access="yes", ramp="true"},
-    primary_link    = {z=24, class="primary", oneway="yes", motor_access="yes", ramp="true"},
-    secondary_link  = {z=23, class="secondary", oneway="yes", motor_access="yes", ramp="true"},
-    tertiary_link   = {z=22, class="tertiary", oneway="yes", motor_access="yes", ramp="true"},
+    motorway_link   = {class="motorway", oneway="yes", motor_access="yes", ramp="true"},
+    trunk_link      = {class="trunk", oneway="yes", motor_access="yes", ramp="true"},
+    primary_link    = {class="primary", oneway="yes", motor_access="yes", ramp="true"},
+    secondary_link  = {class="secondary", oneway="yes", motor_access="yes", ramp="true"},
+    tertiary_link   = {class="tertiary", oneway="yes", motor_access="yes", ramp="true"},
 
-    service         = {z=15, class="service", motor_access="yes", bicycle="yes"},
-    track           = {z=12, class="track"},
-    pedestrian      = {z=11, class="path", motor_access="no"},
-    path            = {z=10, class="path", motor_access="no"},
-    footway         = {z=10, class="path", motor_access="no"},
-    cycleway        = {z=10, class="path", motor_access="no", bicycle="yes"},
-    steps           = {z=10, class="path", motor_access="no"},
-
-    proposed        = {z=1}
+    service         = {class="service", motor_access="yes", bicycle="yes"},
+    track           = {class="track"},
+    pedestrian      = {class="path", motor_access="no"},
+    path            = {class="path", motor_access="no"},
+    footway         = {class="path", motor_access="no"},
+    cycleway        = {class="path", motor_access="no", bicycle="yes"},
+    steps           = {class="path", motor_access="no"}
 }
 
 local railway = {
@@ -143,7 +140,6 @@ function transform_road (tags)
         cols.maxspeed = speed(tags["maxspeed"])
         cols.brunnel = brunnel(tags)
         cols.layer = layer(tags["layer"])
-        cols.z_order = highway[tags["highway"]]["z"] or 0
     end
     return cols
 end
@@ -156,7 +152,6 @@ function transform_rail (tags)
         cols.class = railway[tags["railway"]]["class"]
         cols.brunnel = brunnel(tags)
         cols.layer = layer(tags["layer"])
-        cols.z_order = railway[tags["railway"]]["z"] or 0
     end
     return cols
 end
