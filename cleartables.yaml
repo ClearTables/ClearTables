@@ -140,10 +140,6 @@
     comment: Type of rail
   - <<: *brunnel
   - <<: *layer
-  - &z_order
-    name: z_order
-    type: smallint
-    comment: Order of the feature for rendering purposes
 - name: roads
   type: line
   tagtransform: transportation.lua
@@ -177,7 +173,6 @@
     type: access
   - <<: *brunnel
   - <<: *layer
-  - <<: *z_order
 - name: road_areas
   type: polygon
   tagtransform: transportation.lua
@@ -200,7 +195,6 @@
     type: access
   - <<: *brunnel
   - <<: *layer
-  - <<: *z_order
   - <<: *way_area
 - name: road_points
   type: point
