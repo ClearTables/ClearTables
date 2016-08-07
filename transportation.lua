@@ -23,7 +23,7 @@ local highway = {
     tertiary        = {class="tertiary", motor_access="yes", bicycle="yes", ramp="false"},
     unclassified    = {class="minor", motor_access="yes", bicycle="yes", ramp="false"},
     residential     = {class="minor", motor_access="yes", bicycle="yes", ramp="false"},
-    road            = {class="unknown", motor_access="yes"}, -- Should this be a class of nil?
+    road            = {class="unknown", motor_access="yes"},
     living_street   = {class="minor", motor_access="yes"},
 
     motorway_link   = {class="motorway", oneway="yes", motor_access="yes", ramp="true"},
