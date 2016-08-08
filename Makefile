@@ -20,7 +20,9 @@ find_lua = \
 
 check:
 	$(find_lua) \
+	$$lua test-util.lua && \
 	$$lua test-common.lua && \
+	$$lua test-generic.lua && \
 	$$lua test-water.lua && \
 	$$lua test-building.lua && \
 	$$lua test-address.lua && \
