@@ -91,7 +91,7 @@ Issues tagged with [new column](https://github.com/ClearTables/ClearTables/issue
 
 ## Similar projects ##
 
-* [GeoFabrik Shapefiles](http://www.geofabrik.de/data/shapefiles.html)
+* [GeoFabrik Shapefiles](http://www.geofabrik.de/data/shapefiles.html) in both their [free schema](http://download.geofabrik.de/osm-data-in-gis-formats-free.pdf) and [commercially produced schema](http://www.geofabrik.de/data/geofabrik-osm-gis-standard-0.7.pdf)
 * [CartoDB OSM POIs](https://github.com/CartoDB/cartodb-osm-pois)
 
 ## Additional Reading ##
