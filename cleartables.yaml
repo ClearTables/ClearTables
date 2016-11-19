@@ -117,6 +117,18 @@
     type: text
     comment: Type of wetland
   - <<: *way_area
+- name: wood_area
+  type: polygon
+  comment: Wooded areas
+  tagtransform: wood.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: wood_area_ways
+  tagtransform-relation-function: wood_area_rels
+  tagtransform-relation-member-function: wood_area_rel_members
+  tags:
+  - <<: *name
+  - <<: *names
+  - <<: *way_area
 # Natural type linear features
 - name: waterways
   type: line
