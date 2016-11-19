@@ -80,6 +80,10 @@ questions, please use IRC (irc.oftc.net or http://irc.osm.org, channel #osm-dev)
 * Space after function name when defining a function, e.g. ``function f (args)``
 * Tests for all Lua functions except ones which are only [tail calls](http://www.lua.org/pil/6.3.html)
 
+### Table names ###
+* Use `_polygon` and `_point` suffix when there will be two tables holding the same type of object represented differently (e.g. most POIs)
+* Use `_area` when there isn't a corresponding `_point` table for the same object, but there is another table for points or lines of a similar class but different objects (e.g. `wood_areas` for forests and `wood_line` for rows of trees)
+
 ### Lua guidelines ###
 
 * Always set columns to strings, even if they're only true/false. It's unwise to count on anything else making it from Lua to C to C++ to PostgreSQL. This lets PostgreSQL do the only coversion.
