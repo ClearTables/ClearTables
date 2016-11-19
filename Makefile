@@ -24,6 +24,7 @@ check:
 	$$lua test-common.lua && \
 	$$lua test-generic.lua && \
 	$$lua test-water.lua && \
+	$$lua test-wetland.lua && \
 	$$lua test-building.lua && \
 	$$lua test-address.lua && \
 	$$lua test-transportation.lua && \
