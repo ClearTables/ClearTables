@@ -77,7 +77,7 @@ questions, please use IRC (irc.oftc.net or http://irc.osm.org, channel #osm-dev)
 
 * 2sp for YAML, 4sp for Lua
 * `tags` are OSM tags, `cols` are database columns
-* Space after function name when defining a function, e.g. ``function f (args)`
+* Space after function name when defining a function, e.g. ``function f (args)``
 * Tests for all Lua functions except ones which are only [tail calls](http://www.lua.org/pil/6.3.html)
 
 ### Lua guidelines ###
