@@ -11,13 +11,21 @@ print("generic.lua tests")
 
 print("TESTING: isarea")
 -- Handling of area tag alone
-assert(isarea({area = "yes"}),       "test failed: isarea(area=yes)")
-assert(not isarea({area = "no"}),        "test failed: isarea(area=no)")
-assert(not isarea({area = "foo"}),       "test failed: isarea(area=foo)")
+assert(isarea({area = "yes"}),       "test failed: area=yes")
+assert(not isarea({area = "no"}),        "test failed: area=no")
+assert(not isarea({area = "foo"}),       "test failed: area=foo")
+assert(not isarea({foo = "bar"}), "test failed: random tag")
 
 -- Area tag overriding other tags
-assert(not isarea({natural = "water", area = "no"}),  "test failed: isarea(natural=water,area=no)")
-assert(isarea({natural = "water"}),  "test failed: isarea(natural=water)")
+assert(not isarea({natural = "water", area = "no"}),  "test failed: area override unconditional keys")
+
+-- Unconditional keys
+assert(isarea({natural = "water"}),  "test failed: unconditional key")
+
+-- polygon exception tags
+assert(isarea({waterway = "riverbank"}), "test failed: waterway=riverbank")
+assert(not isarea({waterway = "river"}), "test failed: waterway=river")
+
 
 print("TESTING: drop_all")
 assert(deepcompare({drop_all()}, {1, {}}), "test failed: drop_all()")

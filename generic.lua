@@ -7,7 +7,14 @@ This file is part of ClearTables
 
 --- Tags which are always polygons
 -- TODO: sort by frequency
-local unconditional_polygon_keys = {'natural', 'building'}
+local unconditional_polygon_keys = {'natural', 'building','amenity'}
+
+--- Tags where the key is normally a linestring, but these are exceptions
+
+local polygon_exceptions = {
+    waterway = {riverbank = true}
+}
+
 
 -- TODO: Conditional polygon keys (e.g. waterway=riverbank)
 
@@ -23,6 +30,11 @@ function isarea (tags)
     for i,k in ipairs(unconditional_polygon_keys) do
         if tags[k] then
             return true
+        end
+    end
+    for k,v in pairs(polygon_exceptions) do
+        if tags[k] then
+            return v[tags[k]]
         end
     end
 end
