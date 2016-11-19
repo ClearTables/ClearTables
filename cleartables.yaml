@@ -84,7 +84,7 @@
 # Natural type area features
 - name: water_areas
   type: polygon
-  comment: Areas which have surface water, not including oceans
+  comment: Areas of open water, not including oceans
   tagtransform: water.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: water_area_ways
@@ -100,6 +100,22 @@
     name: intermittent
     type: boolean
     comment: If the water is intermittent
+  - <<: *way_area
+- name: wetland_areas
+  type: polygon
+  comment: Wetlands and other areas with waterlogged ground
+  tagtransform: wetland.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: wetland_area_ways
+  tagtransform-relation-function: wetland_area_rels
+  tagtransform-relation-member-function: wetland_area_rel_members
+  tags:
+  - <<: *name
+  - <<: *names
+  - &wetland
+    name: wetland
+    type: text
+    comment: Type of wetland
   - <<: *way_area
 # Natural type linear features
 - name: waterways
