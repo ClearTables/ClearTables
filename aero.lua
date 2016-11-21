@@ -11,8 +11,13 @@ function accept_airport (tags)
     return tags["aeroway"] and (tags["aeroway"] == "aerodrome" or tags["aeroway"] == "heliport")
 end
 
-function accept_aeroway (tags)
+function accept_aeroway_line (tags)
     return tags["aeroway"] and (tags["aeroway"] == "taxiway" or tags["aeroway"] == "runway")
+end
+
+function accept_aeroway_area (tags)
+    return tags["aeroway"] and (tags["aeroway"] == "apron" or tags["aeroway"] == "helipad"
+                                or tags["aeroway"] == "runway" or tags["aeroway"] == "taxiway")
 end
 
 function transform_airport(tags)
@@ -26,9 +31,15 @@ function transform_airport(tags)
     return cols
 end
 
-function transform_aeroway(tags)
+function transform_aeroway_line(tags)
     local cols = {}
     cols.ref = tags["ref"]
+    cols.aeroway =  tags["aeroway"]
+    return cols
+end
+
+function transform_aeroway_area(tags)
+    local cols = {}
     cols.aeroway =  tags["aeroway"]
     return cols
 end
@@ -52,6 +63,22 @@ function airport_rel_members (tags, member_tags, member_roles, membercount)
     return generic_multipolygon_members(tags, member_tags, membercount, accept_airport, transform_airport)
 end
 
-function aeroway_ways (tags, num_keys)
-    return generic_line_way(tags, accept_aeroway, transform_aeroway)
+function aeroway_line_ways (tags, num_keys)
+    return generic_line_way(tags, accept_aeroway_line, transform_aeroway_line)
+end
+
+
+function aeroway_area_ways (tags, num_keys)
+    return generic_polygon_way(tags, accept_aeroway_area, transform_aeroway_area)
+end
+
+function airport_area_rels (tags, num_keys)
+    if (tags["type"] == "multipolygon" and accept_aeroway_area(tags)) then
+        return 0, tags
+    end
+    return 1, {}
+end
+
+function airport_area_rel_members (tags, member_tags, member_roles, membercount)
+    return generic_multipolygon_members(tags, member_tags, membercount, accept_aeroway_area, transform_aeroway_area)
 end
