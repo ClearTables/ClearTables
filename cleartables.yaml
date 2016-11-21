@@ -81,6 +81,22 @@
     comment: Ranking of place
   - <<: *population
   - <<: *way_area
+# Protected areas
+- name: protected_area
+  type: polygon
+  comment: Protected parks and areas
+  tagtransform: protected.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: protected_ways
+  tagtransform-relation-function: protected_rels
+  tagtransform-relation-member-function: protected_rel_members
+  tags:
+  - <<: *name
+  - <<: *names
+  - name: class
+    type: text
+    comment: Classification of protected area
+  - <<: *way_area
 # Natural type area features
 - name: water_areas
   type: polygon
