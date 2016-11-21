@@ -76,8 +76,8 @@ function speed (v)
         -- Cap speed at 1000 km/h
         return v and tonumber(v) < 1000 and v or nil
     end
-    if string.find(v, "^(%d+.?%d*) ?mph$") then
-        return tostring(tonumber(string.match(v, "^(%d+.?%d*) ?mph$"))*1.609)
+    if string.find(v, "^(%d+%.?%d*) ?mph$") then
+        return tostring(tonumber(string.match(v, "^(%d+%.?%d*) ?mph$"))*1.609)
     end
 
     if regional_maxspeed[v] then
