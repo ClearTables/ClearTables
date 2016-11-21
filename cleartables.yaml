@@ -310,18 +310,30 @@
   - <<: *iata
   - <<: *iaco
   - <<: *way_area
+- name: aeroway_area
+  type: polygon
+  comment: Airport-related area features
+  tagtransform: aero.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: aeroway_area_ways
+  tagtransform-relation-function: airport_area_rels
+  tagtransform-relation-member-function: airport_area_rel_members
+  tags:
+  - &aeroway
+    name: aeroway
+    type: text
+    comment: Type of aeroway feature
+  - <<: *way_area
 - name: aeroway_line
   type: line
   comment: Airport-related linear features
   tagtransform: aero.lua
   tagtransform-node-function: drop_all
-  tagtransform-way-function: aeroway_ways
+  tagtransform-way-function: aeroway_line_ways
   tagtransform-relation-function: drop_all
   tagtransform-relation-member-function: drop_all
   tags:
-  - name: aeroway
-    type: text
-    comment: Type of aeroway feature
+  - <<: *aeroway
   - name: ref
     type: text
     comment: Reference of the feature
