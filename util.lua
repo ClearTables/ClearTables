@@ -25,7 +25,7 @@ end
 
 --- Normalizes a tag value to true/false string
 -- Typical usage would be on a tag like bridge, tunnel, or shelter which are expected
--- to be yes, no, or unset, but not a tag like oneway which could be 
+-- to be yes, no, or unset, but not a tag like oneway which could be
 -- yes, no, reverse, or unset.
 -- @param v The tag value
 -- @return The string true or false, or nil, which is turned into a boolean by PostgreSQL
@@ -40,7 +40,7 @@ function split_list (list, delim)
     delim = delim or ','
     -- Escape any quotes and then turn ";" into ",", also quoting each array value
     if list ~= nil then
-        local inner = string.gsub(string.gsub(list, '"', '\\"'), ';', '","')
+        local inner = string.gsub(string.gsub(string.gsub(list,'\\','\\\\'), '"', '\\"'), ';', '","')
         return '{"'..inner..'"}'
     end
 end
@@ -52,7 +52,7 @@ function hstore (table)
     if table ~= nil then
         local s = ''
         for k,v in pairs(table) do
-            s = s..',"'..string.gsub(k,'"', '\\"')..'"=>"'..string.gsub(v,'"', '\\"')..'"'
+            s = s..',"'..string.gsub(string.gsub(k,'\\','\\\\'),'"', '\\"')..'"=>"'..string.gsub(string.gsub(v,'\\','\\\\'),'"', '\\"')..'"'
         end
         return string.sub(s, 2) -- clean up first ,
     end
