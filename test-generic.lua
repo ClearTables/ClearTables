@@ -75,13 +75,45 @@ print("TESTING: generic_multipolygon_members")
 -- yay multipolygons?
 -- generic_multipolygon_members is (tags, member_tags, membercount, accept, transform) -> (filter, cols, member_superseded, boundary, polygon, roads)
 
--- wraps generic_multipolygon_members so only stuff that changes need to be specified in the tests
-local mp1 = function(tags, cols, filter, polygon)
-    return deepcompare({generic_multipolygon_members(tags, {{}, {}}, 2, acceptfoo, identity)},
-        {filter, cols, {0,0}, 0, polygon, 0})
+-- Construct a function to be called by osm2pgsql with mock accept and transform
+
+--- Mocked function for testing MP Handling
+-- @param tags OSM tags
+-- @param member_tags OSM tags of relation members
+-- @param member_roles OSM roles of relation members
+-- @param membercount number of members
+-- @return filter, cols, member_superseded, boundary, polygon, roads
+-- member_roles is not used, so nil can be passed in
+local function foo_rel_members (tags, member_tags, member_roles, membercount)
+    return generic_multipolygon_members(tags, member_tags, membercount, acceptfoo, identity)
 end
 
-assert(mp1({}, {}, 1, 0), "test failed: untagged relation")
-assert(mp1({type="multipolygon"}, {}, 1, 1), "test failed: multipolygon with no tags")
-assert(mp1({type="multipolygon", bar="baz"}, {}, 1, 1), "test failed: multipolygon with no tags of interest")
-assert(mp1({type="multipolygon", foo="bar"}, {foo="bar"}, 0, 1), "test failed: multipolygon tag of interest")
+assert(deepcompare({foo_rel_members({}, {}, nil, 0)},
+                   {1, {}, {}, 0, 0, 0}), "test failed: untagged memberless relation")
+assert(deepcompare({foo_rel_members({}, {{}}, nil, 1)},
+                   {1, {}, {0}, 0, 0, 0}), "test failed: untagged relation")
+assert(deepcompare({foo_rel_members({type="multipolygon", bar="baz"}, {{}}, nil, 1)},
+                   {1, {}, {0}, 0, 1, 0}), "test failed: MP with other tags")
+
+assert(deepcompare({foo_rel_members({type="multipolygon", foo="baz"}, {{}}, nil, 1)},
+                   {0, {foo="baz"}, {0}, 0, 1, 0}), "test failed: MP with target tag")
+assert(deepcompare({foo_rel_members({type="multipolygon", foo="baz"}, {{asdf="one"}}, nil, 1)},
+                   {0, {foo="baz"}, {0}, 0, 1, 0}), "test failed: MP with target tag, way with different tags")
+assert(deepcompare({foo_rel_members({type="multipolygon", foo="baz"}, {{foo="baz"}}, nil, 1)},
+                   {0, {foo="baz"}, {0}, 0, 1, 0}), "test failed: MP with target tag, way with same tags")
+
+assert(deepcompare({foo_rel_members({type="multipolygon", foo="baz", bar="qax"}, {{}}, nil, 1)},
+                   {0, {foo="baz", bar="qax"}, {0}, 0, 1, 0}), "test failed: MP with target tag + others")
+assert(deepcompare({foo_rel_members({type="multipolygon", foo="baz", bar="qax"}, {{asdf="one"}}, nil, 1)},
+                   {0, {foo="baz", bar="qax"}, {0}, 0, 1, 0}), "test failed: MP with target tag + others, way with different tags")
+assert(deepcompare({foo_rel_members({type="multipolygon", foo="baz", bar="qax"}, {{foo="baz"}}, nil, 1)},
+                   {0, {foo="baz", bar="qax"}, {0}, 0, 1, 0}), "test failed: MP with target tag + others, way with same tags")
+
+assert(deepcompare({foo_rel_members({type="multipolygon", foo="baz"}, {{}, {}}, nil, 2)},
+                   {0, {foo="baz"}, {0, 0}, 0, 1, 0}), "test failed: MP with target tag, two ways")
+assert(deepcompare({foo_rel_members({type="multipolygon", foo="baz"}, {{asdf="one"}, {asdf="one"}}, nil, 2)},
+                   {0, {foo="baz"}, {0, 0}, 0, 1, 0}), "test failed: MP with target tag, ways with different tags from MP")
+assert(deepcompare({foo_rel_members({type="multipolygon", foo="baz"}, {{asdf="one"}, {zxcv="two"}}, nil, 2)},
+                   {0, {foo="baz"}, {0, 0}, 0, 1, 0}), "test failed: MP with target tag, ways with different and distinct tags from MP")
+assert(deepcompare({foo_rel_members({type="multipolygon", foo="baz"}, {{foo="baz"}, {foo="baz"}}, nil, 2)},
+                   {0, {foo="baz"}, {0, 0}, 0, 1, 0}), "test failed: MP with target tag, ways with same tags as MP")
