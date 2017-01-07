@@ -405,7 +405,7 @@
     comment: Number of building levels above ground
   - <<: *height
   - <<: *way_area
-# POIs
+# Natural POIs
 - name: landform_point
   # Should this be a _point table without a _polygon?
   type: point
@@ -440,6 +440,7 @@
   - name: landform
     type: text
     comment: Type of natural feature
+# Manmade POIs
 - name: education_point
   type: point
   comment: Education facilities mapped as points
@@ -468,9 +469,25 @@
   - <<: *names
   - <<: *education
   - <<: *way_area
+- name: recreation_point
+  type: point
+  comment: Leisure and recreation facilities mapped as points
+  tagtransform: recreation.lua
+  tagtransform-node-function: recreation_nodes
+  tagtransform-way-function: drop_all
+  tagtransform-relation-function: drop_all
+  tagtransform-relation-member-function: drop_all
+  tags:
+  - <<: *name
+  - <<: *names
+  - &recreation
+    name: recreation
+    type: text
+    comment: Type of recreation facility
+  - <<: *way_area
 - name: recreation_polygon
   type: polygon
-  comment: Leisure facilities. Not exactly the same as OSM recreation key
+  comment: Leisure facilities mapped as polygons
   tagtransform: recreation.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: recreation_ways
@@ -479,7 +496,5 @@
   tags:
   - <<: *name
   - <<: *names
-  - name: recreation
-    type: text
-    comment: Type of recreation facility
+  - <<: *recreation
   - <<: *way_area

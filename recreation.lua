@@ -32,6 +32,9 @@ function transform_recreation (tags)
     return cols
 end
 
+function recreation_nodes (tags, num_keys)
+    return generic_node(tags, accept_recreation, transform_recreation)
+end
 
 function recreation_ways (tags, num_keys)
     return generic_polygon_way(tags, accept_recreation, transform_recreation)
