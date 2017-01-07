@@ -35,4 +35,5 @@ check:
 	$$lua test-barrier.lua && \
 	$$lua test-landform.lua && \
 	$$lua test-education.lua && \
+	$$lua test-recreation.lua && \
 	$$lua test-place.lua
