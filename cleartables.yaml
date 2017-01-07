@@ -468,3 +468,18 @@
   - <<: *names
   - <<: *education
   - <<: *way_area
+- name: recreation_polygon
+  type: polygon
+  comment: Leisure facilities. Not exactly the same as OSM recreation key
+  tagtransform: recreation.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: recreation_ways
+  tagtransform-relation-function: recreation_rels
+  tagtransform-relation-member-function: recreation_rel_members
+  tags:
+  - <<: *name
+  - <<: *names
+  - name: recreation
+    type: text
+    comment: Type of recreation facility
+  - <<: *way_area
