@@ -498,3 +498,37 @@
   - <<: *names
   - <<: *recreation
   - <<: *way_area
+- name: healthcare_point
+  type: point
+  comment: Healthcare facilities mapped as points
+  tagtransform: healthcare.lua
+  tagtransform-node-function: healthcare_nodes
+  tagtransform-way-function: drop_all
+  tagtransform-relation-function: drop_all
+  tagtransform-relation-member-function: drop_all
+  tags:
+  - <<: *name
+  - <<: *names
+  - &healthcare
+    name: healthcare
+    type: text
+    comment: Type of healthcare facility
+  - &emergency
+    name: emergency
+    type: boolean
+    comment: Has emergency care
+  - <<: *way_area
+- name: healthcare_polygon
+  type: polygon
+  comment: Healthcare facilities mapped as polygons
+  tagtransform: healthcare.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: healthcare_ways
+  tagtransform-relation-function: healthcare_rels
+  tagtransform-relation-member-function: healthcare_rel_members
+  tags:
+  - <<: *name
+  - <<: *names
+  - <<: *healthcare
+  - <<: *emergency
+  - <<: *way_area
