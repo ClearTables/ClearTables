@@ -40,8 +40,11 @@ function transform_place (tags)
     if settlements[tags["place"]] then
         cols.class = "settlement"
         cols.rank = tags["place"]
-    else
-        cols.class = subregions[tags["place"]] and "subregion" or tags["place"]
+    elseif subregions[tags["place"]] then
+        cols.class = "subregion"
+        cols.rank = tags["place"]
+    elseif other[tags["place"]] then
+        cols.class = tags["place"]
     end
     cols.name = tags["name"]
     cols.names = names(tags)
