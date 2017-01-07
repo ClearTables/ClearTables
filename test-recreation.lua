@@ -16,6 +16,10 @@ assert(accept_recreation({leisure="playground"}), "test failed: leisure=playgrou
 assert(accept_recreation({leisure="dog_park"}), "test failed: leisure=dog_park")
 assert(accept_recreation({leisure="golf_course"}), "test failed: leisure=golf_course")
 assert(not accept_recreation({leisure="foo"}), "test failed: other leisure")
+assert(accept_recreation({amenity="theatre"}), "test failed: amenity=theatre")
+assert(accept_recreation({amenity="cinema"}), "test failed: amenity=cinema")
+assert(accept_recreation({amenity="nightclub"}), "test failed: amenity=nightclub")
+assert(not accept_recreation({amenity="foo"}), "test failed: other amenity")
 
 print("TESTING: transform_recreation")
 assert(deepcompare(transform_recreation({}), {}), "test failed: no tags")
