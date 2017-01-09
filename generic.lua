@@ -81,6 +81,29 @@ function generic_polygon_way (tags, accept, transform)
     return 1, {}, 0, 0
 end
 
+--- Combines the tags of relation members
+-- If the tags are conflicting then nil is returned. Members with no tags are ignored
+-- @param member_tags OSM tags of relation members
+-- @return combined tags, or nil if cannot combine
+function combine_member_tags (member_tags)
+    local combined_tags = {}
+    for _, tags in ipairs(member_tags) do
+        -- Check if the member has tags
+        if next(tags) ~= nil then
+            if next(combined_tags) == nil then
+                -- This is the first tagged member
+                combined_tags = tags
+            else
+                -- A different tagged member
+                if not deepcompare(tags, combined_tags) then
+                    return nil
+                end
+            end
+        end
+    end
+    return combined_tags
+end
+
 --- Generic handling for a multipolygon
 -- @param tags OSM tags
 -- @param member_tags OSM tags of relation members
