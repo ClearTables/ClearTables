@@ -96,37 +96,44 @@ function generic_multipolygon (tags, num_keys)
     return 1, {}
 end
 
---- Combines the tags of relation members
--- If the tags are conflicting then nil is returned. Members with no tags are ignored
--- @param member_tags OSM tags of relation members
--- @return combined tags, or nil if cannot combine
-function combine_member_tags (member_tags)
-    local combined_tags = {}
-    for _, tags in ipairs(member_tags) do
-        -- Check if the member has tags
-        if next(tags) ~= nil then
-            if next(combined_tags) == nil then
-                -- This is the first tagged member
-                combined_tags = tags
+--- Combines the columns of relation members
+-- If the cols are conflicting or all members are rejected then nil is returned. Rejected members are ignored
+-- @param member_cols cols of relation members
+-- @return combined cols, or nil if cannot combine
+function combine_member_cols (member_cols)
+    local combined_cols = {INT_rejected="true"}
+    for _, cols in ipairs(member_cols) do
+        -- Check if the member was accepted
+        if cols.INT_rejected and cols.INT_rejected == "true" then
+            -- rejected member, skip it
+        else
+            -- First non-rejected member
+            if combined_cols.INT_rejected and combined_cols.INT_rejected == "true" then
+                -- wipe out INT_rejected
+                combined_cols = cols
             else
                 -- A different tagged member
-                if not deepcompare(tags, combined_tags) then
+                if not deepcompare(cols, combined_cols) then
                     return nil
                 end
             end
         end
     end
-    return combined_tags
+    if combined_cols.INT_rejected and combined_cols.INT_rejected == "true" then
+        return nil
+    else
+        return combined_cols
+    end
 end
 
 --- Generic handling for a multipolygon
 -- @param tags OSM tags
--- @param member_tags OSM tags of relation members
+-- @param member_cols Columns of relation members
 -- @param membercount number of members
 -- @param accept function that takes osm keys and returns true if the feature should be in the table
 -- @param transform function that takes osm keys and returns tags for the tables
 -- @return filter, cols, member_superseded, boundary, polygon, roads
-function generic_multipolygon_members (tags, member_tags, membercount, accept, transform)
+function generic_multipolygon_members (tags, member_cols, membercount, accept, transform)
     -- tracks if the relation members are used as a stand-alone way. No old-style
     -- MP support, but the array still needs to be returned
     local members_superseeded = {}
