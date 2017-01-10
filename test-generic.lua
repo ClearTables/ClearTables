@@ -66,10 +66,10 @@ local p1 = function (tags, cols, filter, polygon)
         {filter, cols, polygon, 0})
 end
 
-assert(p1({}, {}, 1, 0), "test failed: no tags")
-assert(p1({area="yes"}, {}, 1, 0), "test failed: unaccepted area")
+assert(p1({}, {INT_rejected="true"}, 1, 0), "test failed: no tags")
+assert(p1({area="yes"}, {INT_rejected="true"}, 1, 0), "test failed: unaccepted area")
 assert(p1({area="yes", foo="bar"}, {area="yes", foo="bar"}, 0, 1), "test failed: accepted area")
-assert(p1({area="no", foo="bar"}, {}, 1, 0), "test failed: accepted non-area")
+assert(p1({area="no", foo="bar"}, {INT_rejected="true"}, 1, 0), "test failed: accepted non-area")
 
 print("TESTING: generic_multipolygon")
 

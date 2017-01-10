@@ -78,7 +78,7 @@ function generic_polygon_way (tags, accept, transform)
     if (accept(tags) and isarea(tags)) then
         return 0, transform(tags), 1, 0
     end
-    return 1, {}, 0, 0
+    return 1, {INT_rejected="true"}, 0, 0
 end
 
 --- Generic handling of a multipolygon
