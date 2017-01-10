@@ -137,9 +137,14 @@ function generic_multipolygon_members (tags, member_tags, membercount, accept, t
     if (tags["type"] and tags["type"] == "multipolygon") then
         -- Get rid of the MP tag, we've handled it
         tags["type"] = nil
-        -- Is this a feature we want?
-        if (accept(tags)) then
-            return 0, transform(tags), members_superseeded, 0, 1, 0
+        if next(tags) == nil then
+            -- This is an old style MP
+        else
+            -- This is a new-style MP, so we can see if we want it by looking
+            -- at the relation tags
+            if accept(tags) then
+                return 0, transform(tags), members_superseeded, 0, 1, 0
+            end
         end
         return 1, {}, members_superseeded, 0, 1, 0
     end
