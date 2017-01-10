@@ -98,8 +98,18 @@ assert(check_generic_multipolygon(1, {}, {foo="bar"}, 1), "test failed: other ta
 assert(check_generic_multipolygon(0, {type="multipolygon"}, {type="multipolygon"}, 1), "test failed: untagged multipolygon")
 assert(check_generic_multipolygon(0, {type="multipolygon", foo="bar"}, {type="multipolygon", foo="bar"}, 2), "test failed: tagged multipolygon")
 
-print("TESTING: generic_multipolygon_members")
 -- yay multipolygons?
+print("TESTING: combine_member_tags")
+assert(deepcompare(combine_member_tags({}), {}), "test failed: no members")
+assert(deepcompare(combine_member_tags({{}}), {}), "test failed: no member tags")
+assert(deepcompare(combine_member_tags({{}, {}}), {}), "test failed: no member tags, two members")
+assert(deepcompare(combine_member_tags({{foo="bar"}}), {foo="bar"}), "test failed: one member, tags")
+assert(deepcompare(combine_member_tags({{foo="bar"}, {}}), {foo="bar"}), "test failed: two members, tags on first")
+assert(deepcompare(combine_member_tags({{}, {foo="bar"}}), {foo="bar"}), "test failed: two members, tags on second")
+assert(deepcompare(combine_member_tags({{foo="bar"}, {foo="bar"}}), {foo="bar"}), "test failed: two members, tags on both")
+assert(combine_member_tags({{foo="bar"}, {baz="qax"}}) == nil, "test failed: two members, different tags")
+
+print("TESTING: generic_multipolygon_members")
 -- generic_multipolygon_members is (tags, member_tags, membercount, accept, transform) -> (filter, cols, member_superseded, boundary, polygon, roads)
 
 -- Construct a function to be called by osm2pgsql with mock accept and transform
