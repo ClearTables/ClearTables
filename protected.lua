@@ -25,13 +25,6 @@ function protected_ways (tags, num_keys)
     return generic_polygon_way(tags, accept_protected_area, transform_protected_area)
 end
 
-function protected_rels (tags, num_keys)
-    if (tags["type"] == "multipolygon" and accept_protected_area(tags)) then
-        return 0, tags
-    end
-    return 1, {}
-end
-
 function protected_rel_members (tags, member_tags, member_roles, membercount)
     return generic_multipolygon_members(tags, member_tags, membercount, accept_protected_area, transform_protected_area)
 end

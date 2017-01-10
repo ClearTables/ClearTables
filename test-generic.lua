@@ -66,13 +66,54 @@ local p1 = function (tags, cols, filter, polygon)
         {filter, cols, polygon, 0})
 end
 
-assert(p1({}, {}, 1, 0), "test failed: no tags")
-assert(p1({area="yes"}, {}, 1, 0), "test failed: unaccepted area")
+assert(p1({}, {INT_rejected="true"}, 1, 0), "test failed: no tags")
+assert(p1({area="yes"}, {INT_rejected="true"}, 1, 0), "test failed: unaccepted area")
 assert(p1({area="yes", foo="bar"}, {area="yes", foo="bar"}, 0, 1), "test failed: accepted area")
-assert(p1({area="no", foo="bar"}, {}, 1, 0), "test failed: accepted non-area")
+assert(p1({area="no", foo="bar"}, {INT_rejected="true"}, 1, 0), "test failed: accepted non-area")
+
+print("TESTING: generic_multipolygon")
+
+--- Check the output of generic_multipolygon
+-- @param filter Expected filter results
+-- @param out_tags Expected tags return
+-- @param in_tags Input tags
+-- @param num_keys Input num_keys
+
+local check_generic_multipolygon = function (filter, out_tags, in_tags, num_keys)
+    local actual_filter, actual_out_tags = generic_multipolygon(in_tags, num_keys)
+
+    if actual_filter ~= filter then
+        print("filter mismatch")
+        return false
+    end
+    if not deepcompare(actual_out_tags, out_tags) then
+        print("out_tags mismatch")
+        return false
+    end
+    return true
+end
+
+assert(check_generic_multipolygon(1, {}, {}, 0), "test failed: untagged relation")
+assert(check_generic_multipolygon(1, {}, {foo="bar"}, 1), "test failed: other tagged relation")
+assert(check_generic_multipolygon(0, {type="multipolygon"}, {type="multipolygon"}, 1), "test failed: untagged multipolygon")
+assert(check_generic_multipolygon(0, {type="multipolygon", foo="bar"}, {type="multipolygon", foo="bar"}, 2), "test failed: tagged multipolygon")
+
+-- yay multipolygons?
+print("TESTING: combine_member_tags")
+assert(deepcompare(combine_member_cols({}), nil), "test failed: no members")
+assert(deepcompare(combine_member_cols({{INT_rejected="true"}}), nil), "test failed: rejected member")
+assert(deepcompare(combine_member_cols({{INT_rejected="true"}, {INT_rejected="true"}}), nil), "test failed: rejected members")
+assert(deepcompare(combine_member_cols({{foo="bar"}}), {foo="bar"}), "test failed: one member, tags")
+assert(deepcompare(combine_member_cols({{foo="bar"}, {INT_rejected="true"}}), {foo="bar"}), "test failed: two members, tags on first")
+assert(deepcompare(combine_member_cols({{INT_rejected="true"}, {foo="bar"}}), {foo="bar"}), "test failed: two members, tags on second")
+assert(deepcompare(combine_member_cols({{foo="bar"}, {foo="bar"}}), {foo="bar"}), "test failed: two members, tags on both")
+assert(deepcompare(combine_member_cols({{}}), {}), "test failed: member with no cols")
+assert(deepcompare(combine_member_cols({{}, {}}), {}), "test failed: two members with no cols")
+assert(deepcompare(combine_member_cols({{}, {INT_rejected="true"}}), {}), "test failed: member with no cols, rejected member")
+assert(deepcompare(combine_member_cols({{INT_rejected="true"}, {}}), {}), "test failed: rejected member, member with no cols")
+assert(combine_member_cols({{foo="bar"}, {baz="qax"}}) == nil, "test failed: two members, different tags")
 
 print("TESTING: generic_multipolygon_members")
--- yay multipolygons?
 -- generic_multipolygon_members is (tags, member_tags, membercount, accept, transform) -> (filter, cols, member_superseded, boundary, polygon, roads)
 
 -- Construct a function to be called by osm2pgsql with mock accept and transform
@@ -88,6 +129,7 @@ local function foo_rel_members (tags, member_tags, member_roles, membercount)
     return generic_multipolygon_members(tags, member_tags, membercount, acceptfoo, identity)
 end
 
+-- Tests of new-style MPs
 assert(deepcompare({foo_rel_members({}, {}, nil, 0)},
                    {1, {}, {}, 0, 0, 0}), "test failed: untagged memberless relation")
 assert(deepcompare({foo_rel_members({}, {{}}, nil, 1)},
@@ -117,3 +159,39 @@ assert(deepcompare({foo_rel_members({type="multipolygon", foo="baz"}, {{asdf="on
                    {0, {foo="baz"}, {0, 0}, 0, 1, 0}), "test failed: MP with target tag, ways with different and distinct tags from MP")
 assert(deepcompare({foo_rel_members({type="multipolygon", foo="baz"}, {{foo="baz"}, {foo="baz"}}, nil, 2)},
                    {0, {foo="baz"}, {0, 0}, 0, 1, 0}), "test failed: MP with target tag, ways with same tags as MP")
+
+-- Tests of old-style MPs
+assert(deepcompare({foo_rel_members({}, {{bar="baz"}}, nil, 1)},
+                   {1, {}, {0}, 0, 0, 0}), "test failed: untagged relation, member with cols")
+assert(deepcompare({foo_rel_members({}, {{}}, nil, 1)},
+                   {1, {}, {0}, 0, 0, 0}), "test failed: untagged relation, member with no cols")
+assert(deepcompare({foo_rel_members({type="multipolygon"}, {{INT_rejected="true"}}, nil, 1)},
+                   {1, {}, {0}, 0, 1, 0}), "test failed: old-style MP, rejected member")
+assert(deepcompare({foo_rel_members({type="multipolygon"}, {{}}, nil, 1)},
+                   {0, {}, {1}, 0, 1, 0}), "test failed: old-style MP, member with no cols")
+assert(deepcompare({foo_rel_members({type="multipolygon"}, {{bar="baz"}}, nil, 1)},
+                   {0, {bar="baz"}, {1}, 0, 1, 0}), "test failed: old-style MP, member with cols")
+assert(deepcompare({foo_rel_members({type="multipolygon"}, {{INT_rejected="true"}, {INT_rejected="true"}}, nil, 2)},
+                   {1, {}, {0, 0}, 0, 1, 0}), "test failed: old-style MP, rejected members")
+assert(deepcompare({foo_rel_members({type="multipolygon"}, {{}, {}}, nil, 2)},
+                   {0, {}, {1, 1}, 0, 1, 0}), "test failed: old-style MP, members with no cols")
+assert(deepcompare({foo_rel_members({type="multipolygon"}, {{bar="baz"}}, nil, 2)},
+                   {0, {bar="baz"}, {1, 1}, 0, 1, 0}), "test failed: old-style MP, members with cols")
+
+assert(deepcompare({foo_rel_members({type="multipolygon"}, {{}, {INT_rejected="true"}}, nil, 2)},
+                   {0, {}, {1, 1}, 0, 1, 0}), "test failed: old-style MP, member with no cols, rejected member")
+assert(deepcompare({foo_rel_members({type="multipolygon"}, {{INT_rejected="true"}, {}}, nil, 2)},
+                   {0, {}, {1, 1}, 0, 1, 0}), "test failed: old-style MP, rejected member, member with no cols")
+
+assert(deepcompare({foo_rel_members({type="multipolygon"}, {{foo="bar"}, {INT_rejected="true"}}, nil, 2)},
+                   {0, {foo="bar"}, {1, 1}, 0, 1, 0}), "test failed: old-style MP, member with cols, rejected member")
+assert(deepcompare({foo_rel_members({type="multipolygon"}, {{INT_rejected="true"}, {foo="bar"}}, nil, 2)},
+                   {0, {foo="bar"}, {1, 1}, 0, 1, 0}), "test failed: old-style MP, rejected member, member with cols")
+
+-- Conflicting members
+assert(deepcompare({foo_rel_members({type="multipolygon"}, {{foo="bar"}, {}}, nil, 2)},
+                   {1, {}, {0, 0}, 0, 1, 0}), "test failed: old-style MP, member with cols, member with no cols")
+assert(deepcompare({foo_rel_members({type="multipolygon"}, {{}, {foo="bar"}}, nil, 2)},
+                   {1, {}, {0, 0}, 0, 1, 0}), "test failed: old-style MP, member with no cols, member with cols")
+assert(deepcompare({foo_rel_members({type="multipolygon"}, {{foo="bar"}, {baz="qax"}}, nil, 2)},
+                   {1, {}, {0, 0}, 0, 1, 0}), "test failed: old-style MP, member with cols, member with different cols")

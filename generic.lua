@@ -78,30 +78,90 @@ function generic_polygon_way (tags, accept, transform)
     if (accept(tags) and isarea(tags)) then
         return 0, transform(tags), 1, 0
     end
-    return 1, {}, 0, 0
+    return 1, {INT_rejected="true"}, 0, 0
+end
+
+--- Generic handling of a multipolygon
+-- Unlike other generic functions, osm2pgsql enters directly here.
+-- Because old-style multipolygon handling needs to be done even with
+-- relations with only a type=multipolygon tag, any MP has to pass this
+-- function.
+-- @param tags OSM tags
+-- @param num_keys Number of OSM tags
+-- @return filter, tags
+function generic_multipolygon (tags, num_keys)
+    if (tags["type"] == "multipolygon") then
+        return 0, tags
+    end
+    return 1, {}
+end
+
+--- Combines the columns of relation members
+-- If the cols are conflicting or all members are rejected then nil is returned. Rejected members are ignored
+-- @param member_cols cols of relation members
+-- @return combined cols, or nil if cannot combine
+function combine_member_cols (member_cols)
+    local combined_cols = {INT_rejected="true"}
+    for _, cols in ipairs(member_cols) do
+        -- Check if the member was accepted
+        if cols.INT_rejected and cols.INT_rejected == "true" then
+            -- rejected member, skip it
+        else
+            -- First non-rejected member
+            if combined_cols.INT_rejected and combined_cols.INT_rejected == "true" then
+                -- wipe out INT_rejected
+                combined_cols = cols
+            else
+                -- A different tagged member
+                if not deepcompare(cols, combined_cols) then
+                    return nil
+                end
+            end
+        end
+    end
+    if combined_cols.INT_rejected and combined_cols.INT_rejected == "true" then
+        return nil
+    else
+        return combined_cols
+    end
 end
 
 --- Generic handling for a multipolygon
 -- @param tags OSM tags
--- @param member_tags OSM tags of relation members
+-- @param member_cols Columns of relation members
 -- @param membercount number of members
 -- @param accept function that takes osm keys and returns true if the feature should be in the table
 -- @param transform function that takes osm keys and returns tags for the tables
 -- @return filter, cols, member_superseded, boundary, polygon, roads
-function generic_multipolygon_members (tags, member_tags, membercount, accept, transform)
+function generic_multipolygon_members (tags, member_cols, membercount, accept, transform)
     -- tracks if the relation members are used as a stand-alone way. No old-style
     -- MP support, but the array still needs to be returned
-    members_superseeded = {}
+    local members_superseeded = {}
     for i = 1, membercount do
         members_superseeded[i] = 0
     end
-
     if (tags["type"] and tags["type"] == "multipolygon") then
         -- Get rid of the MP tag, we've handled it
         tags["type"] = nil
-        -- Is this a feature we want?
-        if (accept(tags)) then
-            return 0, transform(tags), members_superseeded, 0, 1, 0
+        if next(tags) == nil then
+            -- This is an old style MP
+            local combined_tags = combine_member_cols(member_cols)
+            if combined_tags ~= nil then
+                -- valid MP
+                -- all the members are either superseded or untagged, where it doesn't matter
+                for i = 1, membercount do
+                    members_superseeded[i] = 1
+                end
+                if (combined_tags) then
+                    return 0, transform(combined_tags), members_superseeded, 0, 1, 0
+                end
+            end
+        else
+            -- This is a new-style MP, so we can see if we want it by looking
+            -- at the relation tags
+            if accept(tags) then
+                return 0, transform(tags), members_superseeded, 0, 1, 0
+            end
         end
         return 1, {}, members_superseeded, 0, 1, 0
     end

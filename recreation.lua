@@ -40,13 +40,6 @@ function recreation_ways (tags, num_keys)
     return generic_polygon_way(tags, accept_recreation, transform_recreation)
 end
 
-function recreation_rels (tags, num_keys)
-    if (tags["type"] == "multipolygon" and accept_recreation(tags)) then
-        return 0, tags
-    end
-    return 1, {}
-end
-
 function recreation_rel_members (tags, member_tags, member_roles, membercount)
     return generic_multipolygon_members(tags, member_tags, membercount, accept_recreation, transform_recreation)
 end

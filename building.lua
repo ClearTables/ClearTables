@@ -31,13 +31,6 @@ function building_ways (tags, num_keys)
     return generic_polygon_way(tags, accept_building, transform_building)
 end
 
-function building_rels (tags, num_keys)
-    if (tags["type"] == "multipolygon" and accept_building(tags)) then
-        return 0, tags
-    end
-    return 1, {}
-end
-
 function building_rel_members (tags, member_tags, member_roles, membercount)
     return generic_multipolygon_members(tags, member_tags, membercount, accept_building, transform_building)
 end
