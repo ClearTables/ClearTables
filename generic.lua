@@ -140,12 +140,22 @@ function generic_multipolygon_members (tags, member_cols, membercount, accept, t
     for i = 1, membercount do
         members_superseeded[i] = 0
     end
-
     if (tags["type"] and tags["type"] == "multipolygon") then
         -- Get rid of the MP tag, we've handled it
         tags["type"] = nil
         if next(tags) == nil then
             -- This is an old style MP
+            local combined_tags = combine_member_cols(member_cols)
+            if combined_tags ~= nil then
+                -- valid MP
+                -- all the members are either superseded or untagged, where it doesn't matter
+                for i = 1, membercount do
+                    members_superseeded[i] = 1
+                end
+                if (combined_tags) then
+                    return 0, transform(combined_tags), members_superseeded, 0, 1, 0
+                end
+            end
         else
             -- This is a new-style MP, so we can see if we want it by looking
             -- at the relation tags
