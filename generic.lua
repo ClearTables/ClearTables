@@ -129,7 +129,7 @@ end
 function generic_multipolygon_members (tags, member_tags, membercount, accept, transform)
     -- tracks if the relation members are used as a stand-alone way. No old-style
     -- MP support, but the array still needs to be returned
-    members_superseeded = {}
+    local members_superseeded = {}
     for i = 1, membercount do
         members_superseeded[i] = 0
     end
