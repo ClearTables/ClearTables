@@ -125,6 +125,7 @@ local function foo_rel_members (tags, member_tags, member_roles, membercount)
     return generic_multipolygon_members(tags, member_tags, membercount, acceptfoo, identity)
 end
 
+-- Tests of new-style MPs
 assert(deepcompare({foo_rel_members({}, {}, nil, 0)},
                    {1, {}, {}, 0, 0, 0}), "test failed: untagged memberless relation")
 assert(deepcompare({foo_rel_members({}, {{}}, nil, 1)},
@@ -154,3 +155,9 @@ assert(deepcompare({foo_rel_members({type="multipolygon", foo="baz"}, {{asdf="on
                    {0, {foo="baz"}, {0, 0}, 0, 1, 0}), "test failed: MP with target tag, ways with different and distinct tags from MP")
 assert(deepcompare({foo_rel_members({type="multipolygon", foo="baz"}, {{foo="baz"}, {foo="baz"}}, nil, 2)},
                    {0, {foo="baz"}, {0, 0}, 0, 1, 0}), "test failed: MP with target tag, ways with same tags as MP")
+
+-- Tests of old-style MPs
+assert(deepcompare({foo_rel_members({}, {{bar="baz"}}, nil, 1)},
+                   {1, {}, {0}, 0, 0, 0}), "test failed: untagged relation, other tagged member")
+assert(deepcompare({foo_rel_members({}, {{foo="bar"}}, nil, 1)},
+                   {1, {}, {0}, 0, 0, 0}), "test failed: untagged relation, tagged member")
