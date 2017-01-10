@@ -60,13 +60,6 @@ function place_ways (tags, num_keys)
     return generic_polygon_way(tags, accept_place, transform_place)
 end
 
-function place_rels (tags, num_keys)
-    if (tags["type"] == "multipolygon" and accept_place(tags)) then
-        return 0, tags
-    end
-    return 1, {}
-end
-
 function place_rel_members (tags, member_tags, member_roles, membercount)
     return generic_multipolygon_members(tags, member_tags, membercount, accept_place, transform_place)
 end

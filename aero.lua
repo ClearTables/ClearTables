@@ -52,13 +52,6 @@ function airport_ways (tags, num_keys)
     return generic_polygon_way(tags, accept_airport, transform_airport)
 end
 
-function airport_rels (tags, num_keys)
-    if (tags["type"] == "multipolygon" and accept_airport(tags)) then
-        return 0, tags
-    end
-    return 1, {}
-end
-
 function airport_rel_members (tags, member_tags, member_roles, membercount)
     return generic_multipolygon_members(tags, member_tags, membercount, accept_airport, transform_airport)
 end
@@ -67,16 +60,8 @@ function aeroway_line_ways (tags, num_keys)
     return generic_line_way(tags, accept_aeroway_line, transform_aeroway_line)
 end
 
-
 function aeroway_area_ways (tags, num_keys)
     return generic_polygon_way(tags, accept_aeroway_area, transform_aeroway_area)
-end
-
-function airport_area_rels (tags, num_keys)
-    if (tags["type"] == "multipolygon" and accept_aeroway_area(tags)) then
-        return 0, tags
-    end
-    return 1, {}
 end
 
 function airport_area_rel_members (tags, member_tags, member_roles, membercount)

@@ -81,6 +81,21 @@ function generic_polygon_way (tags, accept, transform)
     return 1, {}, 0, 0
 end
 
+--- Generic handling of a multipolygon
+-- Unlike other generic functions, osm2pgsql enters directly here.
+-- Because old-style multipolygon handling needs to be done even with
+-- relations with only a type=multipolygon tag, any MP has to pass this
+-- function.
+-- @param tags OSM tags
+-- @param num_keys Number of OSM tags
+-- @return filter, tags
+function generic_multipolygon (tags, num_keys)
+    if (tags["type"] == "multipolygon") then
+        return 0, tags
+    end
+    return 1, {}
+end
+
 --- Combines the tags of relation members
 -- If the tags are conflicting then nil is returned. Members with no tags are ignored
 -- @param member_tags OSM tags of relation members

@@ -68,7 +68,7 @@
   tagtransform: place.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: place_ways
-  tagtransform-relation-function: place_rels
+  tagtransform-relation-function: generic_multipolygon
   tagtransform-relation-member-function: place_rel_members
   tags:
   - <<: *name
@@ -88,7 +88,7 @@
   tagtransform: protected.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: protected_ways
-  tagtransform-relation-function: protected_rels
+  tagtransform-relation-function: generic_multipolygon
   tagtransform-relation-member-function: protected_rel_members
   tags:
   - <<: *name
@@ -104,7 +104,7 @@
   tagtransform: water.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: water_area_ways
-  tagtransform-relation-function: water_area_rels
+  tagtransform-relation-function: generic_multipolygon
   tagtransform-relation-member-function: water_area_rel_members
   tags:
   - <<: *name
@@ -123,7 +123,7 @@
   tagtransform: wetland.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: wetland_area_ways
-  tagtransform-relation-function: wetland_area_rels
+  tagtransform-relation-function: generic_multipolygon
   tagtransform-relation-member-function: wetland_area_rel_members
   tags:
   - <<: *name
@@ -139,7 +139,7 @@
   tagtransform: wood.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: wood_area_ways
-  tagtransform-relation-function: wood_area_rels
+  tagtransform-relation-function: generic_multipolygon
   tagtransform-relation-member-function: wood_area_rel_members
   tags:
   - <<: *name
@@ -222,7 +222,7 @@
   tagtransform: transportation.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: road_area_ways
-  tagtransform-relation-function: road_area_rels
+  tagtransform-relation-function: generic_multipolygon
   tagtransform-relation-member-function: road_area_rel_members
   tags:
   - <<: *name
@@ -300,7 +300,7 @@
   tagtransform: aero.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: airport_ways
-  tagtransform-relation-function: airport_rels
+  tagtransform-relation-function: generic_multipolygon
   tagtransform-relation-member-function: airport_rel_members
   tags:
   - <<: *name
@@ -316,7 +316,7 @@
   tagtransform: aero.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: aeroway_area_ways
-  tagtransform-relation-function: airport_area_rels
+  tagtransform-relation-function: generic_multipolygon
   tagtransform-relation-member-function: airport_area_rel_members
   tags:
   - &aeroway
@@ -377,7 +377,7 @@
   tagtransform: address.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: address_ways
-  tagtransform-relation-function: address_rels
+  tagtransform-relation-function: generic_multipolygon
   tagtransform-relation-member-function: address_rel_members
   tags:
   - <<: *unit
@@ -392,7 +392,7 @@
   tagtransform: building.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: building_ways
-  tagtransform-relation-function: building_rels
+  tagtransform-relation-function: generic_multipolygon
   tagtransform-relation-member-function: building_rel_members
   tags:
   - <<: *name
@@ -462,7 +462,7 @@
   tagtransform: education.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: education_ways
-  tagtransform-relation-function: education_rels
+  tagtransform-relation-function: generic_multipolygon
   tagtransform-relation-member-function: education_rel_members
   tags:
   - <<: *name
@@ -491,7 +491,7 @@
   tagtransform: recreation.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: recreation_ways
-  tagtransform-relation-function: recreation_rels
+  tagtransform-relation-function: generic_multipolygon
   tagtransform-relation-member-function: recreation_rel_members
   tags:
   - <<: *name
@@ -524,7 +524,7 @@
   tagtransform: healthcare.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: healthcare_ways
-  tagtransform-relation-function: healthcare_rels
+  tagtransform-relation-function: generic_multipolygon
   tagtransform-relation-member-function: healthcare_rel_members
   tags:
   - <<: *name

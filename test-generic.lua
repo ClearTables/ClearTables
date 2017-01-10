@@ -71,6 +71,33 @@ assert(p1({area="yes"}, {}, 1, 0), "test failed: unaccepted area")
 assert(p1({area="yes", foo="bar"}, {area="yes", foo="bar"}, 0, 1), "test failed: accepted area")
 assert(p1({area="no", foo="bar"}, {}, 1, 0), "test failed: accepted non-area")
 
+print("TESTING: generic_multipolygon")
+
+--- Check the output of generic_multipolygon
+-- @param filter Expected filter results
+-- @param out_tags Expected tags return
+-- @param in_tags Input tags
+-- @param num_keys Input num_keys
+
+local check_generic_multipolygon = function (filter, out_tags, in_tags, num_keys)
+    local actual_filter, actual_out_tags = generic_multipolygon(in_tags, num_keys)
+
+    if actual_filter ~= filter then
+        print("filter mismatch")
+        return false
+    end
+    if not deepcompare(actual_out_tags, out_tags) then
+        print("out_tags mismatch")
+        return false
+    end
+    return true
+end
+
+assert(check_generic_multipolygon(1, {}, {}, 0), "test failed: untagged relation")
+assert(check_generic_multipolygon(1, {}, {foo="bar"}, 1), "test failed: other tagged relation")
+assert(check_generic_multipolygon(0, {type="multipolygon"}, {type="multipolygon"}, 1), "test failed: untagged multipolygon")
+assert(check_generic_multipolygon(0, {type="multipolygon", foo="bar"}, {type="multipolygon", foo="bar"}, 2), "test failed: tagged multipolygon")
+
 print("TESTING: generic_multipolygon_members")
 -- yay multipolygons?
 -- generic_multipolygon_members is (tags, member_tags, membercount, accept, transform) -> (filter, cols, member_superseded, boundary, polygon, roads)

@@ -37,13 +37,6 @@ function wetland_area_ways (tags, num_keys)
     return generic_polygon_way(tags, accept_wetland_area, transform_wetland_area)
 end
 
-function wetland_area_rels (tags, num_keys)
-    if (tags["type"] == "multipolygon" and accept_wetland_area(tags)) then
-        return 0, tags
-    end
-    return 1, {}
-end
-
 function wetland_area_rel_members (tags, member_tags, member_roles, membercount)
     return generic_multipolygon_members(tags, member_tags, membercount, accept_wetland_area, transform_wetland_area)
 end
