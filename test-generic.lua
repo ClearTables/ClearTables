@@ -26,6 +26,8 @@ assert(isarea({natural = "water"}),  "test failed: unconditional key")
 assert(isarea({waterway = "riverbank"}), "test failed: waterway=riverbank")
 assert(not isarea({waterway = "river"}), "test failed: waterway=river")
 
+-- Specific tests
+assert(isarea({leisure = "park"}), "test failed: park")
 
 print("TESTING: drop_all")
 assert(deepcompare({drop_all()}, {1, {}}), "test failed: drop_all()")

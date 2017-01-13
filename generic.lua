@@ -7,16 +7,26 @@ This file is part of ClearTables
 
 --- Tags which are always polygons
 -- TODO: sort by frequency
-local unconditional_polygon_keys = {'natural', 'building','amenity'}
+local unconditional_polygon_keys = {
+    'natural',
+    'building',
+    'amenity',
+    'leisure',
+    'place',
+    'man_made'
+}
 
 --- Tags where the key is normally a linestring, but these are exceptions
 
 local polygon_exceptions = {
-    waterway = {riverbank = true}
+    waterway = {
+        riverbank = true
+    },
+    aeroway = {
+        aerodrome = true,
+        heliport = true
+    }
 }
-
-
--- TODO: Conditional polygon keys (e.g. waterway=riverbank)
 
 --- Is something an area?
 -- @param tags OSM tags
