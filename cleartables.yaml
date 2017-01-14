@@ -255,6 +255,23 @@
     type: text
   - name: ref
     type: text
+- name: transit_point
+  type: point
+  comment: Where people get on and off of transportation
+  tagtransform: transit.lua
+  tagtransform-node-function: transit_nodes
+  tagtransform-way-function: drop_all
+  tagtransform-relation-function: drop_all
+  tagtransform-relation-member-function: drop_all
+  tags:
+  - <<: *name
+  - <<: *names
+  - name: mode
+    type: text
+    comment: Mode of transportation
+  - name: station
+    type: boolean
+    comment: If the feature is a station or small stop
 # Barriers
 - name: barrier_line
   type: line

@@ -29,6 +29,7 @@ check:
 	$$lua test-building.lua && \
 	$$lua test-address.lua && \
 	$$lua test-transportation.lua && \
+	$$lua test-transit.lua && \
 	$$lua test-admin.lua && \
 	$$lua test-protected.lua && \
 	$$lua test-aero.lua && \
