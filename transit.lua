@@ -46,3 +46,11 @@ end
 function transit_nodes (tags, num_keys)
     return generic_node(tags, accept_transit, transform_transit)
 end
+
+function transit_ways (tags, num_keys)
+    return generic_polygon_way(tags, accept_transit, transform_transit)
+end
+
+function transit_rel_members (tags, member_tags, member_roles, membercount)
+    return generic_multipolygon_members(tags, member_tags, membercount, accept_transit, transform_transit)
+end

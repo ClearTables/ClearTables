@@ -257,12 +257,30 @@
     type: text
 - name: transit_point
   type: point
-  comment: Where people get on and off of transportation
+  comment: Where people get on and off of transportation as points
   tagtransform: transit.lua
   tagtransform-node-function: transit_nodes
   tagtransform-way-function: drop_all
   tagtransform-relation-function: drop_all
   tagtransform-relation-member-function: drop_all
+  tags:
+  - <<: *name
+  - <<: *names
+  - &transit_mode
+    name: transit_mode
+    type: text
+    comment: Mode of transportation
+  - name: station
+    type: boolean
+    comment: If the feature is a station or small stop
+- name: transit_polygon
+  type: polygon
+  comment: Where people get on and off of transportation as polygons
+  tagtransform: transit.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: transit_ways
+  tagtransform-relation-function: generic_multipolygon
+  tagtransform-relation-member-function: transit_rel_members
   tags:
   - <<: *name
   - <<: *names
@@ -272,6 +290,7 @@
   - name: station
     type: boolean
     comment: If the feature is a station or small stop
+  - <<: *way_area
 # Barriers
 - name: barrier_line
   type: line
