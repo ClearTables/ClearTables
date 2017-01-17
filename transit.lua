@@ -10,7 +10,7 @@ require "common"
 function accept_transit (tags)
     -- frequency sorted
     return tags["highway"] == "bus_stop"
-        or tags["highway"] == "bus_station"
+        or tags["amenity"] == "bus_station"
         or tags["railway"] == "station"
         or tags["railway"] == "halt"
         or tags["amenity"] == "ferry_terminal"
@@ -33,7 +33,7 @@ function transform_transit (tags)
     elseif tags["amenity"] == "taxi" then
         cols.transit_mode = "taxi"
         cols.station = "false"
-    elseif tags["highway"] == "bus_station" then
+    elseif tags["amenity"] == "bus_station" then
         cols.transit_mode = "bus"
         cols.station = "true"
     elseif tags["highway"] == "bus_stop" then
