@@ -22,22 +22,22 @@ function transform_transit (tags)
     cols.name = tags["name"]
     cols.names = names(tags)
     if tags["amenity"] == "ferry_terminal" then
-        cols.mode = "ferry"
+        cols.transit_mode = "ferry"
         cols.station = "true"
     elseif tags["railway"] == "station" then
-        cols.mode = "rail"
+        cols.transit_mode = "rail"
         cols.station = "true"
     elseif tags["railway"] == "halt" then
-        cols.mode = "rail"
+        cols.transit_mode = "rail"
         cols.station = "false"
     elseif tags["amenity"] == "taxi" then
-        cols.mode = "taxi"
+        cols.transit_mode = "taxi"
         cols.station = "false"
     elseif tags["highway"] == "bus_station" then
-        cols.mode = "bus"
+        cols.transit_mode = "bus"
         cols.station = "true"
     elseif tags["highway"] == "bus_stop" then
-        cols.mode = "bus"
+        cols.transit_mode = "bus"
         cols.station = "false"
     end
     return cols

@@ -266,7 +266,7 @@
   tags:
   - <<: *name
   - <<: *names
-  - name: mode
+  - name: transit_mode
     type: text
     comment: Mode of transportation
   - name: station
