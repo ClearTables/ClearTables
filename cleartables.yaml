@@ -308,6 +308,31 @@
     name: height
     type: real
     comment: Height above ground in meters
+- name: pier_area
+  type: polygon
+  comment: Piers as areas
+  tagtransform: pier.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: pier_area_ways
+  tagtransform-relation-function: generic_multipolygon
+  tagtransform-relation-member-function: pier_rel_members
+  tags:
+  - <<: *name
+  - <<: *names
+- name: pier_line_raw
+  type: line
+  comment: Piers as areas
+  tagtransform: pier.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: pier_line_raw_ways
+  tagtransform-relation-function: drop_all
+  tagtransform-relation-member-function: drop_all
+  tags:
+  - <<: *name
+  - <<: *names
+  - name: forced_line
+    type: boolean
+    comment: If the feature has been forced to be a linestring
 # Air travel
 - name: airport_point
   type: point

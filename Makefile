@@ -34,6 +34,7 @@ check:
 	$$lua test-protected.lua && \
 	$$lua test-aero.lua && \
 	$$lua test-barrier.lua && \
+	$$lua test-pier.lua && \
 	$$lua test-landform.lua && \
 	$$lua test-education.lua && \
 	$$lua test-recreation.lua && \
