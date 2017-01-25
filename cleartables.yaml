@@ -319,6 +319,7 @@
   tags:
   - <<: *name
   - <<: *names
+  - <<: *way_area
 - name: pier_line_raw
   type: line
   comment: Piers as areas
