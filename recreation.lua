@@ -12,6 +12,7 @@ local leisure = {
     playground = "playground",
     dog_park = "dog_park",
     golf_course = "golf",
+    garden = "garden"
 }
 
 local amenity = {
