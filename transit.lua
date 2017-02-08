@@ -12,6 +12,7 @@ function accept_transit (tags)
     return tags["highway"] == "bus_stop"
         or tags["amenity"] == "bus_station"
         or tags["railway"] == "station"
+        or tags["railway"] == "tram_stop"
         or tags["railway"] == "halt"
         or tags["amenity"] == "ferry_terminal"
         or tags["amenity"] == "taxi"
@@ -29,6 +30,9 @@ function transform_transit (tags)
         cols.station = "true"
     elseif tags["railway"] == "halt" then
         cols.transit_mode = "rail"
+        cols.station = "false"
+    elseif tags["railway"] == "tram_stop" then
+        cols.transit_mode = "tram"
         cols.station = "false"
     elseif tags["amenity"] == "taxi" then
         cols.transit_mode = "taxi"

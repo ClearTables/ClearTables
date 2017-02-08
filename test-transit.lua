@@ -28,6 +28,8 @@ assert(transform_transit({amenity="bus_station"}).transit_mode == "bus", "test f
 assert(transform_transit({amenity="bus_station"}).station == "true", "test failed: bus_station station")
 assert(transform_transit({railway="halt"}).transit_mode == "rail", "test failed: railway halt mode")
 assert(transform_transit({railway="halt"}).station == "false", "test failed: railway halt station")
+assert(transform_transit({railway="tram_stop"}).transit_mode == "tram", "test failed: tram stop mode")
+assert(transform_transit({railway="tram_stop"}).station == "false", "test failed: tram stop station")
 assert(transform_transit({railway="station"}).transit_mode == "rail", "test failed: railway station mode")
 assert(transform_transit({railway="station"}).station == "true", "test failed: railway station station")
 assert(transform_transit({amenity="ferry_terminal"}).transit_mode == "ferry", "test failed: ferry terminal mode")
