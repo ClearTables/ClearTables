@@ -20,7 +20,7 @@ assert(not isarea({foo = "bar"}), "test failed: random tag")
 assert(not isarea({natural = "water", area = "no"}),  "test failed: area override unconditional keys")
 
 -- Unconditional keys
-assert(isarea({natural = "water"}),  "test failed: unconditional key")
+assert(isarea({amenity = "foo"}),  "test failed: unconditional key")
 
 -- polygon exception tags
 assert(isarea({waterway = "riverbank"}), "test failed: waterway=riverbank")
@@ -28,6 +28,9 @@ assert(not isarea({waterway = "river"}), "test failed: waterway=river")
 
 -- Specific tests
 assert(isarea({leisure = "park"}), "test failed: park")
+assert(not isarea({waterway = "river"}), "test failed: river")
+assert(isarea({waterway = "riverbank"}), "test failed: riverbank")
+assert(isarea({highway = "services"}), "test failed: services")
 
 print("TESTING: drop_all")
 assert(deepcompare({drop_all()}, {1, {}}), "test failed: drop_all()")

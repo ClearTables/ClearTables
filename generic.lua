@@ -8,26 +8,67 @@ This file is part of ClearTables
 --- Tags which are always polygons
 -- TODO: sort by frequency
 local unconditional_polygon_keys = {
-    'natural',
-    'building',
+    'abandoned:aeroway',
+    'abandoned:amenity',
+    'abandoned:building',
+    'abandoned:landuse',
+    'abandoned:power',
     'amenity',
-    'leisure',
+    'area:highway',
+    'building:part',
+    'landuse',
+    'military',
+    'office',
     'place',
-    'man_made'
+    'public_transport',
+    'shop',
+    'tourism'
 }
 
 --- Tags where the key is normally a linestring, but these are exceptions
-
 local polygon_exceptions = {
-    waterway = {
-        riverbank = true
-    },
     aeroway = {
         aerodrome = true,
         heliport = true
+    },
+    highway = {
+        services = true,
+        rest_area = true
+    },
+    junction = {
+        yes = true
+    },
+    waterway = {
+        riverbank = true
     }
 }
 
+--- Tags where the key is normally a polygon, but these are exceptions
+local linestring_exceptions = {
+    building = {
+        no = true
+    },
+    historic = {
+        citywalls = true
+    },
+    leisure = {
+        slipway = true,
+        track = true
+    },
+    man_made = {
+        breakwater = true,
+        embankment = true,
+        groyne = true
+    },
+    natural = {
+        ridge = true,
+        arete = true
+    },
+    power = {
+        line = true,
+        minor_line = true
+    }
+}
 --- Is something an area?
 -- @param tags OSM tags
 -- @return 1 if area, 0 if linear
@@ -44,7 +85,16 @@ function isarea (tags)
     end
     for k,v in pairs(polygon_exceptions) do
         if tags[k] then
-            return v[tags[k]]
+            return v[tags[k]] or false
+        end
+    end
+    for k, v in pairs(linestring_exceptions) do
+        if tags[k] then
+            -- This key has an entry in the table
+            if not v[tags[k]] then
+                -- But the tag doesn't have an entry, so it's a polygon
+                return true
+            end
         end
     end
 end
