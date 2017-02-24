@@ -93,6 +93,14 @@ local check_generic_multipolygon = function (filter, out_tags, in_tags, num_keys
     end
     if not deepcompare(actual_out_tags, out_tags) then
         print("out_tags mismatch")
+        print("expected")
+        for k, v in pairs(out_tags) do
+            print(k, v)
+        end
+        print("actual")
+        for k, v in pairs(actual_out_tags) do
+            print(k, v)
+        end
         return false
     end
     return true
