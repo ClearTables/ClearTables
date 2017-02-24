@@ -20,7 +20,7 @@ function wikidata (str)
 end
 
 function accept_wikidata (tags)
-    return tags["wikidata"] and wikidata(tags["wikidata"]) or false
+    return wikidata(tags["wikidata"])
 end
 
 function transform_wikidata (tags)
