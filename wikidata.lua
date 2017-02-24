@@ -17,6 +17,7 @@ function wikidata (str)
             return str:sub(2)
         end
     end
+    return false
 end
 
 function accept_wikidata (tags)
