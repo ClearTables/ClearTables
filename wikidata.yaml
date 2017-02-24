@@ -1,0 +1,38 @@
+#  This file is part of ClearTables
+#
+#  Paul Norman <penorman@mac.com>
+#  Copyright 2017 Paul Norman, MIT license
+
+- name: wikidata_point
+  type: point
+  comment: All points with wikidata IDs
+  tagtransform: wikidata.lua
+  tagtransform-node-function: wikidata_nodes
+  tagtransform-way-function: drop_all
+  tagtransform-relation-function: drop_all
+  tagtransform-relation-member-function: drop_all
+  tags:
+  - &wikidata
+    name: wikidata
+    type: int
+    comment: Wikidata ID
+- name: wikidata_line
+  type: line
+  comment: All lines with wikidata IDs
+  tagtransform: wikidata.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: wikidata_line_ways
+  tagtransform-relation-function: wikidata_line_rels
+  tagtransform-relation-member-function: wikidata_line_rel_members
+  tags:
+  - <<: *wikidata
+- name: wikidata_polygon
+  type: polygon
+  comment: All polygons with wikidata IDs
+  tagtransform: wikidata.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: wikidata_polygon_ways
+  tagtransform-relation-function: wikidata_polygon_rels
+  tagtransform-relation-member-function: wikidata_polygon_rel_members
+  tags:
+  - <<: *wikidata

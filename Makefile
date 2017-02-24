@@ -1,11 +1,11 @@
 all: cleartables.json sql/post/comments.sql
 
-cleartables.json: cleartables.yaml
-	./yaml2json.py < cleartables.yaml > cleartables.json
+cleartables.json: cleartables.yaml wikidata.yaml
+	cat cleartables.yaml wikidata.yaml | ./yaml2json.py > cleartables.json
 
-sql/post/comments.sql: cleartables.yaml
+sql/post/comments.sql: cleartables.yaml wikidata.yaml
 	mkdir -p sql/post && \
-	./createcomments.py < cleartables.yaml > sql/post/comments.sql || (rm -f sql/post/comments.sql && exit 1)
+	cat cleartables.yaml wikidata.yaml | ./createcomments.py > sql/post/comments.sql || (rm -f sql/post/comments.sql && exit 1)
 
 clean:
 	rm -f cleartables.json sql/post/comments.sql
@@ -23,6 +23,7 @@ check:
 	$$lua test-util.lua && \
 	$$lua test-common.lua && \
 	$$lua test-generic.lua && \
+	$$lua test-wikidata.lua && \
 	$$lua test-water.lua && \
 	$$lua test-wetland.lua && \
 	$$lua test-wood.lua && \

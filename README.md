@@ -1,4 +1,13 @@
-# ClearTables #
+# ClearTables with Wikidata #
+
+This is a branch of Cleartables which serves as
+
+- an example of how to add additional custom tables to ClearTables which won't be accepted upstream; and
+- generation of a set of tables with all Wikidata objects.
+
+Versions on this branch are tagged with a `~wikidata` suffix
+
+The original ClearTables readme is reproduced below.
 
 An [osm2pgsql](https://github.com/openstreetmap/osm2pgsql) multi-backend style designed to simplify consumption of OSM data for rendering, export, or analysis.
 
