@@ -11,7 +11,7 @@ require "common"
 -- @param str
 -- @return id
 function wikidata (str)
-    if str and str:find("^Q%d+$") then
+    if str and str:find("^Q[1-9]%d*$") then
         id = tonumber(str:sub(2))
         if id > 0 and id < 2^31-1 then
             return str:sub(2)
