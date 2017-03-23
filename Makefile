@@ -1,9 +1,9 @@
 all: cleartables.json sql/post/comments.sql
 
-cleartables.json: cleartables.yaml wikidata.yaml
+cleartables.json: cleartables.yaml wikidata.yaml yaml2json.py
 	cat cleartables.yaml wikidata.yaml | ./yaml2json.py > cleartables.json
 
-sql/post/comments.sql: cleartables.yaml wikidata.yaml
+sql/post/comments.sql: cleartables.yaml wikidata.yaml createcomments.py
 	mkdir -p sql/post && \
 	cat cleartables.yaml wikidata.yaml | ./createcomments.py > sql/post/comments.sql || (rm -f sql/post/comments.sql && exit 1)
 

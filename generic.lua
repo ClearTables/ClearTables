@@ -138,7 +138,11 @@ function generic_polygon_way (tags, accept, transform)
     if (accept(tags) and isarea(tags)) then
         return 0, transform(tags), 1, 0
     end
-    return 1, {INT_rejected="true"}, 0, 0
+    if next(tags) then
+        return 1, {INT_rejected="true"}, 0, 0
+    else
+        return 1, {INT_empty="true"}, 0, 0
+    end
 end
 
 --- Generic handling of a multipolygon
@@ -157,19 +161,19 @@ function generic_multipolygon (tags, num_keys)
 end
 
 --- Combines the columns of relation members
--- If the cols are conflicting or all members are rejected then nil is returned. Rejected members are ignored
+-- If the cols are conflicting or all members are rejected or empty then nil is returned. Empty members are ignored
 -- @param member_cols cols of relation members
 -- @return combined cols, or nil if cannot combine
 function combine_member_cols (member_cols)
-    local combined_cols = {INT_rejected="true"}
+    local combined_cols = {INT_empty="true"}
     for _, cols in ipairs(member_cols) do
-        -- Check if the member was accepted
-        if cols.INT_rejected and cols.INT_rejected == "true" then
-            -- rejected member, skip it
+        -- Check if the member was untagged
+        if cols.INT_empty and cols.INT_empty == "true" then
+            -- untagged member, skip it
         else
-            -- First non-rejected member
-            if combined_cols.INT_rejected and combined_cols.INT_rejected == "true" then
-                -- wipe out INT_rejected
+            -- First non-empty member
+            if combined_cols.INT_empty and combined_cols.INT_empty == "true" then
+                -- wipe out INT_empty
                 combined_cols = cols
             else
                 -- A different tagged member
@@ -179,7 +183,9 @@ function combine_member_cols (member_cols)
             end
         end
     end
-    if combined_cols.INT_rejected and combined_cols.INT_rejected == "true" then
+    -- All the members were tagged but rejected. This might be of interested to a different transform, but not this one.
+    if combined_cols.INT_rejected and combined_cols.INT_rejected == "true" or
+       combined_cols.INT_empty and combined_cols.INT_empty == "true" then
         return nil
     else
         return combined_cols
@@ -212,8 +218,8 @@ function generic_multipolygon_members (tags, member_cols, membercount, accept, t
                 for i = 1, membercount do
                     members_superseeded[i] = 1
                 end
-                if (combined_tags) then
-                    return 0, transform(combined_tags), members_superseeded, 0, 1, 0
+                if combined_tags then
+                    return 0, combined_tags, members_superseeded, 0, 1, 0
                 end
             end
         else
