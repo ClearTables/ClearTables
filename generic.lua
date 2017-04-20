@@ -138,11 +138,7 @@ function generic_polygon_way (tags, accept, transform)
     if (accept(tags) and isarea(tags)) then
         return 0, transform(tags), 1, 0
     end
-    if next(tags) then
-        return 1, {INT_rejected="true"}, 0, 0
-    else
-        return 1, {INT_empty="true"}, 0, 0
-    end
+    return 1, {}, 0, 0
 end
 
 --- Generic handling of a multipolygon
@@ -158,38 +154,6 @@ function generic_multipolygon (tags, num_keys)
         return 0, tags
     end
     return 1, {}
-end
-
---- Combines the columns of relation members
--- If the cols are conflicting or all members are rejected or empty then nil is returned. Empty members are ignored
--- @param member_cols cols of relation members
--- @return combined cols, or nil if cannot combine
-function combine_member_cols (member_cols)
-    local combined_cols = {INT_empty="true"}
-    for _, cols in ipairs(member_cols) do
-        -- Check if the member was untagged
-        if cols.INT_empty and cols.INT_empty == "true" then
-            -- untagged member, skip it
-        else
-            -- First non-empty member
-            if combined_cols.INT_empty and combined_cols.INT_empty == "true" then
-                -- wipe out INT_empty
-                combined_cols = cols
-            else
-                -- A different tagged member
-                if not deepcompare(cols, combined_cols) then
-                    return nil
-                end
-            end
-        end
-    end
-    -- All the members were tagged but rejected. This might be of interested to a different transform, but not this one.
-    if combined_cols.INT_rejected and combined_cols.INT_rejected == "true" or
-       combined_cols.INT_empty and combined_cols.INT_empty == "true" then
-        return nil
-    else
-        return combined_cols
-    end
 end
 
 --- Generic handling for a multipolygon
@@ -209,20 +173,7 @@ function generic_multipolygon_members (tags, member_cols, membercount, accept, t
     if (tags["type"] and tags["type"] == "multipolygon") then
         -- Get rid of the MP tag, we've handled it
         tags["type"] = nil
-        if next(tags) == nil then
-            -- This is an old style MP
-            local combined_tags = combine_member_cols(member_cols)
-            if combined_tags ~= nil then
-                -- valid MP
-                -- all the members are either superseded or untagged, where it doesn't matter
-                for i = 1, membercount do
-                    members_superseeded[i] = 1
-                end
-                if combined_tags then
-                    return 0, combined_tags, members_superseeded, 0, 1, 0
-                end
-            end
-        else
+        if next(tags) ~= nil then
             -- This is a new-style MP, so we can see if we want it by looking
             -- at the relation tags
             if accept(tags) then
