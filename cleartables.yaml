@@ -88,7 +88,7 @@
   tagtransform: protected.lua
   tagtransform-node-function: drop_all
   tagtransform-way-function: protected_ways
-  tagtransform-relation-function: generic_multipolygon
+  tagtransform-relation-function: generic_multipolygon_or_boundary
   tagtransform-relation-member-function: protected_rel_members
   tags:
   - <<: *name

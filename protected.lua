@@ -26,5 +26,5 @@ function protected_ways (tags, num_keys)
 end
 
 function protected_rel_members (tags, member_tags, member_roles, membercount)
-    return generic_multipolygon_members(tags, member_tags, membercount, accept_protected_area, transform_protected_area)
+    return generic_multipolygon_members(tags, member_tags, membercount, accept_protected_area, transform_protected_area, true)
 end
