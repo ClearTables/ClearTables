@@ -156,21 +156,37 @@ function generic_multipolygon (tags, num_keys)
     return 1, {}
 end
 
+--- Generic handling of a multipolygon, but accepting boundary type
+-- Unlike other generic functions, osm2pgsql enters directly here.
+-- Because old-style multipolygon handling needs to be done even with
+-- relations with only a type=multipolygon tag, any MP has to pass this
+-- function.
+-- @param tags OSM tags
+-- @param num_keys Number of OSM tags
+-- @return filter, tags
+function generic_multipolygon_or_boundary (tags, num_keys)
+    if (tags["type"] == "multipolygon" or tags["type"] == "boundary") then
+        return 0, tags
+    end
+    return 1, {}
+end
+
 --- Generic handling for a multipolygon
 -- @param tags OSM tags
 -- @param member_cols Columns of relation members
 -- @param membercount number of members
 -- @param accept function that takes osm keys and returns true if the feature should be in the table
 -- @param transform function that takes osm keys and returns tags for the tables
+-- @param if type=boundary relations should be accepted
 -- @return filter, cols, member_superseded, boundary, polygon, roads
-function generic_multipolygon_members (tags, member_cols, membercount, accept, transform)
+function generic_multipolygon_members (tags, member_cols, membercount, accept, transform, acceptboundary)
     -- tracks if the relation members are used as a stand-alone way. No old-style
     -- MP support, but the array still needs to be returned
     local members_superseeded = {}
     for i = 1, membercount do
         members_superseeded[i] = 0
     end
-    if (tags["type"] and tags["type"] == "multipolygon") then
+    if tags["type"] == "multipolygon" or acceptboundary and tags["type"] == "boundary" then
         -- Get rid of the MP tag, we've handled it
         tags["type"] = nil
         if next(tags) ~= nil then
