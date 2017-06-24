@@ -16,12 +16,14 @@ ClearTables is currently under rapid development, and schema changes will freque
 ## Usage ##
 
     make
-    createdb <database>
-    psql -d <database> -c 'CREATE EXTENSION postgis; CREATE EXTENSION hstore;'
-    cat sql/types/*.sql | psql -1Xq -d <database>
+    createdb ct
+    psql -d ct -c 'CREATE EXTENSION postgis; CREATE EXTENSION hstore;'
+    cat sql/types/*.sql | psql -1Xq -d ct
     # Add other osm2pgsql flags for large imports, updates, etc
-    osm2pgsql -d <database> --number-processes 2 --output multi --style cleartables.json extract.osm.pbf
-    cat sql/post/*.sql | psql -1Xq -d <database>
+    osm2pgsql -d ct --number-processes 2 --output multi --style cleartables.json extract.osm.pbf
+    cat sql/post/*.sql | psql -1Xq -d ct
+
+Replace `ct` with the name of your database if naming it differently.
 
 osm2pgsql will connect to PostgreSQL once per process for each table, for a total of processes * tables connections.
 If PostgreSQL [`max_connections`](http://www.postgresql.org/docs/9.3/static/runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS)
