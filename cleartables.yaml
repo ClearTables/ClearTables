@@ -182,6 +182,9 @@
   - name: class
     type: transportation_class
     comment: Type of rail
+  - name: service
+    type: text
+    comment: Type of rail service
   - <<: *brunnel
   - <<: *layer
 - name: roads
