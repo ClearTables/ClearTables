@@ -39,4 +39,5 @@ check:
 	$$lua test-education.lua && \
 	$$lua test-recreation.lua && \
 	$$lua test-healthcare.lua && \
-	$$lua test-place.lua
+	$$lua test-place.lua && \
+	$$lua test-landuse.lua

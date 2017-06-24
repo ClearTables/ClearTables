@@ -594,3 +594,18 @@
   - <<: *healthcare
   - <<: *emergency
   - <<: *way_area
+- name: landuse
+  type: polygon
+  comment: Man-made landuse information
+  tagtransform: landuse.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: landuse_ways
+  tagtransform-relation-function: generic_multipolygon
+  tagtransform-relation-member-function: landuse_rel_members
+  tags:
+  - <<: *name
+  - <<: *names
+  - name: landuse
+    type: text
+    comment: Type of landuse
+  - <<: *way_area
