@@ -152,6 +152,12 @@ function transform_rail (tags)
         cols.class = railway[tags["railway"]]["class"]
         cols.brunnel = brunnel(tags)
         cols.layer = layer(tags["layer"])
+        if tags["service"] == "spur" or
+           tags["service"] == "siding" or
+           tags["service"] == "yard" or
+           tags["service"] == "crossover" then
+           cols.service = tags["service"]
+        end
     end
     return cols
 end

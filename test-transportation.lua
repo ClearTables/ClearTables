@@ -134,6 +134,12 @@ assert(transform_rail({name="foo"}).name == "foo", "test failed: name")
 assert(transform_rail({["name:en"]="foo"}).names == '"en"=>"foo"', "test failed: names")
 assert(transform_rail({railway="subway"}).class == "transit", "test failed: subway class")
 
+assert(transform_rail({railway="rail"}).service == nil, "test failed: no service")
+assert(transform_rail({railway="rail", service="spur"}).service == "spur", "test failed: spur")
+assert(transform_rail({railway="rail", service="siding"}).service == "siding", "test failed: siding")
+assert(transform_rail({railway="rail", service="yard"}).service == "yard", "test failed: yard")
+assert(transform_rail({railway="rail", service="crossover"}).service == "crossover", "test failed: crossover")
+
 assert(transform_rail({railway="rail", bridge="yes"}).brunnel == "bridge", "test failed: bridge")
 assert(transform_rail({railway="rail", tunnel="yes"}).brunnel == "tunnel", "test failed: tunnel")
 assert(transform_rail({railway="rail", bridge="yes", tunnel="yes"}).brunnel == "bridge", "test failed: bridge+tunnel")
