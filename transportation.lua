@@ -21,8 +21,8 @@ local highway = {
     primary         = {class="primary", motor_access="yes", bicycle="yes", ramp="false"},
     secondary       = {class="secondary", motor_access="yes", bicycle="yes", ramp="false"},
     tertiary        = {class="tertiary", motor_access="yes", bicycle="yes", ramp="false"},
-    unclassified    = {class="minor", motor_access="yes", bicycle="yes", ramp="false"},
-    residential     = {class="minor", motor_access="yes", bicycle="yes", ramp="false"},
+    unclassified    = {class="minor", motor_access="yes", bicycle="yes", ramp="false", area=true},
+    residential     = {class="minor", motor_access="yes", bicycle="yes", ramp="false", area=true},
     road            = {class="unknown", motor_access="yes"},
     living_street   = {class="minor", motor_access="yes"},
 
@@ -32,12 +32,12 @@ local highway = {
     secondary_link  = {class="secondary", oneway="yes", motor_access="yes", ramp="true"},
     tertiary_link   = {class="tertiary", oneway="yes", motor_access="yes", ramp="true"},
 
-    service         = {class="service", motor_access="yes", bicycle="yes"},
-    track           = {class="track"},
-    pedestrian      = {class="path", motor_access="no"},
-    path            = {class="path", motor_access="no"},
-    footway         = {class="path", motor_access="no"},
-    cycleway        = {class="path", motor_access="no", bicycle="yes"},
+    service         = {class="service", motor_access="yes", bicycle="yes", area=true},
+    track           = {class="track", area=true},
+    pedestrian      = {class="path", motor_access="no", area=true},
+    path            = {class="path", motor_access="no", area=true},
+    footway         = {class="path", motor_access="no", area=true},
+    cycleway        = {class="path", motor_access="no", bicycle="yes", area=true},
     steps           = {class="path", motor_access="no"}
 }
 
@@ -113,6 +113,10 @@ function accept_road_point (tags)
         tags["highway"]== "motorway_junction")
 end
 
+function accept_road_area (tags)
+    return highway[tags["highway"]] and highway[tags["highway"]].area
+end
+
 function transform_road_point (tags)
     local cols = {}
     cols.type = tags["highway"]
@@ -168,11 +172,11 @@ function road_ways (tags, num_keys)
 end
 
 function road_area_ways (tags, num_keys)
-    return generic_polygon_way(tags, accept_road, transform_road) -- uses the same accept/transform functions as lines
+    return generic_polygon_way(tags, accept_road_area, transform_road) -- uses the same transform functions as lines
 end
 
 function road_area_rel_members (tags, member_tags, member_roles, membercount)
-    return generic_multipolygon_members(tags, member_tags, membercount, accept_road, transform_road)
+    return generic_multipolygon_members(tags, member_tags, membercount, accept_road_area, transform_road)
 end
 
 function road_points (tags, num_keys)
