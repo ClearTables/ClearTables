@@ -108,9 +108,9 @@ end
 
 function accept_road_point (tags)
     return tags["highway"] and (
-        tags["highway"]== "crossing" or
-        tags["highway"]== "traffic_signals" or
-        tags["highway"]== "motorway_junction")
+        tags["highway"] == "crossing" or
+        tags["highway"] == "traffic_signals" or
+        tags["highway"] == "motorway_junction")
 end
 
 function accept_road_area (tags)
