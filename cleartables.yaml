@@ -55,7 +55,8 @@
   - name: class
     type: text
     comment: Classification of place
-  - name: rank
+  - &place_rank
+    name: rank
     type: place
     comment: Ranking of place
   - &population
@@ -76,9 +77,7 @@
   - name: class
     type: text
     comment: Classification of place
-  - name: rank
-    type: place
-    comment: Ranking of place
+  - <<: *place_rank
   - <<: *population
   - <<: *way_area
 # Protected areas
@@ -182,6 +181,9 @@
   - name: class
     type: transportation_class
     comment: Type of rail
+  - name: service
+    type: text
+    comment: Type of rail service
   - <<: *brunnel
   - <<: *layer
 - name: roads
@@ -593,4 +595,19 @@
   - <<: *names
   - <<: *healthcare
   - <<: *emergency
+  - <<: *way_area
+- name: landuse
+  type: polygon
+  comment: Man-made landuse information
+  tagtransform: landuse.lua
+  tagtransform-node-function: drop_all
+  tagtransform-way-function: landuse_ways
+  tagtransform-relation-function: generic_multipolygon
+  tagtransform-relation-member-function: landuse_rel_members
+  tags:
+  - <<: *name
+  - <<: *names
+  - name: landuse
+    type: text
+    comment: Type of landuse
   - <<: *way_area

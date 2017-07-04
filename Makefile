@@ -1,7 +1,7 @@
 all: cleartables.json sql/post/comments.sql
 
 cleartables.json: cleartables.yaml wikidata.yaml yaml2json.py
-	cat cleartables.yaml wikidata.yaml | ./yaml2json.py > cleartables.json
+	cat cleartables.yaml wikidata.yaml | ./yaml2json.py > cleartables.json || (rm -f cleartables.json && exit 1)
 
 sql/post/comments.sql: cleartables.yaml wikidata.yaml createcomments.py
 	mkdir -p sql/post && \
@@ -40,4 +40,5 @@ check:
 	$$lua test-education.lua && \
 	$$lua test-recreation.lua && \
 	$$lua test-healthcare.lua && \
-	$$lua test-place.lua
+	$$lua test-place.lua && \
+	$$lua test-landuse.lua
