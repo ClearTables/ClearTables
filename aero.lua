@@ -25,8 +25,8 @@ function transform_airport(tags)
     cols.airport = tags["aeroway"] -- guaranteed by accept_airport to be either aerodrome or heliport
     cols.name = tags["name"]
     cols.names = names(tags)
-    cols.iata = tags["iata"] and string.sub(tags["iata"],0,3) or nil
-    cols.iaco = tags["iaco"] and string.sub(tags["iaco"],0,4) or nil
+    cols.iata = tags["iata"] and string.len(tags["iata"]) <= 3 and tags["iata"] or nil
+    cols.iaco = tags["iaco"] and string.len(tags["iaco"]) <= 4 and tags["iaco"] or nil
     cols.ref = tags["ref"] or cols.iata or cols.iaco or nil
     return cols
 end
