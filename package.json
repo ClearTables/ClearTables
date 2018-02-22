@@ -4,7 +4,6 @@
   "description": "An osm2pgsql style to simplify OSM data use",
   "main": "./package.json",
   "repository": "ClearTables/ClearTables",
-  ],
   "author": "Paul Norman <penorman@mac.com>",
   "license": "MIT",
   "bugs": "https://github.com/ClearTables/issues",
