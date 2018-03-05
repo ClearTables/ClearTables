@@ -55,11 +55,3 @@ end
 function place_nodes (tags, num_keys)
     return generic_node(tags, accept_place, transform_place)
 end
-
-function place_ways (tags, num_keys)
-    return generic_polygon_way(tags, accept_place, transform_place)
-end
-
-function place_rel_members (tags, member_tags, member_roles, membercount)
-    return generic_multipolygon_members(tags, member_tags, membercount, accept_place, transform_place)
-end

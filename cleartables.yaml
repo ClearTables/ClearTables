@@ -63,23 +63,6 @@
     name: population
     type: integer
     comment: Population of the place
-- name: place_polygon
-  type: polygon
-  comment: Geographic places
-  tagtransform: place.lua
-  tagtransform-node-function: drop_all
-  tagtransform-way-function: place_ways
-  tagtransform-relation-function: generic_multipolygon
-  tagtransform-relation-member-function: place_rel_members
-  tags:
-  - <<: *name
-  - <<: *names
-  - name: class
-    type: text
-    comment: Classification of place
-  - <<: *place_rank
-  - <<: *population
-  - <<: *way_area
 # Protected areas
 - name: protected_area
   type: polygon
