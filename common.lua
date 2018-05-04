@@ -17,7 +17,19 @@ function names (tags)
         local n = {}
         for k, v in pairs(tags) do
             if string.sub(k, 1, 5) == "name:" then
-                n[string.sub(k,6)] = v
+                lang = string.sub(k,6)
+                if not string.find(lang, '%d')
+                    and not string.find(lang, ':')
+                    and lang ~= 'prefix'
+                    and lang ~= 'genitive'
+                    and lang ~= 'etymology'
+                    and lang ~= 'botanical'
+                    and lang ~= 'source'
+                    and lang ~= 'left'
+                    and lang ~= 'right' then
+
+                    n[lang] = v
+                end
             end
         end
         return next(n) ~= nil and hstore(n) or nil
